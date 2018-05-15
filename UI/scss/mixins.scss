@@ -1,0 +1,37 @@
+//Mixins
+@mixin menu-icon {
+    width: 100%;
+    background: $navbar;
+    height: 60px;
+    text-align: right;
+    box-sizing: border-box;
+    padding: 13px 24px;
+    color: #fff;
+    display: block;
+    cursor: pointer;
+
+    @media only screen and (min-width: 700px) {
+        display: none;
+    }
+}
+
+@mixin logo {
+    position: fixed;
+    top: 0;
+    float: left;
+    margin: 0.3em .0em .0em .7em;
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    a{
+        text-decoration: none;
+        color:  $white;
+    }
+    img{
+        border-radius: 60%;  
+    }
+    @media only screen and (min-width: 700px){
+        
+    }
+}
