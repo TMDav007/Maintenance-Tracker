@@ -67,10 +67,6 @@ header nav .logo a {
   color: #fff;
 }
 
-header nav .logo img {
-  border-radius: 60%;
-}
-
 header nav ul {
   max-height: 0px;
   background: #0b0f19;
@@ -78,9 +74,9 @@ header nav ul {
   list-style: none;
   overflow: hidden;
   margin: 0;
-  -webkit-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
 }
 
 @media only screen and (min-width: 700px) {
@@ -165,7 +161,7 @@ header #showcase #bg-image {
   width: 100%;
   height: 600px;
   z-index: -2;
-  opacity: .8;
+  opacity: 0.8;
   -webkit-transition: background-image 7s ease-in-out;
   -moz-transition: background-image 7s ease-in-out;
   -o-transition: background-image 7s ease-in-out;
@@ -186,13 +182,13 @@ header #showcase .content-wrap h1 {
   padding-top: 5em;
   padding-bottom: 2em;
   font-size: 180%;
-  font-family: 'Oleo Script Swash Caps', cursive;
+  font-family: "Oleo Script Swash Caps", cursive;
 }
 
 @media only screen and (min-width: 700px) {
   header #showcase .content-wrap h1 {
     font-size: 400%;
-    font-family: 'Acme', cursive;
+    font-family: "Acme", cursive;
     text-transform: uppercase;
     text-shadow: 1px 1px 15px #000;
     padding: 2.8em 0 1em 0;
@@ -200,7 +196,7 @@ header #showcase .content-wrap h1 {
 }
 
 header #showcase .content-wrap p {
-  font-family: 'Poiret One', cursive;
+  font-family: "Poiret One", cursive;
   font-weight: thin;
   font-size: 1.2em;
   margin-bottom: 7em;
@@ -218,10 +214,10 @@ header #showcase .content-wrap a {
   text-decoration: none;
   width: 20em;
   background: #000;
-  padding: .5em .9em;
+  padding: 0.5em 0.9em;
   border-radius: 5%;
   color: #fff;
-  opacity: .6;
+  opacity: 0.6;
 }
 
 header #showcase .content-wrap a:hover {
@@ -231,7 +227,7 @@ header #showcase .content-wrap a:hover {
 
 @media only screen and (min-width: 700px) {
   header #showcase .content-wrap a {
-    padding: .9em 1.2em;
+    padding: 0.9em 1.2em;
   }
 }
 
@@ -239,9 +235,9 @@ header #showcase .content-wrap .fa {
   font-size: 3em;
   color: rgba(0, 0, 0, 0.267);
   text-decoration: none;
-  -webkit-transition: all .5s;
-  -o-transition: all .5s;
-  transition: all .5s;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 header #form-image {
@@ -253,7 +249,7 @@ header #form-image {
   width: 100%;
   height: 700px;
   z-index: -2;
-  opacity: .8;
+  opacity: 0.8;
   background-color: rgba(3, 7, 29, 0.361);
 }
 
@@ -274,7 +270,7 @@ header #form-image {
 
 #footer p {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 #footer a {
@@ -282,7 +278,7 @@ header #form-image {
 }
 
 #footer .fa {
-  padding: .4em;
+  padding: 0.4em;
   font-size: 1.5em;
 }
 
@@ -312,7 +308,7 @@ button[type="submit"] {
   height: 30px;
   width: 90%;
   padding: 4px 4px;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 @media only screen and (min-width: 700px) {
@@ -322,7 +318,7 @@ button[type="submit"] {
   input[type="tel"],
   button[type="submit"] {
     width: 90%;
-    font-size: .7em;
+    font-size: 0.7em;
     height: 40px;
   }
 }
@@ -333,7 +329,7 @@ button[type="submit"] {
   input[type="email"],
   input[type="tel"],
   button[type="submit"] {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }
 
@@ -345,13 +341,13 @@ button[type="submit"] {
   -o-transition: all 0.5s;
   transition: all 0.5s;
   margin-right: 10px;
-  margin-bottom: .8em;
+  margin-bottom: 0.8em;
 }
 
 @media only screen and (min-width: 700px) {
   button[type="submit"] {
     padding: 0px 10px 2px 10px;
-    font-size: .9em;
+    font-size: 0.9em;
     border: none;
     width: 35%;
     height: 40px;
@@ -365,13 +361,13 @@ button[type="submit"] {
 
 @media only screen and (min-width: 900px) {
   button[type="submit"] {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 
 @media only screen and (min-width: 1000px) {
   button[type="submit"] {
-    font-size: .9em;
+    font-size: 0.9em;
     width: 6em;
   }
 }
@@ -385,19 +381,22 @@ button[type="submit"]:focus {
   outline: none;
 }
 
-#login, #signup {
+#login,
+#signup {
   height: 600px;
   padding: 2em 0 2em 0;
 }
 
 @media only screen and (min-width: 700px) {
-  #login, #signup {
+  #login,
+  #signup {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1em;
     padding: 2em 10em 3em 10em;
   }
-  #login form, #signup form {
+  #login form,
+  #signup form {
     width: 25em;
     padding: 0;
     margin: 0 auto;
@@ -405,12 +404,14 @@ button[type="submit"]:focus {
 }
 
 @media only screen and (min-width: 900px) {
-  #login, #signup {
+  #login,
+  #signup {
     padding: 3em 15em 3em 15em;
   }
 }
 
-#login .form-box, #signup .form-box {
+#login .form-box,
+#signup .form-box {
   border: 1px solid rgba(39, 30, 43, 0.7);
   padding: 0 0em 3em 0em;
   background: #f3f3f3;
@@ -419,64 +420,559 @@ button[type="submit"]:focus {
 }
 
 @media only screen and (min-width: 700px) {
-  #login .form-box, #signup .form-box {
+  #login .form-box,
+  #signup .form-box {
     width: 30em;
     margin: 2em auto 5em auto;
     padding: 0 0em 2em 0em;
   }
 }
 
-#login .form-box h1, #signup .form-box h1 {
+#login .form-box h1,
+#signup .form-box h1 {
   font-size: 25px;
-  padding: 2em 6px .3em 12px;
-  margin: 1em 0 .4em 0em;
+  padding: 2em 6px 0.3em 12px;
+  margin: 1em 0 0.4em 0em;
   opacity: 0.7;
   color: #000;
   text-align: left;
 }
 
 @media only screen and (min-width: 700px) {
-  #login .form-box h1, #signup .form-box h1 {
+  #login .form-box h1,
+  #signup .form-box h1 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.69);
     font-size: 1.9em;
-    padding: 1em 6px .2em 0;
-    margin: 1em 0  1.5em 0;
+    padding: 1em 6px 0.2em 0;
+    margin: 1em 0 1.5em 0;
     opacity: 0.7;
     color: rgba(0, 0, 0, 0.801);
   }
 }
 
 @media only screen and (min-width: 900px) {
-  #login .form-box h1, #signup .form-box h1 {
+  #login .form-box h1,
+  #signup .form-box h1 {
     font-size: 1.8em;
   }
 }
 
-#login .form-box a, #signup .form-box a {
+#login .form-box a,
+#signup .form-box a {
   text-decoration: none;
   color: #13212a;
   -webkit-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
-  font-size: .8em;
-  margin-top: .9em;
+  font-size: 0.8em;
+  margin-top: 0.9em;
   padding-left: 0em;
 }
 
 @media only screen and (min-width: 700px) {
-  #login .form-box a, #signup .form-box a {
+  #login .form-box a,
+  #signup .form-box a {
     float: left;
     padding-left: 1.5em;
   }
 }
 
 @media only screen and (min-width: 900px) {
-  #login .form-box a, #signup .form-box a {
-    font-size: .9em;
+  #login .form-box a,
+  #signup .form-box a {
+    font-size: 0.9em;
   }
 }
 
-#login .form-box a:hover, #signup .form-box a:hover {
+#login .form-box a:hover,
+#signup .form-box a:hover {
   opacity: 0.7;
+  cursor: pointer;
+}
+
+#admin ul {
+  padding: 0.5em;
+}
+
+#admin li {
+  padding: 0;
+  border-bottom: 0;
+}
+
+#admin li::before {
+  content: none;
+}
+
+#admin p {
+  margin-right: 2em;
+  font-size: 16px;
+}
+
+#admin .menu {
+  display: none;
+}
+
+@media only screen and (min-width: 700px) {
+  #admin .menu {
+    display: block;
+  }
+}
+
+.container {
+  position: relative;
+  background-color: transparent;
+  padding: 0;
+}
+
+@media only screen and (min-width: 700px) {
+  .container {
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+}
+
+.container .dashboard .logo {
+  position: fixed;
+  top: 0;
+  float: left;
+  margin: 0.3em .0em .0em .7em;
+  font-family: 'Oleo Script Swash Caps', cursive;
+  font-size: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.container .dashboard .logo a {
+  text-decoration: none;
+  color: #fff;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .dashboard .logo {
+    z-index: 1000;
+  }
+}
+
+.container .dashboard .menu-icon {
+  width: 100%;
+  background: #0b0f19;
+  height: 60px;
+  text-align: right;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 13px 24px;
+  color: #fff;
+  display: block;
+  cursor: pointer;
+  background: #0b0f19;
+  position: fixed;
+  z-index: 2;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .dashboard .menu-icon {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .container .dashboard .menu-icon {
+    display: block;
+    background: #1a2025;
+  }
+}
+
+.container .dashboard .sidebar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  z-index: 3;
+  height: 100vh;
+  padding: 5em 0em;
+  background: #13161f;
+  text-align: center;
+  -webkit-transform-origin: left;
+  -ms-transform-origin: left;
+  transform-origin: left;
+  -webkit-transform: perspective(1200px) rotateY(90deg);
+  transform: perspective(1200px) rotateY(90deg);
+  -webkit-transition: all 400ms ease;
+  -o-transition: all 400ms ease;
+  transition: all 400ms ease;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .dashboard .sidebar {
+    width: 30%;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    background: #0b0f19;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container .dashboard .sidebar {
+    width: 20%;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+
+.container .dashboard .sidebar.active {
+  -webkit-transform: perspective(1200px) rotateY(0deg);
+  transform: perspective(1200px) rotateY(0deg);
+}
+
+.container .dashboard ul {
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .dashboard ul {
+    margin-top: 4em;
+  }
+}
+
+.container .dashboard li {
+  color: #fff;
+  font-size: .8em;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  list-style-type: none;
+  text-decoration: none;
+  height: 40px;
+  border-bottom: 1px solid #ffffff1e;
+  line-height: 50px;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .dashboard li {
+    font-size: 1em;
+    margin: 1.5em 0;
+  }
+}
+
+.container .dashboard li a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.container .dashboard li a:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.container .dashboard li a.current {
+  color: #fff;
+}
+
+.container .mainboard #board {
+  margin: 0 1.2em;
+  position: relative;
+  height: 100vh;
+  padding: 0em 0 0 0;
+  width: 90%;
+  z-index: 1;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board {
+    font-size: 15px;
+    padding: 5em 0 0 0;
+    margin: 0 auto;
+  }
+}
+
+.container .mainboard #board .table_head {
+  padding-top: 10em;
+  padding-bottom: 1.5em;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board .table_head {
+    padding-top: 4em;
+  }
+}
+
+.container .mainboard #board h1 {
+  margin: 0;
+  line-height: 1em;
+}
+
+.container .mainboard #board table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(11, 10, 25, 0.588);
+}
+
+.container .mainboard #board table thead {
+  font-weight: bold;
+  text-align: center;
+  background-color: #ada29a;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board table thead {
+    font-size: 16px;
+  }
+}
+
+.container .mainboard #board table .fa {
+  border: 0;
+  cursor: pointer;
+  color: #ffffff94;
+}
+
+.container .mainboard #board table a {
+  text-decoration: none;
+  color: #161514;
+}
+
+.container .mainboard #board table a:hover {
+  border-bottom: rgba(22, 21, 20, 0.31) 1px solid;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board table tbody {
+    font-size: 16px;
+  }
+}
+
+.container .mainboard #board table tr, .container .mainboard #board table td {
+  padding: 12px 7px;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board table tr, .container .mainboard #board table td {
+    font-size: 14px;
+  }
+}
+
+.container .mainboard #board label {
+  font-size: 12px;
+  margin: 0 5px;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board label {
+    font-size: 16px;
+  }
+}
+
+.container .mainboard #board input[type="date"],
+.container .mainboard #board select,
+.container .mainboard #board button[type="submit"] {
+  border: rgba(117, 108, 91, 0.494117) 1px solid;
+  border-radius: 5px;
+  height: 30px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board input[type="date"],
+  .container .mainboard #board select,
+  .container .mainboard #board button[type="submit"] {
+    font-size: 14px;
+  }
+}
+
+.container .mainboard #board input[type="date"] {
+  padding: 0;
+  width: 7.8em;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board input[type="date"] {
+    width: 9em;
+  }
+}
+
+.container .mainboard #board button[type="submit"] {
+  color: rgba(255, 255, 255, 0.788);
+  height: 40px;
+  width: 25%;
+  background-color: rgba(11, 15, 25, 0.851);
+  float: right;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  margin-top: .3em;
+}
+
+@media only screen and (min-width: 700px) {
+  .container .mainboard #board button[type="submit"] {
+    width: 15%;
+  }
+}
+
+.container .mainboard #board button[type="submit"]:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.container .mainboard #board #add-meal, .container .mainboard #board #edit-meal {
+  text-align: right;
+}
+
+.container .mainboard #board #add-meal a, .container .mainboard #board #edit-meal a {
+  background-color: transparent;
+  border: #697490 1px solid;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px 7px;
+  margin: 1px;
+  cursor: pointer;
+}
+
+.container .mainboard #board #add-meal a:hover, .container .mainboard #board #edit-meal a:hover {
+  background-color: #43486f;
+  color: #fff;
+}
+
+#modal_make_request {
+  display: none;
+  position: fixed;
+  z-index: 1004;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.356);
+}
+
+#make_request_content {
+  position: relative;
+  z-index: 100;
+  background-color: #fefefe;
+  margin: 15% auto 15% auto;
+  padding: 0 1em;
+  width: 80%;
+  padding-bottom: 30px;
+}
+
+@media only screen and (min-width: 900px) {
+  #make_request_content {
+    margin: 6em auto;
+    width: 35em;
+  }
+}
+
+#make_request_content h1 {
+  color: #000;
+  font-size: 1.2em;
+}
+
+@media only screen and (min-width: 700px) {
+  #make_request_content h1 {
+    font-size: 1.3em;
+  }
+}
+
+#make_request_content table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#make_request_content label {
+  color: #000;
+  font-size: .8em;
+  font-weight: bold;
+  padding: 0 0 1em 0;
+  text-align: center;
+  margin-right: 0.4em;
+}
+
+@media only screen and (min-width: 700px) {
+  #make_request_content label {
+    font-size: 1em;
+    padding: 0;
+  }
+}
+
+#make_request_content input[type="text"] {
+  width: 80%;
+  border: rgba(31, 29, 26, 0.494) 1px solid;
+  border-radius: 2px;
+  height: 1.5em;
+  padding: .5em;
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 700px) {
+  #make_request_content input[type="text"] {
+    width: 70%;
+    font-size: .8em;
+    height: 1.8em;
+  }
+}
+
+#make_request_content input[type="date"] {
+  border: rgba(31, 29, 26, 0.494) 1px solid;
+  border-radius: 2px;
+  height: 1.5em;
+  padding: .5em;
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 700px) {
+  #make_request_content input[type="date"] {
+    font-size: 1.1em;
+  }
+}
+
+#make_request_content textarea {
+  width: 90%;
+  border: rgba(31, 29, 26, 0.494) 1px solid;
+}
+
+#make_request_content button[type='submit'] {
+  width: 8em;
+  margin-top: .9em;
+  float: left;
+  margin-left: 7em;
+  font-size: .7em;
+  background-color: #111327;
+}
+
+@media only screen and (min-width: 700px) {
+  #make_request_content button[type='submit'] {
+    float: none;
+    width: 11em;
+    margin-left: 8em;
+  }
+}
+
+span {
+  position: absolute;
+  font-size: 1.5em;
+  color: #000;
+  right: 10px;
+}
+
+span:hover {
   cursor: pointer;
 }

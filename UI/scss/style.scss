@@ -386,3 +386,105 @@ button[type="submit"] {
     }
   } 
 }
+
+// Modals
+#modal_make_request{
+  display: none;
+  position: fixed;
+  z-index: 1004;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.356);
+}
+
+#make_request_content{
+  position: relative;
+  z-index: 100;
+  background-color: #fefefe;
+  margin: 15% auto 15% auto;
+  padding: 0 1em;
+  width: 80%;
+  padding-bottom: 30px;
+  @media only screen and (min-width: 900px) {
+      margin: 6em auto;
+      width:35em;
+  }
+  h1{
+      color: #000;
+      font-size: 1.2em;
+      @media only screen and (min-width: 700px) {
+          font-size: 1.3em;
+      }
+
+  }
+  table{
+      width: 100%;
+      margin: 0 auto;
+  }
+  label {
+      color: #000;
+      font-size: .8em;
+      font-weight: bold;
+      padding: 0 0 1em 0;
+      text-align: center;
+      margin-right: 0.4em;
+      @media only screen and (min-width: 700px) {
+          font-size: 1em;
+          padding: 0;
+      }
+  }
+  input[type="text"] {
+      width: 80%;
+      border:  rgba(31, 29, 26, 0.494) 1px solid;
+      border-radius: 2px;
+      height: 1.5em;
+      padding: .5em;
+      font-size: 14px;
+      @media only screen and (min-width: 700px) {
+          width: 70%;
+          font-size: .8em;
+          height: 1.8em;
+      }
+  }
+  input[type="date"] {
+    border:  rgba(31, 29, 26, 0.494) 1px solid;
+    border-radius: 2px;
+    height: 1.5em;
+    padding: .5em;
+    font-size: 14px;
+    @media only screen and (min-width: 700px) {
+        font-size: 1.1em;
+    }
+}
+  textarea{
+      width: 90%;
+      border:  rgba(31, 29, 26, 0.494) 1px solid;
+  }
+
+  button[type='submit']{
+      width: 8em;
+      margin-top: .9em;
+      float: left;
+      margin-left: 7em;
+      font-size: .7em;
+      background-color: rgb(17, 19, 39);    
+      @media only screen and (min-width: 700px) {
+      float: none;
+      width: 11em;
+      margin-left: 8em;
+    }
+  }
+}
+
+span{
+  position: absolute;
+  font-size: 1.5em;
+  color: #000;
+  right: 10px;
+  &:hover {
+      cursor: pointer;
+  }
+}
