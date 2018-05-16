@@ -28,10 +28,204 @@
         text-decoration: none;
         color:  $white;
     }
-    img{
-        border-radius: 60%;  
-    }
     @media only screen and (min-width: 700px){
-        
+
     }
+}
+
+//dashboard
+@mixin dashboard {
+    .logo{
+        @include logo;
+        z-index: 4;
+        @media only screen and (min-width: 700px) {
+            z-index: 1000;
+        }
+    }
+    .menu-icon{
+        @include menu-icon;
+        background:  $navbar;
+        position: fixed;
+        z-index: 2;
+        @media only screen and (min-width: 700px) {
+            display: block;
+            background:  #1a2025;
+        }
+    }
+    .sidebar{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 200px;
+        z-index:3;
+        height: 100vh;
+        padding: 5em 0em;
+        background: #13161f;
+        text-align: center;
+        transform-origin: left;
+        transform:perspective(1200px) rotateY(90deg);
+        transition: all 400ms ease;
+        @media only screen and (min-width: 700px) {
+            width: 30%;
+            transform: none;
+            background: #0b0f19;
+        }
+        @media only screen and (min-width: 900px) {
+            width: 20%;
+            transform: none;
+        }
+        &.active{
+            transform: perspective(1200px) rotateY(0deg);
+        }
+    }
+    ul{
+        margin: 0;
+        padding: 0;
+        @media only screen and (min-width: 700px) {
+           margin-top: 4em;
+        }
+    }
+    li{
+        color: $white;
+        font-size: .8em;
+        margin:0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        list-style-type: none;
+        text-decoration: none;
+        height: 40px;
+        border-bottom: 1px solid #ffffff1e;
+        line-height: 50px;
+        @media only screen and (min-width: 700px) {
+            font-size: 1em;
+            margin: 1.5em 0;
+        }
+        a{
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            &:hover{
+                opacity: 0.6;
+                cursor: pointer;
+            }
+            &.current{
+                color: $white;
+            }
+        }
+    }
+}
+
+@mixin board {
+    .table_head{
+        padding-top: 10em;
+        padding-bottom: 1.5em;
+        @media only screen and (min-width: 700px) {
+            padding-top: 4em;
+        }
+    }
+    h1 {
+        margin: 0;
+        line-height: 1em;
+    }
+    table{
+        width :100%; 
+        border-collapse: collapse;
+        background: rgba(11, 10, 25, 0.588); 
+        thead{
+            font-weight: bold;
+            text-align:center;
+            background-color:#ada29a;
+            @media only screen and (min-width: 700px) {
+                font-size: 16px;
+            }
+        }
+        .fa{
+            border:0;
+            cursor:pointer;
+            color: #ffffff94;
+        }
+        a{
+            text-decoration:none;
+            color: #161514 ;
+            &:hover{
+                border-bottom: rgba(22, 21, 20, 0.31) 1px solid;
+                opacity:0.8;
+                cursor: pointer;
+            }
+        }
+        tbody {
+            @media only screen and (min-width: 700px) {
+                font-size: 16px;
+            }
+        } 
+        tr,td{
+            padding: 12px 7px;
+            font-size: 11px;
+            text-align:center;
+            @media only screen and (min-width: 700px) {
+                font-size: 14px;
+            }
+        }
+
+    }
+    label{
+        font-size: 12px;
+        margin:0 5px;
+        @media only screen and (min-width: 700px) {
+            font-size: 16px;
+        }
+    }
+    input[type="date"],
+    select,
+    button[type="submit"]{
+        border:  rgba(117, 108, 91, 0.494117) 1px solid;
+        border-radius: 5px;
+        height: 30px;
+        padding: 4px 6px;
+        font-size: 12px;
+        @media only screen and (min-width: 700px) {
+            font-size: 14px;
+        }
+    }
+    input[type="date"]{
+        padding: 0;
+        width: 7.8em;
+        @media only screen and (min-width: 700px) {
+            width: 9em;
+        }
+    }
+    button[type="submit"]{
+        color: rgba(255, 255, 255, 0.788);
+        height: 40px;
+        width: 25%;
+        background-color: rgba(11, 15, 25, 0.851);
+        float: right;
+        transition : all 0.5s;
+        margin-top: .3em;
+        @media only screen and (min-width: 700px) {
+            width: 15%;
+        }
+        &:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        } 
+    }
+    #add-meal, #edit-meal{
+        text-align:right;
+        a{
+            background-color: transparent;
+            border: #697490 1px solid;
+            border-radius:5px;
+            font-size:14px;
+            padding:5px 7px;
+            margin: 1px;
+            cursor: pointer;
+            &:hover{
+                background-color: #43486f;
+                color:#fff;
+            }
+        }
+    }
+
 }
