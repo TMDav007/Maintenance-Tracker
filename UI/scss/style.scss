@@ -388,7 +388,7 @@ button[type="submit"] {
 }
 
 // Modals
-#modal_make_request{
+#modal_make_request,#modal_request_details{
   display: none;
   position: fixed;
   z-index: 1004;
@@ -479,6 +479,24 @@ button[type="submit"] {
   }
 }
 
+#request_details_content{
+  position: relative;
+  z-index: 100;
+  background-color: #fefefe;
+  margin: 35% auto 35% auto;
+  color: #000;
+  font-size: 13px;
+  padding: 0 1em;
+  width: 80%;
+  padding-top:10px;
+  padding-bottom: 30px;
+  @media only screen and (min-width: 900px) {
+      margin: 13em auto;
+      width:35em;
+  }
+}
+
+// close
 span{
   position: absolute;
   font-size: 1.5em;

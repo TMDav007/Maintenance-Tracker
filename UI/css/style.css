@@ -852,7 +852,7 @@ button[type="submit"]:focus {
   color: #fff;
 }
 
-#modal_make_request {
+#modal_make_request, #modal_request_details {
   display: none;
   position: fixed;
   z-index: 1004;
@@ -963,6 +963,26 @@ button[type="submit"]:focus {
     float: none;
     width: 11em;
     margin-left: 8em;
+  }
+}
+
+#request_details_content {
+  position: relative;
+  z-index: 100;
+  background-color: #fefefe;
+  margin: 35% auto 35% auto;
+  color: #000;
+  font-size: 13px;
+  padding: 0 1em;
+  width: 80%;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+@media only screen and (min-width: 900px) {
+  #request_details_content {
+    margin: 13em auto;
+    width: 35em;
   }
 }
 
