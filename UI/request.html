@@ -15,15 +15,15 @@
 <body>
     <!-- Header -->
     <header id="admin">
-            <nav>
+        <nav>
 
-                <div class="menu">
-                    <ul>
-                        <p>Hi, User</p>
-                        
-                    </ul>
-                </div>
-            </nav>
+            <div class="menu">
+                <ul>
+                    <p>Hi, User</p>
+
+                </ul>
+            </div>
+        </nav>
         <div id="form-image"></div>
     </header>
 
@@ -55,9 +55,9 @@
             <section id="board">
                 <div class="table_head">
                     <h1 style="display: inline-block; float:left">Requests</h1>
-                    
-                        <button type="submit">Make Request</button>
-                    
+
+                    <button type="submit" id="make_request">Make Request</button>
+
                 </div>
                 <div class="table_body">
                     <table>
@@ -107,6 +107,74 @@
                 </div>
             </section>
         </div>
+    </div>
+    <!--Make request form-->
+    <!--Modal-->
+    <div id="modal_make_request">
+        <section>
+            <div class="">
+                <form id="make_request_content">
+                    <span class="close">&times;</span>
+                    <fieldset>
+                        <legend>
+                            <h1>Make Request</h1>
+                        </legend>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="name">Name: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="Name" id="Name" placeholder="Name">
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Request">Request:</label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="Request" id="Request" placeholder="Request">
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Request">Request Body:</label>
+                                </td>
+                                <td align="left">
+                                    <textarea rows="4" cols="50">Request details....</textarea>
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label for="img">Date: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="date" name="date" id="date" placeholder="">
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   
+                                </td>
+                                <td> <button type="submit" id="make_Request">Make Request</button></td>
+                            </tr>
+
+
+                        </table>
+
+                    </fieldset>
+                </form>
+            </div>
+        </section>
     </div>
 
 
