@@ -345,7 +345,7 @@ button[type="submit"] {
   -o-transition: all 0.5s;
   transition: all 0.5s;
   margin-right: 10px;
-  margin-bottom: .3em;
+  margin-bottom: .8em;
 }
 
 @media only screen and (min-width: 700px) {
@@ -466,6 +466,7 @@ button[type="submit"]:focus {
 @media only screen and (min-width: 700px) {
   #login .form-box a, #signup .form-box a {
     float: left;
+    padding-left: 1.5em;
   }
 }
 
