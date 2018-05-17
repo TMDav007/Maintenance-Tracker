@@ -1,6 +1,6 @@
-import RequestController from './../dummyControllers/requestController';
+import RequestController from './../dummyControllers/RequestController';
 
-const { getAllRequests } = RequestController;
+const { getAllRequests, getARequest } = RequestController;
 
 const routes = (app) => {
   app.get('', (req, res) =>
@@ -15,6 +15,7 @@ const routes = (app) => {
 
   // Requests
   app.get('/api/v1/users/requests', getAllRequests);
+  app.get('/api/v1/users/requests/:id', getARequest);
 };
 
 export default routes;
