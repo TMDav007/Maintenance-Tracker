@@ -10,7 +10,7 @@ $(document).ready(function() {
   });
 
   // veiw request detail
-  $(".requestDetails").hover(function(){
+  $(".requestDetails").on("click", function(){
     $("#modal_request_details").fadeIn('slow');
     $("#request_details_content").fadeIn('slow');
 })
