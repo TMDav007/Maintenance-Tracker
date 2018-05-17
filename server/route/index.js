@@ -1,3 +1,6 @@
+import RequestController from './../dummyControllers/requestController';
+
+const { getAllRequests } = RequestController;
 
 const routes = (app) => {
   app.get('', (req, res) =>
@@ -9,6 +12,9 @@ const routes = (app) => {
     res.status(200).send({
       message: 'to view api, add /request'
     }));
+
+  // Requests
+  app.get('/api/v1/users/requests', getAllRequests);
 };
 
 export default routes;
