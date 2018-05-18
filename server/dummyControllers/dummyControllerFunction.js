@@ -1,6 +1,7 @@
 import users from './../dummyModels/users';
 import requests from './../dummyModels/requests';
 
+
 const checkForAdmin = () => {
   const admin = users.filter(user => user.role === 'admin');
   // check if user is admin to get all request
