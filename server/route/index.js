@@ -1,4 +1,4 @@
-import RequestController from './../dummyControllers/RequestController';
+import RequestController from './../dummyControllers/UserRequestController';
 
 const {
   getAllRequests, getARequest, addRequest, updateRequest

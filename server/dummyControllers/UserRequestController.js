@@ -5,7 +5,6 @@ const {
   checkForAdmin, getUser, checkName, checkForRequest
 } = dummyControllerFunction;
 
-
 /**
  * it is a class that control all request api;
  */
