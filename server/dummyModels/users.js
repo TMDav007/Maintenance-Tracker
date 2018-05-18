@@ -21,7 +21,6 @@ const user = [
     id: 4,
     name: 'Adetemi',
     password: 'aj',
-    role: 'user'
   }
 ];
 

@@ -1,6 +1,8 @@
 import RequestController from './../dummyControllers/RequestController';
 
-const { getAllRequests, getARequest, addRequest } = RequestController;
+const {
+  getAllRequests, getARequest, addRequest, updateRequest
+} = RequestController;
 
 const routes = (app) => {
   app.get('', (req, res) =>
@@ -15,6 +17,7 @@ const routes = (app) => {
 
   // Requests
   app.get('/api/v1/users/requests', getAllRequests);
+  app.put('/api/v1/users/requests/:id', updateRequest);
   app.post('/api/v1/users/requests', addRequest);
   app.get('/api/v1/users/requests/:id', getARequest);
 };

@@ -22,7 +22,6 @@ describe('/GET all users requests', () => {
       });
   });
 });
-
 describe('/POST a users requests', () => {
   it('it should POST a users requests', (done) => {
     chai.request(app)
@@ -98,6 +97,44 @@ describe('/GET a users request', () => {
       .get('/api/v1/users/requests/1')
       .end((err, res) => {
         res.should.have.status(404);
+        res.body.should.have.property('status');
+        res.body.status.should.eql('error');
+        done();
+      });
+  });
+});
+
+describe('/PUT a users request', () => {
+  it('it should PUT a users request', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/requests/3')
+      .send({ date: '12-03-2019' })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('data');
+        res.body.data.should.be.a('object');
+        res.body.should.have.property('status');
+        res.body.status.should.eql('success');
+        done();
+      });
+  });
+  it('it should not PUT a users requests', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/requests/13')
+      .send({ date: '12-03-2019' })
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property('status');
+        res.body.status.should.eql('error');
+        done();
+      });
+  });
+  it('it should not PUT a users requests', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/requests/s')
+      .send({ date: '12-03-2019' })
+      .end((err, res) => {
+        res.should.have.status(400);
         res.body.should.have.property('status');
         res.body.status.should.eql('error');
         done();
