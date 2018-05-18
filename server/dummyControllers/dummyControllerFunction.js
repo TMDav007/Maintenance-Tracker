@@ -17,5 +17,14 @@ const checkForRequest = (id) => {
   }
 };
 
+const getUser = (request) => {
+  const foundUser = users.some(user => user.name === request[0].name);
+  return foundUser;
+};
 
-export default { checkForAdmin, checkForRequest };
+const checkName = (name) => {
+  const foundName = requests.some(request => request.name === name);
+  return foundName;
+};
+
+export default { checkForAdmin, getUser, checkName, checkForRequest };
