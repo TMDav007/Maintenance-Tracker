@@ -10,6 +10,18 @@ const user = [
     name: 'Jacobs',
     password: 'aj',
     role: 'user'
+  },
+  {
+    id: 3,
+    name: 'Femi',
+    password: 'aj',
+    role: 'user'
+  },
+  {
+    id: 4,
+    name: 'Adetemi',
+    password: 'aj',
+    role: 'user'
   }
 ];
 
