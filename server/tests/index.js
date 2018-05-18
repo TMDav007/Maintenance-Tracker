@@ -23,6 +23,43 @@ describe('/GET all users requests', () => {
   });
 });
 
+describe('/POST a users requests', () => {
+  it('it should POST a users requests', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/requests')
+      .send({
+        name: 'Okafor',
+        request: 'Request to fix the AC',
+        requestDetails: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        date: '06-05-2018'
+      })
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.have.property('data');
+        res.body.data.should.be.a('object');
+        res.body.should.have.property('status');
+        res.body.status.should.eql('success');
+        done();
+      });
+  });
+  it('it should POST a users requests', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/requests')
+      .send({
+        name: 'Okafor-John',
+        request: 'Request to fix the AC',
+        requestDetails: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        date: '06-05-2018'
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('status');
+        res.body.status.should.eql('error');
+        done();
+      });
+  });
+});
+
 describe('/GET a users request', () => {
   it('it should GET a users request', (done) => {
     chai.request(app)

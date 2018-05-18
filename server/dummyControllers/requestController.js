@@ -1,7 +1,7 @@
 import requests from './../dummyModels/requests';
 import dummyControllerFunction from './dummyControllerFunction';
 
-const { checkForAdmin, getUser } = dummyControllerFunction;
+const { checkForAdmin, getUser, checkName } = dummyControllerFunction;
 
 /**
  * it is a class that control all request api;
@@ -38,10 +38,43 @@ class RequestController {
   }
 
   /**
- * it GET all requests
+   * it ADD a request
+   * @param {string} req
+   * @param {string} res
+   * @returns {obiect} add request
+   */
+  static addRequest(req, res) {
+    const id = requests.length + 1;
+    const {
+      name, request, requestDetails, date
+    } = req.body;
+
+    // check if name is already exisitng
+    const foundName = checkName(name);
+    if (foundName) {
+      res.status(400).json({
+        status: 'error',
+        message: 'name is already exisitng'
+      });
+    } else {
+      const newRequest = {
+        id, name, request, requestDetails, date
+      };
+      requests.push(newRequest);
+      return res.status(201).json({
+        status: 'success',
+        data: {
+          requests
+        }
+      });
+    }
+  }
+
+  /**
+ * it GET a requests
  * @param {string} req
  * @param {string} res
- * @returns {object} object
+ * @return {object} an object
  */
   static getARequest(req, res) {
     const id = parseInt(req.params.id, 10);
@@ -83,4 +116,3 @@ class RequestController {
 }
 
 export default RequestController;
-

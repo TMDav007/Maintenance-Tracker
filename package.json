@@ -4,8 +4,7 @@
   "description": "This is an application that keep tracker of requests from users. This app will allow users make a request or requests or complaint to a maintenance tracking office, in which your request get approved and resolved or disapproved.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/server.js",
-    "start:dev": "nodemon --watch server --exec babel-node server/server.js",
+    "start": "nodemon --watch server --exec babel-node server/server.js",
     "build": "babel server -s -d dist",
     "test": "nyc mocha --require babel-core/register server/tests/ --exit && nyc report --reporter=html --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=html --reporter=text-lcov | coveralls"

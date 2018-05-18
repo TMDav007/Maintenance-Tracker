@@ -1,4 +1,6 @@
 import users from './../dummyModels/users';
+import requests from './../dummyModels/requests';
+
 
 const checkForAdmin = () => {
   const admin = users.filter(user => user.role === 'admin');
@@ -13,4 +15,9 @@ const getUser = (request) => {
   return foundUser;
 };
 
-export default { checkForAdmin, getUser };
+const checkName = (name) => {
+  const foundName = requests.some(request => request.name === name);
+  return foundName;
+};
+
+export default { checkForAdmin, getUser, checkName };
