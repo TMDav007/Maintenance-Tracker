@@ -13,7 +13,7 @@ const checkForRequest = (id) => {
   const foundRequest = requests.filter(request => request.id === id);
   // check if user is admin to get all request
   if (foundRequest.length !== 0) {
-    return foundRequest;
+    return foundRequest[0];
   }
 };
 
@@ -27,4 +27,6 @@ const checkName = (name) => {
   return foundName;
 };
 
-export default { checkForAdmin, getUser, checkName, checkForRequest };
+export default {
+  checkForAdmin, getUser, checkName, checkForRequest
+};

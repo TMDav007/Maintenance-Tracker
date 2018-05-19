@@ -8,7 +8,7 @@ const {
 /**
  * it is a class that control all request api;
  */
-class RequestController {
+class UserRequestController {
   /**
      * it GET all requests
      * @param {string} req
@@ -47,26 +47,25 @@ class RequestController {
    */
   static updateRequest(req, res) {
     // get request id
-    const requestId = parseInt(req.params.id, 10);
-    if (!Number.isInteger(requestId)) {
-      res.status(400).json({
+    const requestId = req.params.id;
+    if (!Number.isInteger(Number(requestId))) {
+      return res.status(400).json({
         status: 'error',
         message: 'Input must be an Integer'
       });
     }
     // get request
-    const foundRequest = checkForRequest(requestId);
-
+    const foundRequest = checkForRequest(parseInt(requestId, 10));
     // check if request is found
     if (foundRequest) {
       const {
         name, request, requestDetails, date
       } = req.body;
 
-      foundRequest[0].name = name || foundRequest[0].name;
-      foundRequest[0].request = request || foundRequest[0].request;
-      foundRequest[0].requestDetails = requestDetails || [0].requestDetails;
-      foundRequest[0].date = date || foundRequest[0].date;
+      foundRequest.name = name || foundRequest.name;
+      foundRequest.request = request || foundRequest.request;
+      foundRequest.requestDetails = requestDetails || foundRequest.requestDetails;
+      foundRequest.date = date || foundRequest.date;
 
       res.status(200).json({
         status: 'success',
@@ -110,7 +109,7 @@ class RequestController {
       res.status(201).json({
         status: 'success',
         data: {
-          requests
+          request: newRequest
         }
       });
     }
@@ -123,8 +122,8 @@ class RequestController {
  * @return {object} an object
  */
   static getARequest(req, res) {
-    const id = parseInt(req.params.id, 10);
-    if (!Number.isInteger(id)) {
+    const { id } = req.params;
+    if (!Number.isInteger(Number(id))) {
       return res.status(400).json({
         status: 'error',
         message: 'Input must be an integer'
@@ -132,7 +131,7 @@ class RequestController {
     }
 
     // get a request
-    const newRequest = requests.filter(request => request.id === id);
+    const newRequest = requests.filter(request => request.id === parseInt(id, 10));
 
     // if request is not found
     if (newRequest.length === 0) {
@@ -161,4 +160,4 @@ class RequestController {
   }
 }
 
-export default RequestController;
+export default UserRequestController;

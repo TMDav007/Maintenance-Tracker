@@ -84,6 +84,16 @@ describe('/GET a users request', () => {
   });
   it('it should not GET a users request', (done) => {
     chai.request(app)
+      .get('/api/v1/users/requests/1.3')
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('status');
+        res.body.status.should.eql('error');
+        done();
+      });
+  });
+  it('it should not GET a users request', (done) => {
+    chai.request(app)
       .get('/api/v1/users/requests/s')
       .end((err, res) => {
         res.should.have.status(400);
@@ -124,6 +134,17 @@ describe('/PUT a users request', () => {
       .send({ date: '12-03-2019' })
       .end((err, res) => {
         res.should.have.status(404);
+        res.body.should.have.property('status');
+        res.body.status.should.eql('error');
+        done();
+      });
+  });
+  it('it should not PUT a users requests', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/requests/1.3')
+      .send({ date: '12-03-2019' })
+      .end((err, res) => {
+        res.should.have.status(400);
         res.body.should.have.property('status');
         res.body.status.should.eql('error');
         done();

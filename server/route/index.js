@@ -1,8 +1,8 @@
-import RequestController from './../dummyControllers/UserRequestController';
+import UserRequestController from './../dummyControllers/UserRequestController';
 
 const {
   getAllRequests, getARequest, addRequest, updateRequest
-} = RequestController;
+} = UserRequestController;
 
 const routes = (app) => {
   app.get('', (req, res) =>
