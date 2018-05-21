@@ -83,25 +83,12 @@ header nav ul {
   header nav ul {
     max-height: 5em;
     text-align: right;
+    padding-right: 1em;
   }
 }
 
 header nav .showing {
   max-height: 20em;
-}
-
-@media only screen and (min-width: 700px) {
-  header nav li:nth-child(1) {
-    width: 3em;
-    margin-left: 1em;
-  }
-}
-
-@media only screen and (min-width: 700px) {
-  header nav li:last-child::before {
-    content: "|";
-    float: left;
-  }
 }
 
 header nav li {
@@ -117,7 +104,7 @@ header nav li {
   header nav li {
     display: inline-block;
     padding: 20px 0;
-    width: 5em;
+    width: 3.5em;
   }
 }
 
@@ -596,7 +583,7 @@ button[type="submit"]:focus {
   left: 0px;
   width: 200px;
   z-index: 3;
-  height: 100vh;
+  height: 605px;
   padding: 5em 0em;
   background: #13161f;
   text-align: center;
@@ -682,7 +669,7 @@ button[type="submit"]:focus {
 }
 
 .container .mainboard #board {
-  margin: 0 1.2em;
+  margin: 0 auto;
   position: relative;
   height: 100vh;
   padding: 0em 0 0 0;
@@ -926,7 +913,8 @@ button[type="submit"]:focus {
   #make_request_content input[type="text"] {
     width: 70%;
     font-size: .8em;
-    height: 1.8em;
+    height: 3em;
+    margin: 1em 0 0 0;
   }
 }
 
@@ -941,12 +929,16 @@ button[type="submit"]:focus {
 @media only screen and (min-width: 700px) {
   #make_request_content input[type="date"] {
     font-size: 1.1em;
+    height: 3em;
+    margin: 1em 0 0 0;
   }
 }
 
 #make_request_content textarea {
   width: 90%;
   border: rgba(31, 29, 26, 0.494) 1px solid;
+  margin: 1em 0 0 0;
+  padding: .5em;
 }
 
 #make_request_content button[type='submit'] {
@@ -962,7 +954,7 @@ button[type="submit"]:focus {
   #make_request_content button[type='submit'] {
     float: none;
     width: 11em;
-    margin-left: 8em;
+    margin: 1em 0 0 8em;
   }
 }
 
@@ -973,7 +965,7 @@ button[type="submit"]:focus {
   margin: 35% auto 35% auto;
   color: #000;
   font-size: 13px;
-  padding: 0 1em;
+  padding: 0 2em;
   width: 80%;
   padding-top: 10px;
   padding-bottom: 30px;
@@ -984,6 +976,16 @@ button[type="submit"]:focus {
     margin: 13em auto;
     width: 35em;
   }
+}
+
+#request_details_content #date {
+  text-align: right;
+  font-weight: 700;
+}
+
+.requestDetails:hover {
+  cursor: pointer;
+  opacity: .8;
 }
 
 span {

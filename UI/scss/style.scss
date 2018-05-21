@@ -28,23 +28,13 @@ header {
       @media only screen and (min-width: 700px) {
         max-height: 5em;
         text-align: right;
+        padding-right: 1em;
       }
     }
     .showing {
       max-height: 20em;
     }
-    li:nth-child(1) {
-      @media only screen and (min-width: 700px) {
-        width: 3em;
-        margin-left: 1em;
-      }
-    }
-    li:last-child::before {
-      @media only screen and (min-width: 700px) {
-        content: "|";
-        float: left;
-      }
-    }
+
     li {
       box-sizing: border-box;
       width: 100%;
@@ -54,7 +44,7 @@ header {
       @media only screen and (min-width: 700px) {
         display: inline-block;
         padding: 20px 0;
-        width: 5em;
+        width: 3.5em;
       }
       a {
         text-decoration: none;
@@ -334,7 +324,6 @@ button[type="submit"] {
   }
   li::before {
       content: none;
-      
   }
   p {
       margin-right:2em;
@@ -367,7 +356,7 @@ button[type="submit"] {
     @media only screen and (min-width: 700px) {
     }
     #board {
-      margin: 0 1.2em;
+      margin: 0 auto;
       position: relative;
       height: 100vh;
       padding: 0em 0 0 0;
@@ -445,7 +434,8 @@ button[type="submit"] {
       @media only screen and (min-width: 700px) {
           width: 70%;
           font-size: .8em;
-          height: 1.8em;
+          height: 3em;
+          margin: 1em 0 0 0;
       }
   }
   input[type="date"] {
@@ -456,11 +446,15 @@ button[type="submit"] {
     font-size: 14px;
     @media only screen and (min-width: 700px) {
         font-size: 1.1em;
+        height: 3em;
+        margin: 1em 0 0 0;
     }
 }
   textarea{
       width: 90%;
       border:  rgba(31, 29, 26, 0.494) 1px solid;
+      margin: 1em 0 0 0;
+      padding: .5em;
   }
 
   button[type='submit']{
@@ -473,7 +467,7 @@ button[type="submit"] {
       @media only screen and (min-width: 700px) {
       float: none;
       width: 11em;
-      margin-left: 8em;
+      margin: 1em 0 0 8em;
     }
   }
 }
@@ -485,7 +479,7 @@ button[type="submit"] {
   margin: 35% auto 35% auto;
   color: #000;
   font-size: 13px;
-  padding: 0 1em;
+  padding: 0 2em;
   width: 80%;
   padding-top:10px;
   padding-bottom: 30px;
@@ -493,9 +487,20 @@ button[type="submit"] {
       margin: 13em auto;
       width:35em;
   }
+  #date{
+    text-align: right;
+    font-weight: 700;
+  }
 }
 
-// close
+.requestDetails{
+  &:hover{
+      cursor: pointer;
+      opacity: .8;
+  }
+}
+
+// close 
 span{
   position: absolute;
   font-size: 1.5em;
