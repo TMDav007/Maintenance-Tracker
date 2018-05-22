@@ -1,163 +1,440 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
+import { expect } from 'chai';
+import request from 'supertest';
 import app from './../server';
 
-/* eslint-disable no-unused-vars */
-const should = chai.should();
+let token;
 
-chai.use(chaiHttp);
-
-// users requests
-describe('/GET all users requests', () => {
-  it('it should GET all users requests', (done) => {
-    chai.request(app)
-      .get('/api/v1/users/requests')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.have.property('data');
-        res.body.data.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.should.eql('success');
-        done();
-      });
-  });
-});
-describe('/POST a users requests', () => {
-  it('it should POST a users requests', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/requests')
+// Test for sign up
+describe('user validation', () => {
+  it('it should signup user', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
       .send({
-        name: 'Okafor',
-        request: 'Request to fix the AC',
-        requestDetails: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
-        date: '06-05-2018'
+        firstName: 'fififi',
+        lastName: 'fiffihi',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemi22',
+        confirmPassword: 'Opeyemi22',
+        user_role: 'admin'
       })
       .end((err, res) => {
-        res.should.have.status(201);
-        res.body.should.have.property('data');
-        res.body.data.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.should.eql('success');
+        expect(res.status).to.equal(201);
+        expect(res.body.data).to.haveOwnProperty('newUser');
+        expect(res.body.status).to.equal('success');
         done();
       });
   });
-  it('it should POST a users requests', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/requests')
+
+
+  it('it should not signup user with an existing email', (done) => {
+    // variable detail
+    request(app)
+      .post('/api/v1/auth/signup')
       .send({
-        name: 'Okafor-John',
-        request: 'Request to fix the AC',
-        requestDetails: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
-        date: '06-05-2018'
+        firstName: 'fififi',
+        lastName: 'fiffihi',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '0809483746',
+        password: 'Opeyemi22',
+        confirmPassword: 'Opeyemi22',
+        user_role: 'admin'
       })
       .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
+        expect(res.status).to.equal(409);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should signup user with an existing phone number', (done) => {
+    // variable detail
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiffihi',
+        email: 'fifii@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemi22',
+        confirmPassword: 'Opeyemi22',
+        user_role: 'admin'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(409);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with an empty first name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: '',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemi22',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with no first name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemi22',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with no email', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        phoneNumber: '08095483746',
+        password: 'Opeyemi22',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with invalid email', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'hsdhfjdsj',
+        phoneNumber: '08095483746',
+        password: 'Opeyemi22',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with an empty first name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: '',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with short first name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'f',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with unmatched password', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with short password', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Ope2',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with an unconfirmed password', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with no Phone number', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        password: 'Opeyemi22',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with no last name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with short last name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'f',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user an empty lastName', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: '',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Opeyemuy2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not signup user with short phone number', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '080946',
+        password: 'Opeyemuy22',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with no last name', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: 'Ope2',
+        role: 'user',
+        confirmPassword: 'Opeyemi22'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+
+  it('it should not signup user with an empty password', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'fififi',
+        lastName: 'fiff',
+        email: 'fifi@yahoo.com',
+        phoneNumber: '08095483746',
+        password: '',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
         done();
       });
   });
 });
 
-describe('/GET a users request', () => {
-  it('it should GET a users request', (done) => {
-    chai.request(app)
-      .get('/api/v1/users/requests/3')
+// Test for login
+describe('user validation{login)', () => {
+  it('it should not login with an incorrect email ', (done) => {
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'tuwalase'
+      })
       .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.have.property('data');
-        res.body.data.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.should.eql('success');
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
         done();
       });
   });
-  it('it should not GET a users request', (done) => {
-    chai.request(app)
-      .get('/api/v1/users/requests/13')
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
-        done();
-      });
-  });
-  it('it should not GET a users request', (done) => {
-    chai.request(app)
-      .get('/api/v1/users/requests/1.3')
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
-        done();
-      });
-  });
-  it('it should not GET a users request', (done) => {
-    chai.request(app)
-      .get('/api/v1/users/requests/s')
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
-        done();
-      });
-  });
-  it('it should not GET a users request', (done) => {
-    chai.request(app)
-      .get('/api/v1/users/requests/1')
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
-        done();
-      });
-  });
-});
 
-describe('/PUT a users request', () => {
-  it('it should PUT a users request', (done) => {
-    chai.request(app)
-      .put('/api/v1/users/requests/3')
-      .send({ date: '12-03-2019' })
+  it('it should login ', (done) => {
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'opemipo@yahoo.com',
+        password: 'opemipo'
+      })
       .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.have.property('data');
-        res.body.data.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.should.eql('success');
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('token');
+        expect(res.body.status).to.equal('success');
+        /* eslint-disable prefer-destructuring */
+        token = res.body.data.token;
         done();
       });
   });
-  it('it should not PUT a users requests', (done) => {
-    chai.request(app)
-      .put('/api/v1/users/requests/13')
-      .send({ date: '12-03-2019' })
+  it('should not login with an incorrect password ', (done) => {
+  // variable details
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'opemipo@yahoo.com',
+        password: 'opemi1'
+      })
       .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
         done();
       });
   });
-  it('it should not PUT a users requests', (done) => {
-    chai.request(app)
-      .put('/api/v1/users/requests/1.3')
-      .send({ date: '12-03-2019' })
+
+  it('should not login with an no email ', (done) => {
+    // variable details
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        password: 'opppp'
+      })
       .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
         done();
       });
   });
-  it('it should not PUT a users requests', (done) => {
-    chai.request(app)
-      .put('/api/v1/users/requests/s')
-      .send({ date: '12-03-2019' })
+
+  it('should not login with an no password ', (done) => {
+  // variable details
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'opemipo@yahoo.com'
+      })
       .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('status');
-        res.body.status.should.eql('error');
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
         done();
       });
   });

@@ -2,6 +2,7 @@
 env:
   global:
     - CC_TEST_REPORTER_ID=4de6680f374f61c77a1110f0ab82ed7f3e9af1f3fd62f22515995d973e82937e
+    - NODE_ENV=test
 
 language : node_js
 node_js: 'stable'
@@ -10,13 +11,24 @@ addons:
   apt:
     update: true
 
+services :
+  - postgresql
+
+postgres:
+  adapter: postgresql
+  database: db-Test
+  username: postgres
+
 before_script:
+  - createuser tolu -s -U postgres
+  - createdb database_test --username=tolu
+  - chmod 0777 ./node_modules/.bin/mocha
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
 script:
-  - nyc --reporter=lcov npm run test
+  - npm run test
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
