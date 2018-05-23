@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const config = {
+const developmentConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
@@ -8,4 +8,4 @@ const config = {
   port: process.env.DB_PORT
 };
 
-export default config;
+export default developmentConfig;

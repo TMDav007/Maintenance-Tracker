@@ -1,7 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+/* eslint-disable */
+import babelPolyfill from 'babel-polyfill';
 
-import routes from './route/index';
+import routes from './route/routes';
 
 const app = express();
 
