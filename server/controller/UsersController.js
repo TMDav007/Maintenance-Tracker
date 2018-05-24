@@ -1,18 +1,10 @@
 import jwt from 'jsonwebtoken';
-import pg from 'pg';
 
-import developmentConfig from './../config/developmentConfig';
-import testConfig from './../config/testConfig';
+import utils from './../utils/index';
 
-let config;
+const { pgConnect } = utils;
 
-if (process.env.NODE_ENV === 'development') {
-  config = developmentConfig;
-} else {
-  config = testConfig;
-}
-
-const client = new pg.Client(config);
+const client = pgConnect();
 client.connect();
 require('dotenv').config();
 
@@ -49,6 +41,7 @@ class UsersController {
             ) RETURNING *;    
         `;
       const result = await client.query(createUser);
+      console.log('esign1');
       return res.status(201).json({
         status: 'success',
         data: {
@@ -85,9 +78,7 @@ class UsersController {
           message: 'email or password is incorrect'
         });
       }
-      const token = await jwt.sign({
-        id: foundEmail.rows[0].id, user_role: foundEmail.rows[0].user_role
-      }, process.env.SECRET, { expiresIn: 86400 });
+      const token = await jwt.sign(foundEmail.rows[0], process.env.SECRET, { expiresIn: 86400 });
 
       return res.status(200).json({
         status: 'success',
@@ -96,7 +87,7 @@ class UsersController {
         },
         message: 'login successful'
       });
-    } catch (error) { res.status(500).send(error.message); }
+    } catch (error) { return res.status(500).send(error.message); }
   }
 }
 
