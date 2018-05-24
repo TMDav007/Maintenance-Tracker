@@ -85,9 +85,7 @@ class UsersController {
           message: 'email or password is incorrect'
         });
       }
-      const token = await jwt.sign({
-        id: foundEmail.rows[0].id, user_role: foundEmail.rows[0].user_role
-      }, process.env.SECRET, { expiresIn: 86400 });
+      const token = await jwt.sign(foundEmail.rows[0], process.env.SECRET, { expiresIn: 86400 });
 
       return res.status(200).json({
         status: 'success',

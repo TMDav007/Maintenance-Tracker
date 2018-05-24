@@ -1,20 +1,13 @@
 import validator from 'validator';
-import pg from 'pg';
+import jwt from 'jsonwebtoken';
 
-import developmentConfig from './../config/developmentConfig';
-import testConfig from './../config/testConfig';
+import utils from './../utils/index';
 
-let config;
+const { pgConnect } = utils;
 
-if (process.env.NODE_ENV === 'development') {
-  config = developmentConfig;
-} else {
-  config = testConfig;
-}
-
-const client = new pg.Client(config);
-
+const client = pgConnect();
 client.connect();
+
 
 require('dotenv').config();
 
@@ -22,10 +15,32 @@ require('dotenv').config();
 /** middleware class */
 class Middleware {
   /**
+   * @desc authenticates a user
+   *
+   * @param {object} req
+   *@param {object} res
+   * @param {object} next
+   *
+   * @returns {object} next
+   */
+  static authenicateUser(req, res, next) {
+    const token = req.headers['x-access-token'] || req.body.token || req.query.token;
+
+    jwt.verify(token, process.env.SECRET, (err) => {
+      if (err) {
+        return res.status(403).json({ status: 'error', message: 'forbidden to non user' });
+      }
+      return next();
+    });
+  }
+
+  /**
+   * @desc validates the signup fields
    *
    * @param {object} req
    * @param {object} res
    * @param {object} next
+   *
    * @returns {object} next
    */
   static validateSignup(req, res, next) {
@@ -139,10 +154,12 @@ class Middleware {
   }
 
   /**
+   * @desc validates the login field
    *
    * @param {object} req
    * @param {object} res
    * @param {object} next
+   *
    * @returns {object} next
    */
   static validateLogin(req, res, next) {
@@ -182,10 +199,12 @@ class Middleware {
   }
 
   /**
+   * @desc checks if an email exist
    *
    * @param {object} req
    * @param {object} res
    * @param {object} done
+   *
    * @returns {object} done
    */
   static async checkMail(req, res, done) {
@@ -213,10 +232,12 @@ class Middleware {
   }
 
   /**
+   * @desc checks if phone number exist
    *
    * @param {object} req
    * @param {object} res
    * @param {object} done
+   *
    * @returns {object} done
    */
   static async checkPhoneNumber(req, res, done) {

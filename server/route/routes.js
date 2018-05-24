@@ -1,11 +1,14 @@
 import UsersController from './../controller/UsersController';
+import RequestsController from './../controller/RequestsController';
 import Middleware from './../middleware/Middleware';
 
 const {
   signUp, login
 } = UsersController;
+
+const { getRequests } = RequestsController;
 const {
-  validateSignup, validateLogin, checkMail, checkPhoneNumber
+  validateSignup, validateLogin, authenicateUser, checkMail, checkPhoneNumber
 } = Middleware;
 
 const routes = (app) => {
@@ -22,6 +25,7 @@ const routes = (app) => {
   // user
   app.post('/api/v1/auth/signup', validateSignup, checkMail, checkPhoneNumber, signUp);
   app.post('/api/v1/auth/login', validateLogin, login);
+  app.get('/api/v1/users/requests', authenicateUser, getRequests);
 };
 
 export default routes;
