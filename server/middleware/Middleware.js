@@ -1,5 +1,6 @@
 import validator from 'validator';
 import jwt from 'jsonwebtoken';
+import Validator from 'validatorjs';
 
 import utils from './../utils/index';
 
@@ -33,6 +34,53 @@ class Middleware {
       return next();
     });
   }
+
+  /**
+   * @desc it validates input for create request enpoint
+   *
+   * @param {object} req
+   *@param {object} res
+   * @param {object} next
+   *
+   * @returns {object} next
+   */
+  static validateRequest(req, res, next) {
+    const {
+      requestTitle, requestBody, date, userId
+    } = req.body;
+
+    const data = {
+      requestTitle, requestBody, date, userId
+    };
+
+    const rules = {
+      requestTitle: 'required|min:10',
+      requestBody: 'required|min:10',
+      date: 'required',
+      userId: 'required|int'
+    };
+
+    const errorMessages = {
+      requestTitle: 'the request title is required| the request title should have a minimum of 10 charaters',
+      requestBody: 'the request body is required| the request body should have a minimum of 10 charaters',
+      date: 'date is required',
+      userId: 'the user id is required|user id must be an integer'
+    };
+
+    const validation = new Validator(data, rules, errorMessages);
+
+    if (validation.passes()) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'fail',
+      data: {
+        errors: validation.errors.all(),
+      },
+    });
+  }
+
 
   /**
    * @desc validates the signup fields

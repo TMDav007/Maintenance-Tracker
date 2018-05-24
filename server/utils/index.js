@@ -25,4 +25,3 @@ const tokens = async (req) => {
 };
 
 export default { pgConnect, tokens };
-
