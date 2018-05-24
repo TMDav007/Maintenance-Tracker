@@ -2,9 +2,9 @@ import pg from 'pg';
 
 import developmentConfig from './../config/developmentConfig';
 import testConfig from './../config/testConfig';
-import userSeed from './userSeed';
+import seed from './seed';
 
-const { userQuery } = userSeed;
+const { createAndSeed } = seed;
 
 require('dotenv').config();
 
@@ -19,7 +19,7 @@ const client = new pg.Client(config);
 
 client.connect();
 
-client.query(userQuery, () => {
+client.query(createAndSeed, () => {
   client.end();
 });
 

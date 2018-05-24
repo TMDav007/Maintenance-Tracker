@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import app from './../server';
 
-let token;
+let token, token2;
 
 // Test for sign up
 describe('user validation', () => {
@@ -25,7 +25,6 @@ describe('user validation', () => {
         done();
       });
   });
-
 
   it('it should not signup user with an existing email', (done) => {
     // variable detail
@@ -384,6 +383,22 @@ describe('user validation{login)', () => {
     request(app)
       .post('/api/v1/auth/login')
       .send({
+        email: 'abraham@yahoo.com',
+        password: 'abraham'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('token');
+        expect(res.body.status).to.equal('success');
+        /* eslint-disable prefer-destructuring */
+        token = res.body.data.token;
+        done();
+      });
+  });
+  it('it should login to give a different token ', (done) => {
+    request(app)
+      .post('/api/v1/auth/login')
+      .send({
         email: 'opemipo@yahoo.com',
         password: 'opemipo'
       })
@@ -392,7 +407,7 @@ describe('user validation{login)', () => {
         expect(res.body.data).to.haveOwnProperty('token');
         expect(res.body.status).to.equal('success');
         /* eslint-disable prefer-destructuring */
-        token = res.body.data.token;
+        token2 = res.body.data.token;
         done();
       });
   });
@@ -434,6 +449,42 @@ describe('user validation{login)', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+});
+
+// Test to GET all users Requests
+describe('GET all users requests', () => {
+  it('it should GET all users Request', (done) => {
+    request(app)
+      .get('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('requests');
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+  it('it should not GET users Request', (done) => {
+    request(app)
+      .get('/api/v1/users/requests')
+      .set('x-access-token', token2)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('request not found');
+        expect(res.body.status).to.equal('failed');
+        done();
+      });
+  });
+  it('it should not GET users Request with no access', (done) => {
+    request(app)
+      .get('/api/v1/users/requests')
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.equal('forbidden to non user');
         expect(res.body.status).to.equal('error');
         done();
       });
