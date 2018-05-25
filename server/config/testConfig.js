@@ -1,4 +1,7 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const testConfig = {
   user: process.env.DB_USER,

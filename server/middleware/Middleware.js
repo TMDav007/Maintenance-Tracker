@@ -9,11 +9,11 @@ const { pgConnect } = utils;
 const client = pgConnect();
 client.connect();
 
-
 require('dotenv').config();
 
-
-/** middleware class */
+/**
+ *  middleware class 
+ */
 class Middleware {
   /**
    * @desc authenticates a user
@@ -25,21 +25,23 @@ class Middleware {
    * @returns {object} next
    */
   static authenicateUser(req, res, next) {
-    const token = req.headers['x-access-token'] || req.body.token || req.query.token;
+    const token =
+      req.headers['x-access-token'] || req.body.token || req.query.token;
 
     jwt.verify(token, process.env.SECRET, (err) => {
       if (err) {
-        return res.status(403).json({ status: 'error', message: 'forbidden to non user' });
+        return res
+          .status(403)
+          .json({ status: 'error', message: 'forbidden to non user' });
       }
       return next();
     });
   }
-
   /**
-   * @desc it validates input for create request enpoint
+   * @desc it validates input for create request endpoint
    *
    * @param {object} req
-   *@param {object} res
+   * @param {object} res
    * @param {object} next
    *
    * @returns {object} next
@@ -50,19 +52,24 @@ class Middleware {
     } = req.body;
 
     const data = {
-      requestTitle, requestBody, date, userId
+      requestTitle,
+      requestBody,
+      date,
+      userId
     };
 
     const rules = {
       requestTitle: 'required|min:10',
       requestBody: 'required|min:10',
       date: 'required',
-      userId: 'required|int'
+      userId: 'required|integer'
     };
 
     const errorMessages = {
-      requestTitle: 'the request title is required| the request title should have a minimum of 10 charaters',
-      requestBody: 'the request body is required| the request body should have a minimum of 10 charaters',
+      requestTitle:
+        'the request title is required| the request title should have a minimum of 10 charaters',
+      requestBody:
+        'the request body is required| the request body should have a minimum of 10 charaters',
       date: 'date is required',
       userId: 'the user id is required|user id must be an integer'
     };
@@ -76,11 +83,10 @@ class Middleware {
     return res.status(400).json({
       status: 'fail',
       data: {
-        errors: validation.errors.all(),
-      },
+        errors: validation.errors.all()
+      }
     });
   }
-
 
   /**
    * @desc validates the signup fields
@@ -257,11 +263,8 @@ class Middleware {
    */
   static async checkMail(req, res, done) {
     try {
-      const {
-        email
-      } = req.body;
+      const { email } = req.body;
 
-      // check if phone number is existing
       const checkEmail = `
             SELECT * 
             FROM users
@@ -275,7 +278,12 @@ class Middleware {
           message: 'email is already existing'
         });
       }
-    } catch (error) { res.status(500).send(error.message); }
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+       message: error.message
+      });
+    }
     return done();
   }
 
@@ -290,11 +298,8 @@ class Middleware {
    */
   static async checkPhoneNumber(req, res, done) {
     try {
-      const {
-        phoneNumber
-      } = req.body;
+      const { phoneNumber } = req.body;
 
-      // check if phone number is existing
       const checkPhoneNumber = `
             SELECT * 
             FROM users
@@ -308,7 +313,12 @@ class Middleware {
           message: 'phone number is already existing'
         });
       }
-    } catch (error) { res.status(500).send(error.message); }
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+       message: error.message
+      })
+    }
     return done();
   }
 }

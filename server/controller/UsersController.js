@@ -23,7 +23,7 @@ class UsersController {
       const {
         firstName, lastName, phoneNumber, email, password
       } = req.body;
-      // create a new user
+
       const createUser = `
             INSERT INTO users (
                 first_name,
