@@ -3,5 +3,4 @@ UI/prepros-6.config
 .nyc_output/
 coverage/
 dist/
-.coveralls.yml
 .env

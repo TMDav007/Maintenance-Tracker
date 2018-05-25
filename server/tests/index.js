@@ -490,3 +490,50 @@ describe('GET all users requests', () => {
       });
   });
 });
+
+// Test to GET a user's Request
+describe('GET a user request', () => {
+  it('it should GET a user Request', (done) => {
+    request(app)
+      .get('/api/v1/users/requests/2')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('request');
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+  it('it should not GET a user Request', (done) => {
+    request(app)
+      .get('/api/v1/users/requests/5')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('request not found');
+        expect(res.body.status).to.equal('failed');
+        done();
+      });
+  });
+  it('it should not GET Request with no access', (done) => {
+    request(app)
+      .get('/api/v1/users/requests/3')
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.equal('forbidden to non user');
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should not GET Request with no access', (done) => {
+    request(app)
+      .get('/api/v1/users/requests/d')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Input must be an Integer');
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+});

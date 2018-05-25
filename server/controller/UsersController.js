@@ -1,20 +1,12 @@
 import jwt from 'jsonwebtoken';
-import pg from 'pg';
 
-import developmentConfig from './../config/developmentConfig';
-import testConfig from './../config/testConfig';
+import utils from './../utils/index';
 
-let config;
+const { pgConnect } = utils;
 
-if (process.env.NODE_ENV === 'development') {
-  config = developmentConfig;
-} else {
-  config = testConfig;
-}
-
-const client = new pg.Client(config);
+const client = pgConnect();
 client.connect();
-require('dotenv').config();
+
 
 /**
  * it is a class that control all event method
