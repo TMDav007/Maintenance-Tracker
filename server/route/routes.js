@@ -11,7 +11,8 @@ const {
   getRequests, getARequest, createARequest, updateARequest
 } = RequestsController;
 
-const { getAllRequests } = AdminController;
+const { getAllRequests, approveARequest } = AdminController;
+
 const {
   validateSignup, validateLogin, validateRequest,
   authenicateUser, authenicateAdmin, checkMail, checkPhoneNumber
@@ -28,18 +29,20 @@ const routes = (app) => {
       message: 'to view api, add /request'
     }));
 
-  // user
   app.post('/api/v1/auth/signup', validateSignup, checkMail, checkPhoneNumber, signUp);
   app.post('/api/v1/auth/login', validateLogin, login);
 
-  // requests
   app.get('/api/v1/users/requests', authenicateUser, getRequests);
   app.get('/api/v1/users/requests/:requestId', authenicateUser, getARequest);
   app.post('/api/v1/users/requests', validateRequest, authenicateUser, createARequest);
   app.put('/api/v1/users/requests/:id', authenicateUser, updateARequest);
 
+  app.get('/api/v1/requests', authenicateAdmin, getAllRequests);
+  app.put('/api/v1/users/requests/:id', updateARequest);
+
   // admin
   app.get('/api/v1/requests', authenicateAdmin, getAllRequests);
+  app.put('/api/v1/requests/:requestId/approve', authenicateAdmin, approveARequest);
 };
 
 export default routes;

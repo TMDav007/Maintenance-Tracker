@@ -770,3 +770,66 @@ describe('ADMIN get all requests', () => {
       });
   });
 });
+
+// Test to approve a request by an Admin
+describe('APPROVE a request', () => {
+  it('it should APPROVE a users request', (done) => {
+    request(app)
+      .put('/api/v1/requests/1/approve')
+      .set('x-access-token', token2)
+      .send({ requestStatus: 'pending' })
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('request');
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+  it('it should not APPROVE a users request with requst status not processing', (done) => {
+    request(app)
+      .put('/api/v1/requests/2/approve')
+      .set('x-access-token', token2)
+      .send({ requestStatus: 'pending' })
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal('failed');
+        expect(res.body.message).to.equal('request not found');
+        done();
+      });
+  });
+  it('it should not APPROVE a users request with requst status not processing', (done) => {
+    request(app)
+      .put('/api/v1/requests/s/approve')
+      .set('x-access-token', token2)
+      .send({ requestStatus: 'pending' })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Input must be an Integer');
+        expect(res.body.status).to.equal('failed');
+        done();
+      });
+  });
+  it('it should not APPROVE for a non admin', (done) => {
+    request(app)
+      .put('/api/v1/requests/1/approve')
+      .set('x-access-token', token)
+      .send({ requestStatus: 'pending' })
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.equal('Forbidden to non admin');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not APPROVE without a token', (done) => {
+    request(app)
+      .put('/api/v1/requests/1/approve')
+      .send({ requestStatus: 'pending' })
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.equal('Token not provided or Invalid Token');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+});

@@ -18,8 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   config = process.env.DATABASE_URL;
 }
-const client = new pg.Client(config);
 
+const client = new pg.Client(config);
 client.connect();
 
 client.query(createAndSeed, () => {

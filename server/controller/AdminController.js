@@ -13,8 +13,8 @@ class AdminController {
   /**
  * @desc it gets all requests
  *
- * @param {string} req
- * @param {string} res
+ * @param {object} req
+ * @param {object} res
  *
  * @return {object} get all request
  */
@@ -40,6 +40,64 @@ class AdminController {
         status: 'success',
         data: {
           requests: requests.rows,
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
+  }
+
+  /**
+ *@desc approve a requests by an admin
+ *
+ * @param {object} req
+ * @param {object} res
+ *
+ * @return {object} the approved  request
+ */
+  static async approveARequest(req, res) {
+    try {
+      const { requestId } = req.params;
+      const { requestStatus } = req.body;
+
+      if (!Number.isInteger(Number(requestId))) {
+        return res.status(400).json({
+          status: 'failed',
+          message: 'Input must be an Integer'
+        });
+      }
+      if (requestStatus !== 'pending') {
+        return res.status(403).json({
+          status: 'failed',
+          message: 'Input must pending!!! '
+        });
+      }
+
+      const approveARequestQuery = `
+            UPDATE requests
+            SET 
+            request_status='${requestStatus}'
+            WHERE id=${requestId}
+            AND request_status='processing'
+            returning *;
+          `;
+
+      const approvedRequest = await client.query(approveARequestQuery);
+
+      if (approvedRequest.rows.length < 1) {
+        return res.status(404).json({
+          status: 'failed',
+          message: 'request not found'
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          request: approvedRequest.rows[0]
         }
       });
     } catch (error) {
