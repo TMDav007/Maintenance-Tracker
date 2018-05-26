@@ -104,14 +104,12 @@ const createAndSeed = `
     INSERT INTO requests (
       request_title,
       request_body,
-      request_status,
       date,
       user_id
     )
     VALUES (
       'Request to fix the TV',
       'The Tv stopped working some days ago, I will like it to get fixed on time. Thank you',
-      'disapproved',
       '2018-06-16',
       3
     );
