@@ -1,10 +1,12 @@
 import utils from './../utils/index';
 import adminQuery from './../utils/adminQuery';
 import error from './../utils/errorMessage';
+import queries from './../utils/query';
 
 const { pgConnect } = utils;
 const { integerError } = error;
 const { query, checkInteger } = adminQuery;
+const { getAllRequestsQuery } = queries
 
 const client = pgConnect();
 client.connect();
@@ -23,19 +25,6 @@ class AdminController {
    */
   static async getAllRequests(req, res) {
     try {
-      const getAllRequestsQuery = `
-            SELECT 
-            requests.id,
-            request_title,
-            request_body,
-            request_status,
-            requests.date,
-            first_name,
-            last_name,
-            email
-            FROM requests,users
-            WHERE requests.user_id = users.id
-        `;
 
       const requests = await client.query(getAllRequestsQuery);
 
@@ -63,9 +52,7 @@ class AdminController {
    */
   static async approveARequest(req, res) {
     try {
-        const approve = 'pending'
-        const queryResult =  query(req, res, approve);
-          return queryResult;
+         return query(req, res, 'pending');
         } catch (error) {
           res.status(500).json({
             status: "fail",
@@ -84,9 +71,7 @@ class AdminController {
    */
   static async disapproveARequest(req, res, test) {
     try {
-    const disapprove = 'disapproved'
-    const queryResult =  query(req, res, disapprove);
-      return queryResult;
+    return  query(req, res, 'disapproved');
     } catch (error) {
       res.status(500).json({
         status: "fail",
@@ -105,9 +90,7 @@ class AdminController {
    */
   static async resolveARequest(req, res) {
       try {
-        const resolved = 'resolved'
-        const queryResult =  query(req, res, resolved);
-          return queryResult;
+        return query(req, res, 'resolved');
         } catch (error) {
           res.status(500).json({
             status: "fail",

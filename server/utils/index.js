@@ -8,7 +8,9 @@ import testConfig from './../config/testConfig';
 dotenv.config();
 
 let config;
+
 const pgConnect = () => {
+
   if (process.env.NODE_ENV === 'development') {
     config = developmentConfig;
   } else if (process.env.NODE_ENV === 'test') {
@@ -18,6 +20,7 @@ const pgConnect = () => {
   }
 
   const client = new pg.Client(config);
+  
   return client;
 };
 

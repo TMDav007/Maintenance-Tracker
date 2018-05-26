@@ -1,6 +1,12 @@
-import utils from "./../utils/index";
+import utils from './../utils/index';
+import queries from './../utils/query';
+import response from './../utils/errorMessage';
 
 const { pgConnect, tokens } = utils;
+const { errorResponse} = response;
+const { getAllUsersRequestsQuery, getAUsersRequestQuery,
+       createARequestQuery, modifyARequestQuery,
+       checkRequestQuery, requestIsUniqueQuery } = queries;
 
 const client = pgConnect();
 client.connect();
@@ -20,24 +26,10 @@ class RequestsController {
   static async getRequests(req, res) {
     try {
       const token = await tokens(req);
-      const getAllUserRequestsQuery = `
-            SELECT 
-            requests.id,
-            requests.request_title,
-            requests.request_body,
-            requests.request_status,
-            requests.date
-            FROM requests
-            WHERE requests.user_id = ${token.id}
-        `;
-
-      const requests = await client.query(getAllUserRequestsQuery);
+      const requests = await client.query(getAllUsersRequestsQuery(token.id));
 
       if (requests.rows.length < 1) {
-        return res.status(404).json({
-          status: 'fail',
-          message: 'request not found'
-        });
+        return errorResponse(res, 'fail', 'request not found', 404);
       }
 
       return res.status(200).json({
@@ -55,7 +47,7 @@ class RequestsController {
   }
 
   /**
-   *@desc  it gets all users requests
+   *@desc  it gets a users requests
    *
    * @param {object} req
    * @param {object} res
@@ -74,25 +66,11 @@ class RequestsController {
         });
       }
 
-      const getAUserRequestQuery = `
-          SELECT 
-          requests.id,
-          requests.request_title,
-          requests.request_body,
-          requests.request_status,
-          requests.date
-          FROM requests
-          WHERE requests.id = ${requestId}
-          AND requests.user_id = ${token.id};
-      `;
 
-      const request = await client.query(getAUserRequestQuery);
+      const request = await client.query(getAUsersRequestQuery(requestId, token.id));
 
       if (request.rows.length < 1) {
-        return res.status(404).json({
-          status: 'fail',
-          message: 'request not found'
-        });
+        return errorResponse(res, 'fail', 'request not found', 404);
       }
 
       return res.status(200).json({
@@ -121,23 +99,14 @@ class RequestsController {
     try {
       const { requestTitle, requestBody, date, userId } = req.body;
 
-      const createARequestQuery = `
-                INSERT INTO requests (
-                  request_title,
-                  request_body,
-                  date,
-                  user_id
-                )
-                VALUES (
-                  '${requestTitle}',
-                  '${requestBody}',
-                  '${date}',
-                  '${userId}'
-                ) returning *;
-              `;
+      const requestIsUnique = await client.query(requestIsUniqueQuery(requestTitle, requestBody, userId))
+    
+       if (requestIsUnique.rows.length !== 0) {
+        return errorResponse(res, 'fail', 'request already exist', 409);
+       }
+      const request = await client.query(createARequestQuery(requestTitle,requestBody, date, userId));
 
-      const request = await client.query(createARequestQuery);
-
+      
       return res.status(201).json({
         status: 'success',
         data: {
@@ -164,7 +133,7 @@ class RequestsController {
     try {
       const token = await tokens(req);
       const { id } = req.params;
-      const { requestTitle, requestBody } = req.body;
+      const { request_title, request_body } = req.body;
 
       if (!Number.isInteger(Number(id))) {
         return res.status(400).json({
@@ -173,25 +142,16 @@ class RequestsController {
         });
       }
 
-      const modifyARequestQuery = `
-            UPDATE requests
-            SET 
-            request_title='${requestTitle}',
-            request_body='${requestBody}'
-            WHERE requests.id=${id}
-            AND requests.user_id=${token.id}
-            returning *;
-          `;
+      const request = await client.query(checkRequestQuery(id, token.id));
 
-      const updatedRequest = await client.query(modifyARequestQuery);
-
-      if (updatedRequest.rows.length < 1) {
-        return res.status(404).json({
-          status: 'failed',
-          message: 'request not found'
-        });
+      if (request.rows.length < 1) {
+        return errorResponse(res, 'failed', 'request not found', 404);
       }
+ 
+      const mergedRequest= { ...request.rows[0], ...req.body };
 
+      const updatedRequest = await client.query(modifyARequestQuery(mergedRequest.request_title, mergedRequest.request_body, id, token.id));
+    
       return res.status(200).json({
         status: 'success',
         data: {

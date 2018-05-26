@@ -1,6 +1,11 @@
 import dbConnect from './index';
+import adminQueries from './query';
+import response from './errorMessage';
 
+const { errorResponse } = response
 const { pgConnect } = dbConnect;
+const { adminQuery } = adminQueries;
+
 const client = pgConnect();
 client.connect();
 
@@ -15,36 +20,15 @@ client.connect();
  */
 const query = async (req, res, queryCondition) => {
     const { requestId } = req.params;
-    const { requestStatus } = req.body;
     
     if (!Number.isInteger(Number(requestId))) {
-        return res.status(400).json({
-            status: 'failed',
-            message: 'Input must be an Integer'
-          });
+        return errorResponse(res, 'failed', 'Input must be an Integer', 400);
       }
   
-    if (requestStatus !==   queryCondition) {
-      return res.status(403).json({
-        status: 'failed',
-        message: `Input must be ${queryCondition}!!!`
-      });
-    }
-    const query = `
-          UPDATE requests
-          SET 
-          request_status='${requestStatus}'
-          WHERE id=${requestId}
-          AND request_status='processing'
-          returning *;
-        `;
-  
-        const result = await client.query(query);
+
+        const result = await client.query(adminQuery(queryCondition, requestId));
         if (result.rows.length < 1) {
-          return res.status(404).json({
-            status: 'failed',
-            message: 'request not found'
-          });
+          return errorResponse(res, 'failed', 'request not found', 404);
         }
   
         return res.status(200).json({

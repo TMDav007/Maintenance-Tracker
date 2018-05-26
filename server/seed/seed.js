@@ -96,7 +96,7 @@ const createAndSeed = `
     VALUES (
       'Request to fix the Laptop',
       'The Laptop stopped working some days ago, I will like it to get fixed on time. Thank you',
-      'pending',
+      'processing',
       '2018-06-10',
       2
     );

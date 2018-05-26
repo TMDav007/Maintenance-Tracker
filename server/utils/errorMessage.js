@@ -9,11 +9,11 @@
  * @return {object} returns an error message
  */
 
-const errorMessage = (res, status, message,statusCode) => {
+const errorResponse = (res, status, message,statusCode) => {
   return  res.status(statusCode).json({
         status,
         message
     });
 }
 
-export default { errorMessage };
+export default { errorResponse };
