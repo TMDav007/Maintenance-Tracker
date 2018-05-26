@@ -1,4 +1,4 @@
-import utils from './../utils/index';
+import utils from "./../utils/index";
 
 const { pgConnect, tokens } = utils;
 
@@ -10,13 +10,13 @@ client.connect();
  */
 class RequestsController {
   /**
- * @desc it gets all users requests
- *
- * @param {string} req
- * @param {string} res
- *
- * @return {object} an object
- */
+   * @desc it gets all users requests
+   *
+   * @param {string} req
+   * @param {string} res
+   *
+   * @return {object} an object
+   */
   static async getRequests(req, res) {
     try {
       const token = await tokens(req);
@@ -35,7 +35,7 @@ class RequestsController {
 
       if (requests.rows.length < 1) {
         return res.status(404).json({
-          status: 'failed',
+          status: 'fail',
           message: 'request not found'
         });
       }
@@ -43,24 +43,25 @@ class RequestsController {
       return res.status(200).json({
         status: 'success',
         data: {
-          requests: requests.rows,
+          requests: requests.rows
         }
       });
-    } catch (error) { res.status(500).json({
-      status: 'error',
-      message: error.message
-    });
-  }
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
   }
 
   /**
- *@desc  it gets all users requests
- *
- * @param {string} req
- * @param {string} res
- *
- * @return {object} an object
- */
+   *@desc  it gets all users requests
+   *
+   * @param {string} req
+   * @param {string} res
+   *
+   * @return {object} an object
+   */
   static async getARequest(req, res) {
     try {
       const token = await tokens(req);
@@ -68,7 +69,7 @@ class RequestsController {
 
       if (!Number.isInteger(Number(requestId))) {
         return res.status(400).json({
-          status: 'error',
+          status: 'fail',
           message: 'Input must be an Integer'
         });
       }
@@ -89,7 +90,7 @@ class RequestsController {
 
       if (request.rows.length < 1) {
         return res.status(404).json({
-          status: 'failed',
+          status: 'fail',
           message: 'request not found'
         });
       }
@@ -100,26 +101,25 @@ class RequestsController {
           request: request.rows[0]
         }
       });
-    } catch (error) { res.status(500).json({
-      status: 'error',
-      message: error.message
-    });
-  }
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
   }
 
   /**
- *@desc  it create creates a requests
- *
- * @param {string} req
- * @param {string} res
- *
- * @return {object} an object
- */
+   *@desc  it create creates a requests
+   *
+   * @param {string} req
+   * @param {string} res
+   *
+   * @return {object} an object
+   */
   static async createARequest(req, res) {
     try {
-      const {
-        requestTitle, requestBody, date, userId
-      } = req.body;
+      const { requestTitle, requestBody, date, userId } = req.body;
 
       const createARequestQuery = `
                 INSERT INTO requests (
@@ -144,11 +144,66 @@ class RequestsController {
           request: request.rows[0]
         }
       });
-    } catch (error) { res.status(500).json({
-      status: 'error',
-      message: error.message
-    });
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
   }
+
+  /**
+   *@desc  it modifies a requests
+   *
+   * @param {string} req
+   * @param {string} res
+   *
+   * @return {object} the updated request
+   */
+  static async updateARequest(req, res) {
+    try {
+      const token = await tokens(req);
+      const { id } = req.params;
+      const { requestTitle, requestBody } = req.body;
+
+      if (!Number.isInteger(Number(id))) {
+        return res.status(400).json({
+          status: 'failed',
+          message: 'Input must be an Integer'
+        });
+      }
+
+      const modifyARequestQuery = `
+            UPDATE requests
+            SET 
+            request_title='${requestTitle}',
+            request_body='${requestBody}'
+            WHERE requests.id=${id}
+            AND requests.user_id=${token.id}
+            returning *;
+          `;
+
+      const updatedRequest = await client.query(modifyARequestQuery);
+
+      if (updatedRequest.rows.length < 1) {
+        return res.status(404).json({
+          status: 'failed',
+          message: 'request not found'
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          request: updatedRequest.rows[0]
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
   }
 }
 
