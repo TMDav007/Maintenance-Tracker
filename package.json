@@ -36,6 +36,7 @@
     "nodemon": "^1.17.4",
     "nyc": "^11.8.0",
     "pg": "^7.4.3",
+    "rimraf": "^2.6.2",
     "supertest": "^3.1.0",
     "validator": "^10.2.0",
     "validatorjs": "^3.14.2"
