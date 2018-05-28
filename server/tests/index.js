@@ -3,7 +3,6 @@ import request from 'supertest';
 import app from './../server';
 
 let token, token2;
-
 // Test for sign up
 describe('user validation', () => {
   it('it should signup user', (done) => {
@@ -27,7 +26,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with an existing email', (done) => {
-    // variable detail
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -46,7 +44,6 @@ describe('user validation', () => {
       });
   });
   it('it should signup user with an existing phone number', (done) => {
-    // variable detail
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -66,7 +63,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with an empty first name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -85,7 +81,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with no first name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -103,7 +98,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with no email', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -122,7 +116,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with invalid email', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -141,7 +134,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with an empty first name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -160,7 +152,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with short first name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -179,7 +170,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with unmatched password', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -199,7 +189,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with short password', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -217,7 +206,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with an unconfirmed password', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -234,7 +222,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with no Phone number', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -252,7 +239,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with no last name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -270,7 +256,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with short last name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -289,7 +274,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user an empty lastName', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -308,7 +292,6 @@ describe('user validation', () => {
       });
   });
   it('it should not signup user with short phone number', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -328,7 +311,6 @@ describe('user validation', () => {
   });
 
   it('it should not signup user with no last name', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -411,8 +393,8 @@ describe('user validation{login)', () => {
         done();
       });
   });
+
   it('should not login with an incorrect password ', (done) => {
-  // variable details
     request(app)
       .post('/api/v1/auth/login')
       .send({
@@ -427,7 +409,6 @@ describe('user validation{login)', () => {
   });
 
   it('should not login with an no email ', (done) => {
-    // variable details
     request(app)
       .post('/api/v1/auth/login')
       .send({
@@ -441,7 +422,6 @@ describe('user validation{login)', () => {
   });
 
   it('should not login with an no password ', (done) => {
-  // variable details
     request(app)
       .post('/api/v1/auth/login')
       .send({
@@ -484,7 +464,7 @@ describe('GET all users requests', () => {
       .get('/api/v1/users/requests')
       .end((err, res) => {
         expect(res.status).to.equal(403);
-        expect(res.body.message).to.equal('forbidden to non user');
+        expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -506,7 +486,7 @@ describe('GET a user request', () => {
   });
   it('it should not GET a user Request', (done) => {
     request(app)
-      .get('/api/v1/users/requests/5')
+      .get('/api/v1/users/requests/9')
       .set('x-access-token', token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
@@ -520,7 +500,7 @@ describe('GET a user request', () => {
       .get('/api/v1/users/requests/3')
       .end((err, res) => {
         expect(res.status).to.equal(403);
-        expect(res.body.message).to.equal('forbidden to non user');
+        expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -692,7 +672,7 @@ describe('create a request', () => {
 
 // Test to modify a user's Request
 describe('UPDATE a user request', () => {
-  it('it should GET update a users request', (done) => {
+  it('it should update a users request', (done) => {
     request(app)
       .put('/api/v1/users/requests/2')
       .set('x-access-token', token)
@@ -703,18 +683,11 @@ describe('UPDATE a user request', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.data).to.haveOwnProperty('request');
-        expect(res.body.data.request).to.be.an('object');
-        expect(res.body.data.request).to.be.haveOwnProperty('id');
-        expect(res.body.data.request).to.be.haveOwnProperty('request_title');
-        expect(res.body.data.request).to.be.haveOwnProperty('request_body');
-        expect(res.body.data.request).to.be.haveOwnProperty('request_status');
-        expect(res.body.data.request).to.be.haveOwnProperty('date');
-        expect(res.body.data.request).to.be.haveOwnProperty('user_id');
         expect(res.body.status).to.equal('success');
         done();
       });
   });
-  it('it should GET update a users request', (done) => {
+  it('it should update a users request', (done) => {
     request(app)
       .put('/api/v1/users/requests/s')
       .set('x-access-token', token)
@@ -729,7 +702,7 @@ describe('UPDATE a user request', () => {
         done();
       });
   });
-  it('it should GET update a users request', (done) => {
+  it('it should update a users request', (done) => {
     request(app)
       .put('/api/v1/users/requests/3.6')
       .set('x-access-token', token)
@@ -744,7 +717,7 @@ describe('UPDATE a user request', () => {
         done();
       });
   });
-  it('it should GET update a users request', (done) => {
+  it('it should update a users request', (done) => {
     request(app)
       .put('/api/v1/users/requests/6')
       .set('x-access-token', token)
@@ -761,3 +734,39 @@ describe('UPDATE a user request', () => {
   });
 });
 
+// admin Get All request
+describe('ADMIN get all requests', () => {
+  it('it should GET  all requests', (done) => {
+    request(app)
+      .get('/api/v1/requests')
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.status).to.equal('fail');
+        expect(res.body.message).to.equal('Token not provided or Invalid Token');
+        done();
+      });
+  });
+  it('it should GET all requests', (done) => {
+    request(app)
+      .get('/api/v1/requests')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.status).to.equal('fail');
+        expect(res.body.message).to.equal('Forbidden to non admin');
+        done();
+      });
+  });
+
+  it('it should GET all request', (done) => {
+    request(app)
+      .get('/api/v1/requests')
+      .set('x-access-token', token2)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('requests');
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+});

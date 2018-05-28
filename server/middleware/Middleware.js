@@ -1,19 +1,19 @@
 import validator from 'validator';
-import jwt from 'jsonwebtoken';
 import Validator from 'validatorjs';
+import dotenv from 'dotenv';
 
 import utils from './../utils/index';
 
-const { pgConnect } = utils;
+const { pgConnect, tokens } = utils;
 
 const client = pgConnect();
 client.connect();
 
-require('dotenv').config();
 
-/**
- *  middleware class
- */
+dotenv.config();
+
+
+/** middleware class */
 class Middleware {
   /**
    * @desc authenticates a user
@@ -25,17 +25,31 @@ class Middleware {
    * @returns {object} next
    */
   static authenicateUser(req, res, next) {
-    const token =
-      req.headers['x-access-token'] || req.body.token || req.query.token;
+    const token = tokens(req);
+    if (!token) {
+      return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
+    }
+    return next();
+  }
 
-    jwt.verify(token, process.env.SECRET, (err) => {
-      if (err) {
-        return res
-          .status(403)
-          .json({ status: 'fail', message: 'forbidden to non user' });
-      }
-      return next();
-    });
+  /**
+   * @desc authenticates an admin
+   *
+   * @param {object} req
+   *@param {object} res
+   * @param {object} next
+   *
+   * @returns {object} next
+   */
+  static async authenicateAdmin(req, res, next) {
+    const token = tokens(req);
+    if (!token) {
+      return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
+    }
+    if (token.user_role !== 'admin') {
+      return res.status(403).json({ status: 'fail', message: 'Forbidden to non admin' });
+    }
+    return next();
   }
   /**
    * @desc it validates input for create request endpoint

@@ -22,10 +22,15 @@ const pgConnect = () => {
 };
 
 const tokens = (req) => {
+  let decode;
   const token = req.headers['x-access-token'] || req.body.token || req.query.token;
-
-  const decoded = jwt.verify(token, process.env.SECRET);
-  return decoded;
+  jwt.verify(token, process.env.SECRET, (err, decoded) => {
+    if (err) {
+      decode = err;
+    }
+    decode = decoded;
+  });
+  return decode;
 };
 
 export default { pgConnect, tokens };
