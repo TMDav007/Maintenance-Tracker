@@ -1,19 +1,19 @@
 import validator from 'validator';
-import jwt from 'jsonwebtoken';
 import Validator from 'validatorjs';
+import dotenv from 'dotenv';
 
 import utils from './../utils/index';
 
-const { pgConnect } = utils;
+const { pgConnect, tokens } = utils;
 
 const client = pgConnect();
 client.connect();
 
-require('dotenv').config();
 
-/**
- *  middleware class 
- */
+dotenv.config();
+
+
+/** middleware class */
 class Middleware {
   /**
    * @desc authenticates a user
@@ -25,17 +25,31 @@ class Middleware {
    * @returns {object} next
    */
   static authenicateUser(req, res, next) {
-    const token =
-      req.headers['x-access-token'] || req.body.token || req.query.token;
+    const token = tokens(req);
+    if (!token) {
+      return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
+    }
+    return next();
+  }
 
-    jwt.verify(token, process.env.SECRET, (err) => {
-      if (err) {
-        return res
-          .status(403)
-          .json({ status: 'error', message: 'forbidden to non user' });
-      }
-      return next();
-    });
+  /**
+   * @desc authenticates an admin
+   *
+   * @param {object} req
+   *@param {object} res
+   * @param {object} next
+   *
+   * @returns {object} next
+   */
+  static async authenicateAdmin(req, res, next) {
+    const token = tokens(req);
+    if (!token) {
+      return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
+    }
+    if (token.user_role !== 'admin') {
+      return res.status(403).json({ status: 'fail', message: 'Forbidden to non admin' });
+    }
+    return next();
   }
   /**
    * @desc it validates input for create request endpoint
@@ -66,10 +80,8 @@ class Middleware {
     };
 
     const errorMessages = {
-      requestTitle:
-        'the request title is required| the request title should have a minimum of 10 charaters',
-      requestBody:
-        'the request body is required| the request body should have a minimum of 10 charaters',
+      requestTitle: 'the request title is required| the request title should have a minimum of 10 charaters',
+      requestBody: 'the request body is required| the request body should have a minimum of 10 charaters',
       date: 'date is required',
       userId: 'the user id is required|user id must be an integer'
     };
@@ -83,7 +95,7 @@ class Middleware {
     return res.status(400).json({
       status: 'fail',
       data: {
-        errors: validation.errors.all()
+        error: validation.errors.all()
       }
     });
   }
@@ -98,110 +110,110 @@ class Middleware {
    * @returns {object} next
    */
   static validateSignup(req, res, next) {
-    const errors = [];
+    const fails = [];
     if (!req.body.firstName || req.body.firstName === undefined) {
-      errors.push('first name is required');
+      fails.push('first name is required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     if (req.body.firstName === '') {
-      errors.push('first name cannot be empty');
+      fails.push('first name cannot be empty');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     if (req.body.firstName.length <= 1) {
-      errors.push('first name should be greater than 1 character');
+      fails.push('first name should be greater than 1 character');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (!req.body.lastName || req.body.lastName === undefined) {
-      errors.push('last name is required');
+      fails.push('last name is required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     if (req.body.lastName === '') {
-      errors.push('last name cannot be empty');
+      fails.push('last name cannot be empty');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     if (req.body.lastName.length <= 1) {
-      errors.push('last name should be greater than 1 character');
+      fails.push('last name should be greater than 1 character');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (!req.body.email || req.body.email === undefined) {
-      errors.push('email is required');
+      fails.push('email is required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     if (!validator.isEmail(req.body.email.toString())) {
-      errors.push('Valid email required');
+      fails.push('Valid email required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (req.body.phoneNumber === undefined) {
-      errors.push('valid phone number is required');
+      fails.push('valid phone number is required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (req.body.phoneNumber.length <= 8) {
-      errors.push('phone number must exceed 8 characters');
+      fails.push('phone number must exceed 8 characters');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (!req.body.password || req.body.password === undefined) {
-      errors.push('valid password required');
+      fails.push('valid password required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (req.body.password.length <= 6) {
-      errors.push('Password must exceed 6 characters');
+      fails.push('Password must exceed 6 characters');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (!req.body.confirmPassword || req.body.confirmPassword === undefined) {
-      errors.push('you need to confirm your password');
+      fails.push('you need to confirm your password');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     if (!validator.equals(req.body.password, req.body.confirmPassword)) {
-      errors.push('Passwords must match');
+      fails.push('Passwords must match');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     return next();
@@ -217,36 +229,36 @@ class Middleware {
    * @returns {object} next
    */
   static validateLogin(req, res, next) {
-    const errors = [];
+    const fails = [];
     if (req.body.email === undefined) {
-      errors.push('Email is required');
+      fails.push('Email is required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (!validator.isEmail(req.body.email.toString())) {
-      errors.push('Valid email required');
+      fails.push('Valid email required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (req.body.password === undefined) {
-      errors.push('Valid password required');
+      fails.push('Valid password required');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
 
     if (req.body.password.length <= 6) {
-      errors.push('Password must exceed 6 characters');
+      fails.push('Password must exceed 6 characters');
       return res.status(400).send({
-        status: 'error',
-        message: errors
+        status: 'fail',
+        message: fails
       });
     }
     return next();
@@ -274,14 +286,14 @@ class Middleware {
       const foundEmail = await client.query(checkEmail);
       if (foundEmail.rows[0]) {
         return res.status(409).json({
-          status: 'error',
+          status: 'fail',
           message: 'email is already existing'
         });
       }
     } catch (error) {
       res.status(500).json({
-        status: 'error',
-       message: error.message
+        status: 'fail',
+        message: error.message
       });
     }
     return done();
@@ -309,15 +321,15 @@ class Middleware {
       const foundPhoneNumber = await client.query(checkPhoneNumber);
       if (foundPhoneNumber.rows[0]) {
         return res.status(409).json({
-          status: 'error',
+          status: 'fail',
           message: 'phone number is already existing'
         });
       }
     } catch (error) {
       res.status(500).json({
-        status: 'error',
-       message: error.message
-      })
+        status: 'fail',
+        message: error.message
+      });
     }
     return done();
   }
