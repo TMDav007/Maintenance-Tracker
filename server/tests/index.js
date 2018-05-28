@@ -537,3 +537,156 @@ describe('GET a user request', () => {
       });
   });
 });
+
+// it should create a request
+describe('create a request', () => {
+  it('it should  create a users request', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'Request to fix the AC',
+        requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        date: '2019-04-09',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(201);
+        expect(res.body.data).to.haveOwnProperty('request');
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+  it('it should not  create for an unauthorized user ', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .send({
+        requestTitle: 'Request to fix the AC',
+        requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        date: '2019-04-09',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.status).to.equal('error');
+        done();
+      });
+  });
+  it('it should no create users request without a request title', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        date: '2019-04-09',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should no create users with short request title', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'thebfh',
+        requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        date: '2019-04-09',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not create users request with no request body', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        date: '2019-04-09',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not create users request with short request body', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'jdfhdd',
+        date: '2019-04-09',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not create request with no date ', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+        userId: 2
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+
+  it('it should not create request with no userId ', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+        date: '98-04-995',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not create request when userId is not integer ', (done) => {
+    request(app)
+      .post('/api/v1/users/requests')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+        date: '98-04-995',
+        userId: 'id'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+});
+
