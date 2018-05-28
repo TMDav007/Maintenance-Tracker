@@ -41,7 +41,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(409);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -60,7 +60,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(409);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -79,7 +79,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -97,7 +97,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -116,7 +116,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -136,7 +136,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -155,7 +155,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -174,7 +174,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -193,7 +193,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -212,7 +212,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -229,7 +229,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -247,7 +247,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -265,7 +265,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -284,7 +284,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -303,7 +303,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -322,7 +322,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -341,7 +341,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -358,7 +358,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -374,7 +374,7 @@ describe('user validation{login)', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -421,7 +421,7 @@ describe('user validation{login)', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -435,7 +435,7 @@ describe('user validation{login)', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -449,7 +449,7 @@ describe('user validation{login)', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -475,7 +475,7 @@ describe('GET all users requests', () => {
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('request not found');
-        expect(res.body.status).to.equal('failed');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -485,7 +485,7 @@ describe('GET all users requests', () => {
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('forbidden to non user');
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -511,7 +511,7 @@ describe('GET a user request', () => {
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('request not found');
-        expect(res.body.status).to.equal('failed');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -521,7 +521,7 @@ describe('GET a user request', () => {
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('forbidden to non user');
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -532,7 +532,7 @@ describe('GET a user request', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Input must be an Integer');
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -568,7 +568,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(403);
-        expect(res.body.status).to.equal('error');
+        expect(res.body.status).to.equal('fail');
         done();
       });
   });
@@ -583,7 +583,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -600,7 +600,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -616,7 +616,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -633,7 +633,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -649,7 +649,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -666,7 +666,7 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -683,8 +683,79 @@ describe('create a request', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.data).to.haveOwnProperty('errors');
+        expect(res.body.data).to.haveOwnProperty('error');
         expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+});
+
+// Test to modify a user's Request
+describe('UPDATE a user request', () => {
+  it('it should GET update a users request', (done) => {
+    request(app)
+      .put('/api/v1/users/requests/2')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.haveOwnProperty('request');
+        expect(res.body.data.request).to.be.an('object');
+        expect(res.body.data.request).to.be.haveOwnProperty('id');
+        expect(res.body.data.request).to.be.haveOwnProperty('request_title');
+        expect(res.body.data.request).to.be.haveOwnProperty('request_body');
+        expect(res.body.data.request).to.be.haveOwnProperty('request_status');
+        expect(res.body.data.request).to.be.haveOwnProperty('date');
+        expect(res.body.data.request).to.be.haveOwnProperty('user_id');
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+  it('it should GET update a users request', (done) => {
+    request(app)
+      .put('/api/v1/users/requests/s')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Input must be an Integer');
+        expect(res.body.status).to.equal('failed');
+        done();
+      });
+  });
+  it('it should GET update a users request', (done) => {
+    request(app)
+      .put('/api/v1/users/requests/3.6')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Input must be an Integer');
+        expect(res.body.status).to.equal('failed');
+        done();
+      });
+  });
+  it('it should GET update a users request', (done) => {
+    request(app)
+      .put('/api/v1/users/requests/6')
+      .set('x-access-token', token)
+      .send({
+        requestTitle: 'fix the tv now',
+        requestBody: 'the request body is required noejur',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('request not found');
+        expect(res.body.status).to.equal('failed');
         done();
       });
   });
