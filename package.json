@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node server/server.js",
-    "start:dev": "nodemon --watch server --exec babel-node server/server.js",
+    "start:dev": "set NODE_ENV=development&& nodemon --watch server --exec babel-node server/server.js",
     "build": "babel server -s -d dist",
     "db:migrate": "babel-node server/seed/index.js",
     "migrate": "set NODE_ENV=development&& babel-node server/seed/index.js",

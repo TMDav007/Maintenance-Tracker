@@ -13,7 +13,7 @@ class RequestsController {
    * @desc it gets all users requests
    *
    * @param {string} req
-   * @param {string} res
+   * @param {object} res
    *
    * @return {object} an object
    */
@@ -57,8 +57,8 @@ class RequestsController {
   /**
    *@desc  it gets all users requests
    *
-   * @param {string} req
-   * @param {string} res
+   * @param {object} req
+   * @param {object} res
    *
    * @return {object} an object
    */
@@ -112,8 +112,8 @@ class RequestsController {
   /**
    *@desc  it create creates a requests
    *
-   * @param {string} req
-   * @param {string} res
+   * @param {object} req
+   * @param {object} res
    *
    * @return {object} an object
    */
@@ -155,8 +155,8 @@ class RequestsController {
   /**
    *@desc  it modifies a requests
    *
-   * @param {string} req
-   * @param {string} res
+   * @param {object} req
+   * @param {object} res
    *
    * @return {object} the updated request
    */
@@ -199,6 +199,102 @@ class RequestsController {
         }
       });
     } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
+  }
+
+  /**
+ *@desc  it create creates a requests
+ *
+ * @param {object} req
+ * @param {object} res
+ *
+ * @return {object} the created request
+ */
+  static async createARequest(req, res) {
+    try {
+      const {
+        requestTitle, requestBody, date, userId
+      } = req.body;
+
+      const createARequestQuery = `
+                INSERT INTO requests (
+                  request_title,
+                  request_body,
+                  date,
+                  user_id
+                )
+                VALUES (
+                  '${requestTitle}',
+                  '${requestBody}',
+                  '${date}',
+                  '${userId}'
+                ) returning *;
+              `;
+
+      const request = await client.query(createARequestQuery);
+
+      return res.status(201).json({
+        status: 'success',
+        data: {
+          request: request.rows[0]
+        }
+      });
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  }
+
+  /**
+ *@desc  it modifies a requests
+ *
+ * @param {object} req
+ * @param {object} res
+ *
+ * @return {object} the updated request
+ */
+  static async updateARequest(req, res) {
+    try {
+      const token = await tokens(req);
+      const { id } = req.params;
+      const { requestTitle, requestBody } = req.body;
+
+      if (!Number.isInteger(Number(id))) {
+        return res.status(400).json({
+          status: 'failed',
+          message: 'Input must be an Integer'
+        });
+      }
+
+      const modifyARequestQuery = `
+              UPDATE requests
+              SET 
+              request_title='${requestTitle}',
+              request_body='${requestBody}'
+              WHERE requests.id=${id}
+              AND requests.user_id=${token.id}
+              returning *;
+            `;
+
+      const updatedRequest = await client.query(modifyARequestQuery);
+
+      if (updatedRequest.rows.length < 1) {
+        return res.status(404).json({
+          status: 'failed',
+          message: 'request not found'
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          request: updatedRequest.rows[0]
+        }
+      });
+    }  catch (error) {
       res.status(500).json({
         status: 'fail',
         message: error.message
