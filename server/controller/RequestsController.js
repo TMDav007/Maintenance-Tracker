@@ -243,8 +243,11 @@ class RequestsController {
           request: request.rows[0]
         }
       });
-    } catch (error) {
-      res.status(500).send(error.message);
+    }  catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
     }
   }
 
