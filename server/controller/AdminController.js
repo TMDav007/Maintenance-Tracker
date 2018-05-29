@@ -1,23 +1,26 @@
 import utils from './../utils/index';
+import adminQuery from './../utils/adminQuery';
+import error from './../utils/errorMessage';
 
 const { pgConnect } = utils;
+const { integerError } = error;
+const { query, checkInteger } = adminQuery;
 
 const client = pgConnect();
 client.connect();
-
 
 /**
  * it is a class that control all event method
  */
 class AdminController {
   /**
- * @desc it gets all requests
- *
- * @param {object} req
- * @param {object} res
- *
- * @return {object} get all request
- */
+   * @desc it gets all requests
+   *
+   * @param {object} req
+   * @param {object} res
+   *
+   * @return {object} get all request
+   */
   static async getAllRequests(req, res) {
     try {
       const getAllRequestsQuery = `
@@ -39,130 +42,79 @@ class AdminController {
       return res.status(200).json({
         status: 'success',
         data: {
-          requests: requests.rows,
+          requests: requests.rows
         }
       });
     } catch (error) {
       res.status(500).json({
-        status: 'fail',
+        status: "fail",
         message: error.message
       });
     }
   }
 
   /**
- *@desc approve a requests by an admin
- *
- * @param {object} req
- * @param {object} res
- *
- * @return {object} the approved  request
- */
+   *@desc approve a requests by an admin
+   *
+   * @param {object} req
+   * @param {object} res
+   *
+   * @return {object} the approved  request
+   */
   static async approveARequest(req, res) {
     try {
-      const { requestId } = req.params;
-      const { requestStatus } = req.body;
-      if (!Number.isInteger(Number(requestId))) {
-        return res.status(400).json({
-          status: 'failed',
-          message: 'Input must be an Integer'
-        });
+        const approve = 'pending'
+        const queryResult =  query(req, res, approve);
+          return queryResult;
+        } catch (error) {
+          res.status(500).json({
+            status: "fail",
+            message: error.message
+          });
       }
-      if (requestStatus !== 'pending') {
-        return res.status(403).json({
-          status: 'failed',
-          message: 'Input must pending!!! '
-        });
-      }
+  }
 
-      const approveARequestQuery = `
-            UPDATE requests
-            SET 
-            request_status='${requestStatus}'
-            WHERE id=${requestId}
-            AND request_status='processing'
-            returning *;
-          `;
-
-      const approvedRequest = await client.query(approveARequestQuery);
-      if (approvedRequest.rows.length < 1) {
-        return res.status(404).json({
-          status: 'failed',
-          message: 'request not found'
-        });
-      }
-
-      return res.status(200).json({
-        status: 'success',
-        data: {
-          request: approvedRequest.rows[0]
-        }
-      });
+  /**
+   *@desc disapprove a requests by an admin
+   *
+   * @param {object} req
+   * @param {object} res
+   *
+   * @return {object} the disapproved request
+   */
+  static async disapproveARequest(req, res, test) {
+    try {
+    const disapprove = 'disapproved'
+    const queryResult =  query(req, res, disapprove);
+      return queryResult;
     } catch (error) {
       res.status(500).json({
-        status: 'fail',
+        status: "fail",
         message: error.message
       });
     }
   }
 
-   /**
- *@desc disapprove a requests by an admin
- *
- * @param {object} req
- * @param {object} res
- *
- * @return {object} the disapproved request
- */
-static async disapproveARequest(req, res) {
-  try {
-    const { requestId } = req.params;
-    const { requestStatus } = req.body;
-
-    if (!Number.isInteger(Number(requestId))) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Input must be an Integer'
-      });
-    }
-    if (requestStatus !== 'disapproved') {
-      return res.status(403).json({
-        status: 'failed',
-        message: 'Input must disapproved!!!'
-      });
-    }
-
-    const disapproveARequestQuery = `
-        UPDATE requests
-        SET 
-        request_status='${requestStatus}'
-        WHERE id=${requestId}
-        AND request_status='processing'
-        returning *;
-      `;
-
-    const disapprovedRequest = await client.query(disapproveARequestQuery);
-
-    if (disapprovedRequest.rows.length < 1) {
-      return res.status(404).json({
-        status: 'failed',
-        message: 'request not found'
-      });
-    }
-
-    return res.status(200).json({
-      status: 'success',
-      data: {
-        request: disapprovedRequest.rows[0]
+  /**
+   *@desc resolve a requests by an admin
+   *
+   * @param {object} req
+   * @param {object} res
+   *
+   * @return {object} the resolve request
+   */
+  static async resolveARequest(req, res) {
+      try {
+        const resolved = 'resolved'
+        const queryResult =  query(req, res, resolved);
+          return queryResult;
+        } catch (error) {
+          res.status(500).json({
+            status: "fail",
+            message: error.message
+          });
       }
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: 'fail',
-      message: error.message
-    });
-  }
-}
+    }
 }
 
 export default AdminController;

@@ -11,7 +11,11 @@ const {
   getRequests, getARequest, createARequest, updateARequest
 } = RequestsController;
 
-const { getAllRequests, approveARequest, disapproveARequest } = AdminController;
+const {
+  getAllRequests, approveARequest, disapproveARequest, resolveARequest
+}
+ = AdminController;
+
 const {
   validateSignup, validateLogin, validateRequest,
   authenicateUser, authenicateAdmin, checkMail, checkPhoneNumber
@@ -37,11 +41,9 @@ const routes = (app) => {
   app.put('/api/v1/users/requests/:id', authenicateUser, updateARequest);
 
   app.get('/api/v1/requests', authenicateAdmin, getAllRequests);
-  app.put('/api/v1/users/requests/:id', updateARequest);
-
-  app.get('/api/v1/requests', authenicateAdmin, getAllRequests);
   app.put('/api/v1/requests/:requestId/approve', authenicateAdmin, approveARequest);
   app.put('/api/v1/requests/:requestId/disapprove', authenicateAdmin, disapproveARequest);
+  app.put('/api/v1/requests/:requestId/resolve', authenicateAdmin, resolveARequest);
 };
 
 export default routes;
