@@ -37,38 +37,42 @@
             <!--Sign up -->
             <section id="signup" class="container">
                 <div class="form-box">
-                    <form>
+                    <form id="signupUser">
                         <h1>Signup</h1>
                         <label for="First-name"></label>
-                        <input type="text" name="fullname" id="fullname" class="fa" placeholder="&#xf007  First-name">
+                        <input type="text" name="firstName" id="firstName" class="fa" placeholder="&#xf007  First-name">
+                        <span id="firstNameError"></span>
                         <br>
-                        <br>
+                       
+                        
+            
                         <label for="Last-name"></label>
-                        <input type="text" name="fullname" id="fullname" class="fa" placeholder="&#xf007  Last-name">
+                        <input type="text" name="lastName" id="lastName" class="fa" placeholder="&#xf007  Last-name">
+                        <span id="lastNameError"></span>
                         <br>
-                        <br>
-    
+                      
                         <label for="email"></label>
                         <input type="email" name="email" id="email" class="fa" placeholder="&#xf003  e-mail">
+                        <span id="emailError"></span>
                         <br>
-                        <br>
+                     
     
                         <label for="phone"></label>
-                        <input type="tel" name="phone" id="phone" class="fa" placeholder="&#xf095  Phone">
-                        <br>
+                        <input type="tel" name="phone" id="phoneNumber" class="fa" placeholder="&#xf095  Phone">
+                        <span id="phoneNumberError"></span>
                         <br>
     
                         <label for="password"></label>
                         <input type="password" name="password" id="password" class="fa" placeholder="&#xf084  Password">
+                        <span id="passwordError"></span>
                         <br>
-                        <br>
-    
+
                         <label for="password"></label>
-                        <input type="password" name="confirm_password" id="confrim_password" class="fa" placeholder="&#xf084  Confirm-Password">
-                        <br>
+                        <input type="password" name="confirm_password" id="passwordConfirmation" class="fa" placeholder="&#xf084  Confirm-Password">
+                        <span id="confirmPasswordError"></span>
                         <br>
     
-                        <button type="submit" id="submit">
+                        <button type="submit" id="signupSubmit">
                             <i class="fa fa-sign-in"></i> Submit </button>
                     </form>
                 </div>

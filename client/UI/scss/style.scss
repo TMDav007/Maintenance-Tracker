@@ -247,23 +247,39 @@ button[type="submit"] {
 #signup {
   height: 600px;
   padding: 2em 0 2em 0;
+  form {
+    span{
+      position: relative;
+      font-size: .6em;
+      text-align: left;
+      padding: .4em 0 0 3em;
+      display: block;
+      color: #c51a1a;
+    }
+  }
   @media only screen and (min-width: 700px) {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1em;
-    padding: 2em 10em 3em 10em;
+    padding: 2em 10em 9em 10em;
     form {
       width: 25em;
       padding: 0;
       margin: 0 auto;
+      span{
+        position: relative;
+        font-size: .7em;
+        margin: .5em 10em .2em 0em;
+        color: #c51a1a;
+      }
     }
   }
   @media only screen and (min-width: 900px) {
-    padding: 3em 15em 3em 15em;
+    padding: 2.5em 15em 8.5em 15em;
   }
   .form-box {
     border: 1px solid rgba(39, 30, 43, 0.7);
-    padding: 0 0em 3em 0em;
+    padding: 0 0em 0em 0em;
     background: #f3f3f3;
     margin: 3.5em auto 0 auto;
     width: 18em;
@@ -274,8 +290,8 @@ button[type="submit"] {
     }
     h1 {
       font-size: 25px;
-      padding: 2em 6px 0.3em 12px;
-      margin: 1em 0 0.4em 0em;
+      padding: 1em 6px 0.3em 12px;
+      margin: 0em 0 0.4em 0em;
       opacity: 0.7;
       color: #000;
       text-align: left;
@@ -283,7 +299,7 @@ button[type="submit"] {
         border-bottom: 1px solid rgba(0, 0, 0, 0.69);
         font-size: 1.9em;
         padding: 1em 6px 0.2em 0;
-        margin: 1em 0 1.5em 0;
+        margin: .5em 0 .5em 0;
         opacity: 0.7;
         color: rgba(0, 0, 0, 0.801);
       }
