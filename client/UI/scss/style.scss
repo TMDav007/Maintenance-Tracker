@@ -1,0 +1,512 @@
+@import "mixins";
+@import "variables";
+@import "global";
+
+// header
+header {
+  nav {
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    position: fixed;
+
+    .menu-icon {
+      @include menu-icon;
+    }
+    .logo {
+      @include logo;
+    }
+
+    ul {
+      max-height: 0px;
+      background: $navbar;
+      padding: 0;
+      list-style: none;
+      overflow: hidden;
+      margin: 0;
+      transition: all 0.1s;
+      @media only screen and (min-width: 700px) {
+        max-height: 5em;
+        text-align: right;
+        padding-right: 1em;
+      }
+    }
+    .showing {
+      max-height: 20em;
+    }
+
+    li {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 1.3em 0;
+      text-align: center;
+      border-bottom: 1px solid $border;
+      @media only screen and (min-width: 700px) {
+        display: inline-block;
+        padding: 20px 0;
+        width: 3.5em;
+      }
+      a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 15px;
+        @media only screen and (min-width: 700px) {
+          font-size: 17px;
+        }
+
+        &:hover {
+          opacity: 0.6;
+          cursor: pointer;
+        }
+        &.current {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  #showcase {
+    height: 600px;
+    @media only screen and (min-width: 700px) {
+      height: 700px;
+    }
+    #bg-image {
+      position: absolute;
+      background: url("./../images/img1.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+      height: 600px;
+      z-index: -2;
+      opacity: 0.8;
+      -webkit-transition: background-image 7s ease-in-out;
+      -moz-transition: background-image 7s ease-in-out;
+      -o-transition: background-image 7s ease-in-out;
+      transition: background-image 7s ease-in-out;
+      @media only screen and (min-width: 700px) {
+        height: 700px;
+      }
+    }
+    .content-wrap {
+      padding: 0 1.5em;
+      h1 {
+        padding-top: 5em;
+        padding-bottom: 2em;
+        font-size: 180%;
+        font-family: "Oleo Script Swash Caps", cursive;
+        @media only screen and (min-width: 700px) {
+          font-size: 400%;
+          font-family: "Acme", cursive;
+          text-transform: uppercase;
+          text-shadow: 1px 1px 15px $black;
+          padding: 2.8em 0 1em 0;
+        }
+      }
+      p {
+        font-family: "Poiret One", cursive;
+        font-weight: thin;
+        font-size: 1.2em;
+        margin-bottom: 7em;
+        @media only screen and (min-width: 700px) {
+          font-size: 200%;
+          text-shadow: 1px 1px 10px $black;
+          margin-bottom: 4em;
+        }
+      }
+      a {
+        text-decoration: none;
+        width: 20em;
+        background: $black;
+        padding: 0.5em 0.9em;
+        border-radius: 5%;
+        color: $white;
+        opacity: 0.6;
+        &:hover {
+          opacity: 0.3;
+          cursor: pointer;
+        }
+        @media only screen and (min-width: 700px) {
+          padding: 0.9em 1.2em;
+        }
+      }
+
+      .fa {
+        font-size: 3em;
+        color: rgba(0, 0, 0, 0.267);
+        text-decoration: none;
+        transition: all 0.5s;
+      }
+    }
+  }
+  #form-image {
+    position: absolute;
+    background: url("./../images/signup1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 700px;
+    z-index: -2;
+    opacity: 0.8;
+    background-color: rgba(3, 7, 29, 0.361);
+    @media only screen and (min-width: 700px) {
+      height: 800px;
+    }
+  }
+}
+
+/* footer */
+#footer {
+  padding: 2em;
+  background: $navbar;
+  color: #fff;
+  font-size: 1.2em;
+  text-align: center;
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+  }
+  a {
+    text-decoration: none;
+  }
+  .fa {
+    padding: 0.4em;
+    font-size: 1.5em;
+    &:hover {
+      color: #d5d5d5;
+    }
+  }
+  .fa-twitter {
+    color: #00aced;
+  }
+  .fa-instagram {
+    color: #517fa4;
+  }
+  .fa-youtube {
+    color: #bb0000;
+  }
+}
+
+// SIGNUP $& LOGIN
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+button[type="submit"] {
+  border: rgba(10, 10, 10, 0.34) 1px solid;
+  border-radius: 5px;
+  height: 30px;
+  width: 90%;
+  padding: 4px 4px;
+  font-size: 0.8em;
+  @media only screen and (min-width: 700px) {
+    width: 90%;
+    font-size: 0.7em;
+    height: 40px;
+  }
+  @media only screen and (min-width: 900px) {
+    font-size: 0.8em;
+  }
+}
+
+button[type="submit"] {
+  color: #ffffff;
+  height: 40px;
+  background-color: rgba(39, 45, 58, 0.988);
+  transition: all 0.5s;
+  margin-right: 10px;
+  margin-bottom: 0.8em;
+  @media only screen and (min-width: 700px) {
+    padding: 0px 10px 2px 10px;
+    font-size: 0.9em;
+    border: none;
+    width: 35%;
+    height: 40px;
+    margin: 0 1.5em 0 0em;
+    float: right;
+    transition: all 0.5s;
+  }
+  @media only screen and (min-width: 900px) {
+    font-size: 0.9em;
+  }
+  @media only screen and (min-width: 1000px) {
+    font-size: 0.9em;
+    width: 6em;
+  }
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+#login,
+#signup {
+  height: 600px;
+  padding: 2em 0 2em 0;
+  @media only screen and (min-width: 700px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    padding: 2em 10em 3em 10em;
+    form {
+      width: 25em;
+      padding: 0;
+      margin: 0 auto;
+    }
+  }
+  @media only screen and (min-width: 900px) {
+    padding: 3em 15em 3em 15em;
+  }
+  .form-box {
+    border: 1px solid rgba(39, 30, 43, 0.7);
+    padding: 0 0em 3em 0em;
+    background: #f3f3f3;
+    margin: 3.5em auto 0 auto;
+    width: 18em;
+    @media only screen and (min-width: 700px) {
+      width: 30em;
+      margin: 2em auto 5em auto;
+      padding: 0 0em 2em 0em;
+    }
+    h1 {
+      font-size: 25px;
+      padding: 2em 6px 0.3em 12px;
+      margin: 1em 0 0.4em 0em;
+      opacity: 0.7;
+      color: #000;
+      text-align: left;
+      @media only screen and (min-width: 700px) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.69);
+        font-size: 1.9em;
+        padding: 1em 6px 0.2em 0;
+        margin: 1em 0 1.5em 0;
+        opacity: 0.7;
+        color: rgba(0, 0, 0, 0.801);
+      }
+      @media only screen and (min-width: 900px) {
+        font-size: 1.8em;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: #13212a;
+      transition: all 0.5s;
+      font-size: 0.8em;
+      margin-top: 0.9em;
+      padding-left: 0em;
+      @media only screen and (min-width: 700px) {
+        float: left;
+        padding-left: 1.5em;
+      }
+      @media only screen and (min-width: 900px) {
+        font-size: 0.9em;
+      }
+      &:hover {
+        opacity: 0.7;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+//DASHBOARD
+#admin{
+  ul {
+    padding: 0.5em;
+  }
+  li {
+    padding: 0;
+    border-bottom: 0;
+  }
+  li::before {
+      content: none;
+  }
+  p {
+      margin-right:2em;
+      font-size: 16px;
+  }
+  .menu {
+    display: none;
+    @media only screen and (min-width: 700px) {
+      display: block;
+    }
+  }
+}
+
+.container {
+  position: relative;
+  background-color: transparent;
+  padding: 0;
+  @media only screen and (min-width: 700px) {
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+  @media only screen and (min-width: 900px) {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+  .dashboard {
+    @include dashboard;
+  }
+  .mainboard {
+    @media only screen and (min-width: 700px) {
+    }
+    #board {
+      margin: 0 auto;
+      position: relative;
+      height: 100vh;
+      padding: 0em 0 0 0;
+      width: 90%;
+      z-index: 1;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 12px;
+      @media only screen and (min-width: 700px) {
+        font-size: 15px;
+        padding: 5em 0 0 0;
+        margin: 0 auto;
+      }
+      @include board;
+    }
+  } 
+}
+
+// Modals
+#modal_make_request,#modal_request_details{
+  display: none;
+  position: fixed;
+  z-index: 1004;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.356);
+}
+
+#make_request_content{
+  position: relative;
+  z-index: 100;
+  background-color: #fefefe;
+  margin: 15% auto 15% auto;
+  padding: 0 1em;
+  width: 80%;
+  padding-bottom: 30px;
+  @media only screen and (min-width: 900px) {
+      margin: 6em auto;
+      width:35em;
+  }
+  h1{
+      color: #000;
+      font-size: 1.2em;
+      @media only screen and (min-width: 700px) {
+          font-size: 1.3em;
+      }
+
+  }
+  table{
+      width: 100%;
+      margin: 0 auto;
+  }
+  label {
+      color: #000;
+      font-size: .8em;
+      font-weight: bold;
+      padding: 0 0 1em 0;
+      text-align: center;
+      margin-right: 0.4em;
+      @media only screen and (min-width: 700px) {
+          font-size: 1em;
+          padding: 0;
+      }
+  }
+  input[type="text"] {
+      width: 80%;
+      border:  rgba(31, 29, 26, 0.494) 1px solid;
+      border-radius: 2px;
+      height: 1.5em;
+      padding: .5em;
+      font-size: 14px;
+      @media only screen and (min-width: 700px) {
+          width: 70%;
+          font-size: .8em;
+          height: 3em;
+          margin: 1em 0 0 0;
+      }
+  }
+  input[type="date"] {
+    border:  rgba(31, 29, 26, 0.494) 1px solid;
+    border-radius: 2px;
+    height: 1.5em;
+    padding: .5em;
+    font-size: 14px;
+    @media only screen and (min-width: 700px) {
+        font-size: 1.1em;
+        height: 3em;
+        margin: 1em 0 0 0;
+    }
+}
+  textarea{
+      width: 90%;
+      border:  rgba(31, 29, 26, 0.494) 1px solid;
+      margin: 1em 0 0 0;
+      padding: .5em;
+  }
+
+  button[type='submit']{
+      width: 8em;
+      margin-top: .9em;
+      float: left;
+      margin-left: 7em;
+      font-size: .7em;
+      background-color: rgb(17, 19, 39);    
+      @media only screen and (min-width: 700px) {
+      float: none;
+      width: 11em;
+      margin: 1em 0 0 8em;
+    }
+  }
+}
+
+#request_details_content{
+  position: relative;
+  z-index: 100;
+  background-color: #fefefe;
+  margin: 35% auto 35% auto;
+  color: #000;
+  font-size: 13px;
+  padding: 0 2em;
+  width: 80%;
+  padding-top:10px;
+  padding-bottom: 30px;
+  @media only screen and (min-width: 900px) {
+      margin: 13em auto;
+      width:35em;
+  }
+  #date{
+    text-align: right;
+    font-weight: 700;
+  }
+}
+
+.requestDetails{
+  &:hover{
+      cursor: pointer;
+      opacity: .8;
+  }
+}
+
+// close 
+span{
+  position: absolute;
+  font-size: 1.5em;
+  color: #000;
+  right: 10px;
+  &:hover {
+      cursor: pointer;
+  }
+}
