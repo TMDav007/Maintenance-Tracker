@@ -3,8 +3,11 @@ import Validator from 'validatorjs';
 import dotenv from 'dotenv';
 
 import utils from './../utils/index';
+import validateObject from './validate';
 
 const { pgConnect, tokens } = utils;
+const { requestRules, requestErrorMessage,
+     userRules, userErrorMessage, loginRules, loginErrorMessage } = validateObject;
 
 const client = pgConnect();
 client.connect();
@@ -61,32 +64,12 @@ class Middleware {
    * @returns {object} next
    */
   static validateRequest(req, res, next) {
-    const {
-      requestTitle, requestBody, date, userId
-    } = req.body;
+    const { requestTitle, requestBody, date, userId} = req.body;
 
-    const data = {
-      requestTitle,
-      requestBody,
-      date,
-      userId
-    };
+    const data = { requestTitle, requestBody, date, userId };
 
-    const rules = {
-      requestTitle: 'required|min:10',
-      requestBody: 'required|min:10',
-      date: 'required',
-      userId: 'required|integer'
-    };
 
-    const errorMessages = {
-      requestTitle: 'the request title is required| the request title should have a minimum of 10 charaters',
-      requestBody: 'the request body is required| the request body should have a minimum of 10 charaters',
-      date: 'date is required',
-      userId: 'the user id is required|user id must be an integer'
-    };
-
-    const validation = new Validator(data, rules, errorMessages);
+    const validation = new Validator(data, requestRules, requestErrorMessage);
 
     if (validation.passes()) {
       return next();
@@ -101,7 +84,7 @@ class Middleware {
   }
 
   /**
-   * @desc validates the signup fields
+   * @desc it validates user signup 
    *
    * @param {object} req
    * @param {object} res
@@ -109,116 +92,36 @@ class Middleware {
    *
    * @returns {object} next
    */
-  static validateSignup(req, res, next) {
-    const fails = [];
-    if (!req.body.firstName || req.body.firstName === undefined) {
-      fails.push('first name is required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    if (req.body.firstName === '') {
-      fails.push('first name cannot be empty');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    if (req.body.firstName.length <= 1) {
-      fails.push('first name should be greater than 1 character');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
+  static validateUser(req, res, next) {
+    const {
+      firstName, lastName, phoneNumber, email, password, password_confirmation
+    } = req.body;
+
+    const data = {
+     firstName,
+     lastName,
+     phoneNumber,
+     email,
+     password,
+     password_confirmation
+    };
+
+    const validation = new Validator(data, userRules, userErrorMessage);
+
+    if (validation.passes()) {
+      return next();
     }
 
-    if (!req.body.lastName || req.body.lastName === undefined) {
-      fails.push('last name is required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    if (req.body.lastName === '') {
-      fails.push('last name cannot be empty');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    if (req.body.lastName.length <= 1) {
-      fails.push('last name should be greater than 1 character');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (!req.body.email || req.body.email === undefined) {
-      fails.push('email is required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    if (!validator.isEmail(req.body.email.toString())) {
-      fails.push('Valid email required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (req.body.phoneNumber === undefined) {
-      fails.push('valid phone number is required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (req.body.phoneNumber.length <= 8) {
-      fails.push('phone number must exceed 8 characters');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (!req.body.password || req.body.password === undefined) {
-      fails.push('valid password required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (req.body.password.length <= 6) {
-      fails.push('Password must exceed 6 characters');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (!req.body.confirmPassword || req.body.confirmPassword === undefined) {
-      fails.push('you need to confirm your password');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    if (!validator.equals(req.body.password, req.body.confirmPassword)) {
-      fails.push('Passwords must match');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    return next();
+    return res.status(400).json({
+      status: 'fail',
+      data: {
+        error: validation.errors.all()
+      }
+    });
   }
 
+
+  
   /**
    * @desc validates the login field
    *
@@ -229,39 +132,27 @@ class Middleware {
    * @returns {object} next
    */
   static validateLogin(req, res, next) {
-    const fails = [];
-    if (req.body.email === undefined) {
-      fails.push('Email is required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
+    const {
+      email, password
+    } = req.body;
+
+    const data = {
+     email,
+     password,
+    };
+
+    const validation = new Validator(data, loginRules, loginErrorMessage);
+
+    if (validation.passes()) {
+      return next();
     }
 
-    if (!validator.isEmail(req.body.email.toString())) {
-      fails.push('Valid email required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (req.body.password === undefined) {
-      fails.push('Valid password required');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-
-    if (req.body.password.length <= 6) {
-      fails.push('Password must exceed 6 characters');
-      return res.status(400).send({
-        status: 'fail',
-        message: fails
-      });
-    }
-    return next();
+    return res.status(400).json({
+      status: 'fail',
+      data: {
+        error: validation.errors.all()
+      }
+    });
   }
 
   /**
@@ -336,5 +227,3 @@ class Middleware {
 }
 
 export default Middleware;
-
-

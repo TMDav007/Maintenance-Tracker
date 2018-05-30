@@ -4,24 +4,19 @@ import dotenv from 'dotenv';
 import developmentConfig from './../config/developmentConfig';
 import testConfig from './../config/testConfig';
 import seed from './seed';
+import utils from './../utils/index';
 
 const { createAndSeed } = seed;
+const { pgConnect } = utils;
 
 dotenv.config();
 
-let config;
-
-if (process.env.NODE_ENV === 'development') {
-  config = developmentConfig;
-} else if (process.env.NODE_ENV === 'test') {
-  config = testConfig;
-} else {
-  config = process.env.DATABASE_URL;
-}
-
-const client = new pg.Client(config);
+const client = pgConnect();
 client.connect();
 
-client.query(createAndSeed, () => {
+client.query(createAndSeed, (err) => {
+  if (err) {
+    console.log(err);
+  }
   client.end();
 });

@@ -17,7 +17,7 @@ const {
  = AdminController;
 
 const {
-  validateSignup, validateLogin, validateRequest,
+  validateLogin, validateRequest, validateUser,
   authenicateUser, authenicateAdmin, checkMail, checkPhoneNumber
 } = Middleware;
 
@@ -32,7 +32,7 @@ const routes = (app) => {
       message: 'to view api, add /request'
     }));
 
-  app.post('/api/v1/auth/signup', validateSignup, checkMail, checkPhoneNumber, signUp);
+  app.post('/api/v1/auth/signup', validateUser, checkMail, checkPhoneNumber, signUp);
   app.post('/api/v1/auth/login', validateLogin, login);
 
   app.get('/api/v1/users/requests', authenicateUser, getRequests);

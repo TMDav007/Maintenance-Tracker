@@ -3,7 +3,32 @@ import request from 'supertest';
 import app from './../server';
 
 let token, token2;
-// Test for sign up
+
+//test for welcome message
+describe('/GET welcome message', () => {
+  it('it should GET a message', (done) => {
+    request(app)
+      .get('/api/v1')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.haveOwnProperty('message');
+        done();
+      });
+  });
+});
+
+describe('/GET api message', () => {
+  it('it should GET get a message', (done) => {
+    request(app)
+      .get('/api/v1/')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.haveOwnProperty('message');
+        done();
+      });
+  });
+});
+
 describe('user validation', () => {
   it('it should signup user', (done) => {
     request(app)
@@ -14,7 +39,7 @@ describe('user validation', () => {
         email: 'fifi@yahoo.com',
         phoneNumber: '08095483746',
         password: 'Opeyemi22',
-        confirmPassword: 'Opeyemi22',
+        password_confirmation: 'Opeyemi22',
         user_role: 'admin'
       })
       .end((err, res) => {
@@ -34,7 +59,7 @@ describe('user validation', () => {
         email: 'fifi@yahoo.com',
         phoneNumber: '0809483746',
         password: 'Opeyemi22',
-        confirmPassword: 'Opeyemi22',
+        password_confirmation: 'Opeyemi22',
         user_role: 'admin'
       })
       .end((err, res) => {
@@ -52,7 +77,7 @@ describe('user validation', () => {
         email: 'fifii@yahoo.com',
         phoneNumber: '08095483746',
         password: 'Opeyemi22',
-        confirmPassword: 'Opeyemi22',
+        password_confirmation: 'Opeyemi22',
         user_role: 'admin'
       })
       .end((err, res) => {
@@ -71,7 +96,7 @@ describe('user validation', () => {
         email: 'fifi@yahoo.com',
         phoneNumber: '08095483746',
         password: 'Opeyemi22',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -88,7 +113,7 @@ describe('user validation', () => {
         email: 'fifi@yahoo.com',
         phoneNumber: '08095483746',
         password: 'Opeyemi22',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -106,7 +131,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemi22',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -125,7 +150,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemi22',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -143,7 +168,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemuy2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -161,7 +186,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemuy2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -179,7 +204,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemuy2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -197,7 +222,7 @@ describe('user validation', () => {
         email: 'fifi@yahoo.com',
         phoneNumber: '08095483746',
         password: 'Ope2',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -230,7 +255,7 @@ describe('user validation', () => {
         email: 'fifi@yahoo.com',
         password: 'Opeyemi22',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -247,7 +272,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemuy2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -265,7 +290,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemuy2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -283,7 +308,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Opeyemuy2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -301,7 +326,7 @@ describe('user validation', () => {
         phoneNumber: '080946',
         password: 'Opeyemuy22',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -319,7 +344,7 @@ describe('user validation', () => {
         phoneNumber: '08095483746',
         password: 'Ope2',
         role: 'user',
-        confirmPassword: 'Opeyemi22'
+        password_confirmation: 'Opeyemi22'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -525,8 +550,8 @@ describe('create a request', () => {
       .post('/api/v1/users/requests')
       .set('x-access-token', token)
       .send({
-        requestTitle: 'Request to fix the AC',
-        requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
+        requestTitle: 'Requests to fix the AC',
+        requestBody: 'The AC stop working some days ago, I will like it to get fixed on time. Thank you',
         date: '2019-04-09',
         userId: 2
       })
@@ -677,8 +702,8 @@ describe('UPDATE a user request', () => {
       .put('/api/v1/users/requests/2')
       .set('x-access-token', token)
       .send({
-        requestTitle: 'fix the tv now',
-        requestBody: 'the request body is required noejur',
+        request_title: 'fix the tv now',
+        request_body: 'the request body is required noejur',
       })
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -777,7 +802,6 @@ describe('APPROVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/approve')
       .set('x-access-token', token2)
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.data).to.haveOwnProperty('request');
@@ -787,21 +811,8 @@ describe('APPROVE a request', () => {
   });
   it('it should not APPROVE a users request with requst status not processing', (done) => {
     request(app)
-      .put('/api/v1/requests/2/approve')
-      .set('x-access-token', token2)
-      .send({ requestStatus: 'pending' })
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body.status).to.equal('failed');
-        expect(res.body.message).to.equal('request not found');
-        done();
-      });
-  });
-  it('it should not APPROVE a users request with requst status not processing', (done) => {
-    request(app)
       .put('/api/v1/requests/s/approve')
       .set('x-access-token', token2)
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Input must be an Integer');
@@ -813,7 +824,6 @@ describe('APPROVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/approve')
       .set('x-access-token', token)
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Forbidden to non admin');
@@ -824,7 +834,6 @@ describe('APPROVE a request', () => {
   it('it should not APPROVE without a token', (done) => {
     request(app)
       .put('/api/v1/requests/1/approve')
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
@@ -840,7 +849,6 @@ describe('DISAPPROVE a request', () => {
     request(app)
       .put('/api/v1/requests/3/disapprove')
       .set('x-access-token', token2)
-      .send({ requestStatus: 'disapproved' })
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.data).to.haveOwnProperty('request');
@@ -848,23 +856,10 @@ describe('DISAPPROVE a request', () => {
         done();
       });
   });
-  it('it should not DISAPPROVE a users request with requst status not processing', (done) => {
-    request(app)
-      .put('/api/v1/requests/2/disapprove')
-      .set('x-access-token', token2)
-      .send({ requestStatus: 'disapproved' })
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body.status).to.equal('failed');
-        expect(res.body.message).to.equal('request not found');
-        done();
-      });
-  });
   it('it should not DISAPPROVE a users request with an invalid request id', (done) => {
     request(app)
       .put('/api/v1/requests/s/disapprove')
       .set('x-access-token', token2)
-      .send({ requestStatus: 'disapprove' })
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Input must be an Integer');
@@ -876,7 +871,6 @@ describe('DISAPPROVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/disapprove')
       .set('x-access-token', token)
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Forbidden to non admin');
@@ -887,7 +881,6 @@ describe('DISAPPROVE a request', () => {
   it('it should not DISAPPROVE without a token', (done) => {
     request(app)
       .put('/api/v1/requests/1/disapprove')
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
@@ -903,7 +896,6 @@ describe('RESOLVE a request', () => {
     request(app)
       .put('/api/v1/requests/4/resolve')
       .set('x-access-token', token2)
-      .send({ requestStatus: 'resolved' })
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.data).to.haveOwnProperty('request');
@@ -911,23 +903,10 @@ describe('RESOLVE a request', () => {
         done();
       });
   });
-  it('it should not RESOLVE a users request with requst status not processing', (done) => {
-    request(app)
-      .put('/api/v1/requests/2/resolve')
-      .set('x-access-token', token2)
-      .send({ requestStatus: 'resolved' })
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body.status).to.equal('failed');
-        expect(res.body.message).to.equal('request not found');
-        done();
-      });
-  });
   it('it should not RESOLVED a users request with an invalid request id', (done) => {
     request(app)
       .put('/api/v1/requests/s/resolve')
       .set('x-access-token', token2)
-      .send({ requestStatus: 'resolved' })
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Input must be an Integer');
@@ -939,7 +918,6 @@ describe('RESOLVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/disapprove')
       .set('x-access-token', token)
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Forbidden to non admin');
@@ -950,7 +928,6 @@ describe('RESOLVE a request', () => {
   it('it should not RESOLVE without a token', (done) => {
     request(app)
       .put('/api/v1/requests/1/disapprove')
-      .send({ requestStatus: 'pending' })
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
@@ -959,4 +936,3 @@ describe('RESOLVE a request', () => {
       });
   });
 });
-

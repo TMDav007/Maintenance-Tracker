@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken';
 
 import utils from './../utils/index';
+import query from './../utils/query';
 
 const { pgConnect } = utils;
+const { createUserQuery, loginQuery } = query
 
 const client = pgConnect();
 client.connect();
@@ -13,9 +15,11 @@ client.connect();
  */
 class UsersController {
   /**
- * it create a new user
- * @param {string} req
- * @param {string} res
+ * @desc it create a new user
+ * 
+ * @param {object} req
+ * @param {object} res
+ * 
  * @return {object} an object
  */
   static async signUp(req, res) {
@@ -24,23 +28,7 @@ class UsersController {
         firstName, lastName, phoneNumber, email, password
       } = req.body;
 
-      const createUser = `
-            INSERT INTO users (
-                first_name,
-                last_name,
-                phone_number,
-                email,
-                password
-            ) 
-            VALUES (
-                '${firstName}',
-                '${lastName}',
-                '${phoneNumber}',
-                '${email}',
-                crypt('${password}', gen_salt('${process.env.KEY}', 5))
-            ) RETURNING *;    
-        `;
-      const result = await client.query(createUser);
+      const result = await client.query(createUserQuery(firstName,lastName,phoneNumber,email, password));
       return res.status(201).json({
         status: 'success',
         data: {
@@ -56,10 +44,12 @@ class UsersController {
     }
   }
 
-  /**
- * it create a new user
- * @param {string} req
- * @param {string} res
+/**
+ *@desc it login a user
+ * 
+ * @param {object} req
+ * @param {object} res
+ * 
  * @return {object} an object
  */
   static async login(req, res) {
@@ -68,14 +58,7 @@ class UsersController {
         email, password
       } = req.body;
 
-      const checkEmailAndPassword = `
-            SELECT * 
-            FROM users
-            WHERE email = '${email}'
-            AND password = crypt('${password}', password)
-      `;
-
-      const foundEmail = await client.query(checkEmailAndPassword);
+      const foundEmail = await client.query(loginQuery(email, password));
       if (!foundEmail.rows[0]) {
         return res.status(400).json({
           status: 'error',
