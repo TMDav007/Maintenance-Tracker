@@ -1,7 +1,12 @@
-const removeElement = (id) => {
-    const element = document.getElementById(id);
-    element.parentNode.removeChild(element);
-}
+let message = document.getElementById("message");
+let modal = document.getElementById("modal_make_request");
+
+/**
+ * @desc sign up a user
+ * 
+ * params {string} e
+ * 
+ */
 const signin = (e)=> {
 const email= document.getElementById('email').value;
 const password= document.getElementById('password').value;
@@ -18,17 +23,23 @@ const password= document.getElementById('password').value;
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log(data.data);
          if (data.status === 'success') {  
             localStorage.setItem('token', data.data);
             window.location.href= './../UI/request.html';
 
-   } else {
+   } else if (data.message) {
+    message.innerHTML = data.message;
+    modal.style.display = "block";
+    modal.style.display = "block";
+    setTimeout(() => {
+      modal.style.display = "none";
+      modal.style.display = "none";
+    }, 3000);
+  } else {
      document.getElementById("emailError").innerHTML = data.data.error.email || '';
      document.getElementById("passwordError").innerHTML = data.data.error.password || '';
    }
     });
-
 }
 
 

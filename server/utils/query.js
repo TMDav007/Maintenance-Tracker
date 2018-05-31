@@ -233,4 +233,4 @@ export default {
     adminQuery,
     requestIsUniqueQuery,
     modifyARequestQuery
-    };
+};
