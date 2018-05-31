@@ -76,6 +76,10 @@ API is deployed at [https://maintaintracker.herokuapp.com/](https://maintaintrac
 * Run `yarn start` or `npm start` to start the server
 * Navigate to [localhost:8000](http://localhost:8000/) in browser to access the
   application
+  
+ 
+#### Documentation
+- https://app.swaggerhub.com/apis/TMDav/maintenance-tracker/1
 
 ### Testing
 
