@@ -2,7 +2,7 @@ let message = document.getElementById("message");
 let modal = document.getElementById("modal_make_request");
 
 /**
- * @desc sign up a user
+ * @desc sign in a user
  * 
  * params {string} e
  * 
@@ -24,7 +24,9 @@ const password= document.getElementById('password').value;
     .then((res) => res.json())
     .then((data) => {
          if (data.status === 'success') {  
-            localStorage.setItem('token', data.data);
+            localStorage.setItem('token', data.data.token);
+            const token =  localStorage.getItem('token');
+            console.log(token);
             window.location.href= './../UI/request.html';
 
    } else if (data.message) {
