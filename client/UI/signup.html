@@ -1,0 +1,93 @@
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Maintenace-Tracker | signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Poiret+One|Oleo+Script+Swash+Caps"
+        rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+        <!-- Header -->
+        <header>
+                <nav>
+                        <div class="menu-icon">
+                            <i class="fa fa-bars fa-2x"></i>
+                        </div>
+                        <div class="logo">
+                            <a href="index.html">mTracker</a>
+                        </div>
+                        <div class="menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="signin.html">Sign in</a></li>
+                                <li><a href="signup.html" class="current">Join</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div id="form-image"></div>
+            </header>
+            
+            <!--Sign up -->
+            <section id="signup" class="container">
+                <div id='modal_make_request'>
+                    <span id='message'></span>
+                </div>
+                <div class="form-box">
+                    <form id="signupUser">
+                        <h1>Signup</h1>
+                        <label for="First-name"></label>
+                        <input type="text" name="firstName" id="firstName" class="fa" placeholder="&#xf007  First-name">
+                        <span id="firstNameError"></span>
+                        <br>  
+            
+                        <label for="Last-name"></label>
+                        <input type="text" name="lastName" id="lastName" class="fa" placeholder="&#xf007  Last-name">
+                        <span id="lastNameError"></span>
+                        <br>
+                      
+                        <label for="email"></label>
+                        <input type="email" name="email" id="email" class="fa" placeholder="&#xf003  e-mail">
+                        <span id="emailError"></span>
+                        <br>
+
+                        <label for="phone"></label>
+                        <input type="tel" name="phone" id="phoneNumber" class="fa" placeholder="&#xf095  Phone">
+                        <span id="phoneNumberError"></span>
+                        <br>
+    
+                        <label for="password"></label>
+                        <input type="password" name="password" id="password" class="fa" placeholder="&#xf084  Password">
+                        <span id="passwordError"></span>
+                        <br>
+
+                        <label for="password"></label>
+                        <input type="password" name="confirm_password" id="passwordConfirmation" class="fa" placeholder="&#xf084  Confirm-Password">
+                        <span id="confirmPasswordError"></span>
+                        <br>
+    
+                        <button type="submit" id="signupSubmit">
+                            <i class="fa fa-sign-in"></i> Submit </button>
+                    </form>
+                </div>
+                
+                
+            </section>
+    
+            <!--footer-->
+            <footer id="footer" class="grid">
+                <div class="content-wrap">
+                
+                    <p>&copy; 2018 TmD</p>
+                </div>
+            </footer>
+            <script src="./../script/signup.js"></script>
+        </body>
+    
+    </html>

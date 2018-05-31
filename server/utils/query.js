@@ -38,7 +38,6 @@ const getAllUsersRequestsQuery = (condition) => {
             FROM requests
             WHERE requests.user_id = ${condition}
         `;
-        console.log(query);
     return query;
 }
 
