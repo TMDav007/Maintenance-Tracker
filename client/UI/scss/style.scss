@@ -516,6 +516,20 @@ button[type="submit"] {
   }
 }
 
+#message {
+  position: fixed;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2em;
+  z-index: 1;
+  width: 80%;
+  font-size: .8em;
+
+}
+
 // close 
 span{
   position: absolute;
