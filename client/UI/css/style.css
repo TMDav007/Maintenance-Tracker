@@ -600,7 +600,7 @@ button[type="submit"] {
           background-color: #43486f;
           color: #fff; }
 
-#modal_make_request, #modal_request_details {
+#modal_make_request, #modal_request_details, #message_modal {
   display: none;
   position: fixed;
   z-index: 1004;

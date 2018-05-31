@@ -392,7 +392,7 @@ button[type="submit"] {
 }
 
 // Modals
-#modal_make_request,#modal_request_details{
+#modal_make_request,#modal_request_details, #message_modal{
   display: none;
   position: fixed;
   z-index: 1004;
