@@ -13,6 +13,7 @@ This is a application that keep tracker of requests from users. This app will al
 * [API Endpoints](#api-endpoints)
 * [Getting Started](#getting-started)
    * [Installation](#installation)
+   * [Documentations](#documentations)
    * [Testing](#testing) 
 * [Contribution](#contribution)
 * [Author](#author)
@@ -78,7 +79,7 @@ API is deployed at [https://maintaintracker.herokuapp.com/](https://maintaintrac
   application
   
  
-#### Documentation
+### Documentations
 - https://app.swaggerhub.com/apis/TMDav/maintenance-tracker/1
 
 ### Testing
