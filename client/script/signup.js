@@ -1,6 +1,11 @@
 let message = document.getElementById("message");
 let modal = document.getElementById("modal_make_request");
 
+/**
+ * @desc sign up a user
+ * 
+ * params {string}
+ */
 const signup = e => {
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
