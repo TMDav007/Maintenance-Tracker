@@ -13,6 +13,8 @@ client.connect();
 
 /**
  * it is a class that control all a requests method
+ * 
+ * @class RequestsController
  */
 class RequestsController {
   /**
@@ -58,21 +60,16 @@ class RequestsController {
     try {
       const token = await tokens(req);
       const { requestId } = req.params;
-
       if (!Number.isInteger(Number(requestId))) {
         return res.status(400).json({
           status: 'fail',
           message: 'Input must be an Integer'
         });
       }
-
-
       const request = await client.query(getAUsersRequestQuery(requestId, token.id));
-
       if (request.rows.length < 1) {
         return errorResponse(res, 'fail', 'request not found', 404);
       }
-
       return res.status(200).json({
         status: 'success',
         data: {
@@ -95,18 +92,15 @@ class RequestsController {
    *
    * @return {object} an object
    */
-  static async createARequest(req, res) {
+  static async createRequest(req, res) {
     try {
       const { requestTitle, requestBody, date, userId } = req.body;
-
       const requestIsUnique = await client.query(requestIsUniqueQuery(requestTitle, requestBody, userId))
     
        if (requestIsUnique.rows.length !== 0) {
         return errorResponse(res, 'fail', 'request already exist', 409);
        }
       const request = await client.query(createARequestQuery(requestTitle,requestBody, date, userId));
-
-      
       return res.status(201).json({
         status: 'success',
         data: {
@@ -129,7 +123,7 @@ class RequestsController {
    *
    * @return {object} the updated request
    */
-  static async updateARequest(req, res) {
+  static async updateRequest(req, res) {
     try {
       const token = await tokens(req);
       const { id } = req.params;
@@ -143,15 +137,11 @@ class RequestsController {
       }
 
       const request = await client.query(checkRequestQuery(id, token.id));
-
       if (request.rows.length < 1) {
         return errorResponse(res, 'failed', 'request not found', 404);
       }
- 
       const mergedRequest= { ...request.rows[0], ...req.body };
-
       const updatedRequest = await client.query(modifyARequestQuery(mergedRequest.request_title, mergedRequest.request_body, id, token.id));
-    
       return res.status(200).json({
         status: 'success',
         data: {
@@ -165,7 +155,6 @@ class RequestsController {
       });
     }
   }
-
 }
 
 export default RequestsController;

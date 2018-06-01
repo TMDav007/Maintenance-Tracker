@@ -18,7 +18,7 @@ const signup = e => {
   console.log(password_confirmation);
   e.preventDefault();
 
-  fetch("http://localhost:8000/api/v1/auth/signup", {
+  fetch("https://maintaintracker.herokuapp.com/api/v1/auth/signup", {
     method: "POST",
     headers: {
       Accept: "application/json,*/*",

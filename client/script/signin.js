@@ -13,7 +13,7 @@ const password= document.getElementById('password').value;
 
     e.preventDefault();
 
-    fetch('http://localhost:8000/api/v1/auth/login', {
+    fetch('https://maintaintracker.herokuapp.com/api/v1/auth/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json,*/*',

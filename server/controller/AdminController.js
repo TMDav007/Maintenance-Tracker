@@ -12,7 +12,9 @@ const client = pgConnect();
 client.connect();
 
 /**
- * it is a class that control all event method
+ * It is a class that contoller the admin endpoint
+ * 
+ * @class AdminContoller
  */
 class AdminController {
   /**
@@ -25,9 +27,7 @@ class AdminController {
    */
   static async getAllRequests(req, res) {
     try {
-
       const requests = await client.query(getAllRequestsQuery);
-
       return res.status(200).json({
         status: 'success',
         data: {

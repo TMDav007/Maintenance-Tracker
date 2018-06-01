@@ -16,7 +16,11 @@ client.connect();
 dotenv.config();
 
 
-/** middleware class */
+/**
+ * middleware class
+ * 
+ * @class Middleware
+*/
 class Middleware {
   /**
    * @desc authenticates a user
@@ -50,7 +54,7 @@ class Middleware {
       return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
     }
     if (token.user_role !== 'admin') {
-      return res.status(403).json({ status: 'fail', message: 'Forbidden to non admin' });
+      return res.status(401).json({ status: 'fail', message: 'Forbidden to non admin' });
     }
     return next();
   }
@@ -65,12 +69,9 @@ class Middleware {
    */
   static validateRequest(req, res, next) {
     const { requestTitle, requestBody, date, userId} = req.body;
-
     const data = { requestTitle, requestBody, date, userId };
-
-
     const validation = new Validator(data, requestRules, requestErrorMessage);
-
+   
     if (validation.passes()) {
       return next();
     }
@@ -96,7 +97,6 @@ class Middleware {
     const {
       firstName, lastName, phoneNumber, email, password, password_confirmation
     } = req.body;
-
     const data = {
      firstName,
      lastName,
@@ -105,7 +105,6 @@ class Middleware {
      password,
      password_confirmation
     };
-
     const validation = new Validator(data, userRules, userErrorMessage);
 
     if (validation.passes()) {
@@ -120,8 +119,6 @@ class Middleware {
     });
   }
 
-
-  
   /**
    * @desc validates the login field
    *
@@ -135,12 +132,10 @@ class Middleware {
     const {
       email, password
     } = req.body;
-
     const data = {
      email,
      password,
     };
-
     const validation = new Validator(data, loginRules, loginErrorMessage);
 
     if (validation.passes()) {
@@ -167,13 +162,11 @@ class Middleware {
   static async checkMail(req, res, done) {
     try {
       const { email } = req.body;
-
       const checkEmail = `
             SELECT * 
             FROM users
             WHERE email = '${email}'   
       `;
-
       const foundEmail = await client.query(checkEmail);
       if (foundEmail.rows[0]) {
         return res.status(409).json({
@@ -202,13 +195,11 @@ class Middleware {
   static async checkPhoneNumber(req, res, done) {
     try {
       const { phoneNumber } = req.body;
-
       const checkPhoneNumber = `
             SELECT * 
             FROM users
             WHERE phone_number = '${phoneNumber}'   
       `;
-
       const foundPhoneNumber = await client.query(checkPhoneNumber);
       if (foundPhoneNumber.rows[0]) {
         return res.status(409).json({
@@ -225,5 +216,4 @@ class Middleware {
     return done();
   }
 }
-
 export default Middleware;

@@ -12,6 +12,8 @@ client.connect();
 
 /**
  * it is a class that control all event method
+ * 
+ * @class UsersController
  */
 class UsersController {
   /**
@@ -32,7 +34,7 @@ class UsersController {
       return res.status(201).json({
         status: 'success',
         data: {
-          newUser: result.rows[0]
+          user: result.rows[0]
         },
         message: 'user created successfully'
       });
@@ -72,7 +74,7 @@ class UsersController {
         data: {
           token
         },
-        message: 'login successful'
+        message: 'user login successful'
       });
     } catch (error) {
       res.status(500).json({
