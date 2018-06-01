@@ -18,7 +18,7 @@ const signup = e => {
   console.log(password_confirmation);
   e.preventDefault();
 
-  fetch("https://maintaintracker.herokuapp.com/api/v1/auth/signup", {
+  fetch("/api/v1/auth/signup", {
     method: "POST",
     headers: {
       Accept: "application/json,*/*",
@@ -36,7 +36,7 @@ const signup = e => {
     .then(res => res.json())
     .then(data => {
       if (data.status === "success") {
-        window.location.href = "./../UI/signin.html";
+        window.location.href = "./../signin.html";
       } else if (data.message) {
         message.innerHTML = data.message;
         modal.style.display = "block";
