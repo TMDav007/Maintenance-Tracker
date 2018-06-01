@@ -13,7 +13,7 @@ const requestDetailModal = document.getElementById('modals_request_details');
 const getAllRequest = (e)=> {
 const token =  localStorage.getItem('token');
     e.preventDefault();
-    fetch('https://maintaintracker.herokuapp.com/api/v1/users/requests', {
+    fetch('/api/v1/users/requests', {
         method: 'GET',
         headers: {
             'Accept': 'application/json,*/*',

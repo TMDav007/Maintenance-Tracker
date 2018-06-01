@@ -13,7 +13,7 @@ const password= document.getElementById('password').value;
 
     e.preventDefault();
 
-    fetch('https://maintaintracker.herokuapp.com/api/v1/auth/login', {
+    fetch('/api/v1/auth/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json,*/*',
@@ -26,8 +26,7 @@ const password= document.getElementById('password').value;
          if (data.status === 'success') {  
             localStorage.setItem('token', data.data.token);
             const token =  localStorage.getItem('token');
-            console.log(token);
-            window.location.href= './../UI/request.html';
+            window.location.href= './../request.html';
 
    } else if (data.message) {
     message.innerHTML = data.message;
