@@ -1,5 +1,6 @@
 node_modules
 client/UI/prepros-6.config
+client/scss/prepros-6.config
 .nyc_output/
 coverage/
 dist/

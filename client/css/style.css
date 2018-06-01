@@ -600,7 +600,10 @@ button[type="submit"] {
           background-color: #43486f;
           color: #fff; }
 
-#modal_make_request, #modal_request_details, #message_modal {
+#modal_make_request,
+#modal_request_details,
+#message_modal,
+#requestExistModal {
   display: none;
   position: fixed;
   z-index: 1004;
@@ -632,6 +635,14 @@ button[type="submit"] {
   #make_request_content table {
     width: 100%;
     margin: 0 auto; }
+  #make_request_content span.error {
+    position: relative;
+    font-size: .7em;
+    margin: .5em 0em .2em 1em;
+    color: #c51a1a;
+    display: block; }
+    #make_request_content span.error::before {
+      content: "* "; }
   #make_request_content label {
     color: #000;
     font-size: .8em;
@@ -721,6 +732,21 @@ button[type="submit"] {
   z-index: 1;
   width: 80%;
   font-size: .8em; }
+
+#requestExistMessage {
+  position: fixed;
+  display: block;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgba(34, 37, 43, 0.922);
+  z-index: 101;
+  color: #fff;
+  width: 50%;
+  font-size: .8em;
+  padding: 2em; }
 
 span {
   position: absolute;

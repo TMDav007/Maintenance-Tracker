@@ -34,7 +34,7 @@ class Middleware {
   static authenicateUser(req, res, next) {
     const token = tokens(req);
     if (!token) {
-      return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
+      return res.status(401).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
     }
     return next();
   }
@@ -51,10 +51,10 @@ class Middleware {
   static async authenicateAdmin(req, res, next) {
     const token = tokens(req);
     if (!token) {
-      return res.status(403).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
+      return res.status(401).json({ status: 'fail', message: 'Token not provided or Invalid Token' });
     }
     if (token.user_role !== 'admin') {
-      return res.status(401).json({ status: 'fail', message: 'Forbidden to non admin' });
+      return res.status(403).json({ status: 'fail', message: 'Forbidden to non admin' });
     }
     return next();
   }
@@ -68,8 +68,8 @@ class Middleware {
    * @returns {object} next
    */
   static validateRequest(req, res, next) {
-    const { requestTitle, requestBody, date, userId} = req.body;
-    const data = { requestTitle, requestBody, date, userId };
+    const { requestTitle, requestBody, date} = req.body;
+    const data = { requestTitle, requestBody, date};
     const validation = new Validator(data, requestRules, requestErrorMessage);
    
     if (validation.passes()) {

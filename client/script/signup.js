@@ -15,7 +15,6 @@ const signup = e => {
   const password_confirmation = document.getElementById("passwordConfirmation")
     .value;
 
-  console.log(password_confirmation);
   e.preventDefault();
 
   fetch("/api/v1/auth/signup", {
@@ -36,13 +35,11 @@ const signup = e => {
     .then(res => res.json())
     .then(data => {
       if (data.status === "success") {
-        window.location.href = "./../signin.html";
+        window.location.href = "./../../client/signin.html";
       } else if (data.message) {
         message.innerHTML = data.message;
         modal.style.display = "block";
-        modal.style.display = "block";
         setTimeout(() => {
-          modal.style.display = "none";
           modal.style.display = "none";
         }, 3000);
       } else {

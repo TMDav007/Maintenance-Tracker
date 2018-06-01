@@ -76,6 +76,9 @@
     <div id="modal_make_request">
         <section>
             <div class="">
+                    <div id='requestExistModal'>
+                        <span id='requestExistMessage'></span>
+                    </div>
                 <form id="make_request_content">
                     <span class="close">&times;</span>
                     <fieldset>
@@ -85,21 +88,11 @@
                         <table>
                             <tr>
                                 <td>
-                                    <label for="name">Name: </label>
+                                    <label for="requestTitle">Request Title: </label>
                                 </td>
                                 <td align="left">
-                                    <input type="text" name="Name" id="Name" placeholder="Name">
-                                    <br>
-                                    <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="Request">Request:</label>
-                                </td>
-                                <td align="left">
-                                    <input type="text" name="Request" id="Request" placeholder="Request">
-                                    <br>
+                                    <input type="text" name="Request_title" id="requestTitle" placeholder="Request Title">
+                                    <span id="requestTitleError" class="error"></span>
                                     <br>
                                 </td>
                             </tr>
@@ -108,8 +101,9 @@
                                     <label for="Request">Request Body:</label>
                                 </td>
                                 <td align="left">
-                                    <textarea rows="4" cols="50" placeholder="Request details...."></textarea>
-                                    <br>
+                                    <textarea rows="4" cols="50" id="requestBody" placeholder="Request details...."></textarea>
+                                    <span id="requestBodyError" class="error"></span>
+    
                                     <br>
                                 </td>
                             </tr>
@@ -120,15 +114,16 @@
                                 </td>
                                 <td align="left">
                                     <input type="date" name="date" id="date" placeholder="">
+                                    <span id="dateError" class="error"></span>
                                     <br>
-                                    <br>
+                                    
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                    
                                 </td>
-                                <td> <button type="submit" id="make_Request">Make Request</button></td>
+                                <td> <button type="submit" id="createRequest">Make Request</button></td>
                             </tr>
 
 

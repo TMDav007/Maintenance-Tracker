@@ -94,13 +94,14 @@ class RequestsController {
    */
   static async createRequest(req, res) {
     try {
-      const { requestTitle, requestBody, date, userId } = req.body;
-      const requestIsUnique = await client.query(requestIsUniqueQuery(requestTitle, requestBody, userId))
+      const token = await tokens(req);
+      const { requestTitle, requestBody, date} = req.body;
+      const requestIsUnique = await client.query(requestIsUniqueQuery(requestTitle, requestBody, token.id))
     
        if (requestIsUnique.rows.length !== 0) {
         return errorResponse(res, 'fail', 'request already exist', 409);
        }
-      const request = await client.query(createARequestQuery(requestTitle,requestBody, date, userId));
+      const request = await client.query(createARequestQuery(requestTitle,requestBody, date, token.id));
       return res.status(201).json({
         status: 'success',
         data: {

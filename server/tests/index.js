@@ -463,7 +463,7 @@ describe('GET all users requests', () => {
     request(app)
       .get('/api/v1/users/requests')
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();
@@ -499,7 +499,7 @@ describe('GET a user request', () => {
     request(app)
       .get('/api/v1/users/requests/3')
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();
@@ -527,8 +527,7 @@ describe('create a request', () => {
       .send({
         requestTitle: 'Requests to fix the AC',
         requestBody: 'The AC stop working some days ago, I will like it to get fixed on time. Thank you',
-        date: '2019-04-09',
-        userId: 2
+        date: '2019-04-09'
       })
       .end((err, res) => {
         expect(res.status).to.equal(201);
@@ -543,11 +542,10 @@ describe('create a request', () => {
       .send({
         requestTitle: 'Request to fix the AC',
         requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
-        date: '2019-04-09',
-        userId: 2
+        date: '2019-04-09'
       })
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.status).to.equal('fail');
         done();
       });
@@ -558,8 +556,7 @@ describe('create a request', () => {
       .set('x-access-token', token)
       .send({
         requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
-        date: '2019-04-09',
-        userId: 2
+        date: '2019-04-09'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -575,8 +572,7 @@ describe('create a request', () => {
       .send({
         requestTitle: 'thebfh',
         requestBody: 'The AC stopped working some days ago, I will like it to get fixed on time. Thank you',
-        date: '2019-04-09',
-        userId: 2
+        date: '2019-04-09'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -591,8 +587,7 @@ describe('create a request', () => {
       .set('x-access-token', token)
       .send({
         requestTitle: 'fix the tv now',
-        date: '2019-04-09',
-        userId: 2
+        date: '2019-04-09'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -608,8 +603,7 @@ describe('create a request', () => {
       .send({
         requestTitle: 'fix the tv now',
         requestBody: 'jdfhdd',
-        date: '2019-04-09',
-        userId: 2
+        date: '2019-04-09'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -740,7 +734,7 @@ describe('ADMIN get all requests', () => {
     request(app)
       .get('/api/v1/requests')
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.status).to.equal('fail');
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
         done();
@@ -751,7 +745,7 @@ describe('ADMIN get all requests', () => {
       .get('/api/v1/requests')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(401);
+        expect(res.status).to.equal(403);
         expect(res.body.status).to.equal('fail');
         expect(res.body.message).to.equal('Forbidden to non admin');
         done();
@@ -800,7 +794,7 @@ describe('APPROVE a request', () => {
       .put('/api/v1/requests/1/approve')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(401);
+        expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Forbidden to non admin');
         expect(res.body.status).to.equal('fail');
         done();
@@ -810,7 +804,7 @@ describe('APPROVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/approve')
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();
@@ -847,7 +841,7 @@ describe('DISAPPROVE a request', () => {
       .put('/api/v1/requests/1/disapprove')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(401);
+        expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Forbidden to non admin');
         expect(res.body.status).to.equal('fail');
         done();
@@ -857,7 +851,7 @@ describe('DISAPPROVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/disapprove')
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();
@@ -894,7 +888,7 @@ describe('RESOLVE a request', () => {
       .put('/api/v1/requests/1/disapprove')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(401);
+        expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('Forbidden to non admin');
         expect(res.body.status).to.equal('fail');
         done();
@@ -904,7 +898,7 @@ describe('RESOLVE a request', () => {
     request(app)
       .put('/api/v1/requests/1/disapprove')
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Token not provided or Invalid Token');
         expect(res.body.status).to.equal('fail');
         done();

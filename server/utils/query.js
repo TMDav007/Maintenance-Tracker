@@ -101,7 +101,7 @@ const requestIsUniqueQuery = (value1, value2, value3) => {
     date
     from requests
     WHERE request_title='${value1}'
-    AND request_body='${value2}'
+    OR request_body='${value2}'
     AND request_status='processing'
     AND requests.user_id='${value3}';
     `;
