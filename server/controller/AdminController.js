@@ -27,7 +27,9 @@ class AdminController {
    */
   static async getAllRequests(req, res) {
     try {
-      const requests = await client.query(getAllRequestsQuery);
+      
+      const requests = await client.query(getAllRequestsQuery());
+      console.log(requests);
       return res.status(200).json({
         status: 'success',
         data: {

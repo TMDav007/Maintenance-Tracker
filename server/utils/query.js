@@ -14,7 +14,7 @@ const getAllRequestsQuery = () => {
         first_name,
         last_name,
         email
-        FROM requests,users
+        FROM requests, users
         WHERE requests.user_id = users.id
     `;
     return query;
