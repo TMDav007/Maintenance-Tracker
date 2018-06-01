@@ -1,8 +1,8 @@
 
 let message = document.getElementById("message");
 let modal = document.getElementById("message_modal");
-const requestDetails = document.getElementById('request_details_content');
-const requestDetailsModal = document.getElementById('modals_request_details');
+const requestDetail = document.getElementById('request_details_content');
+const requestDetailModal = document.getElementById('modals_request_details');
 
 /**
  * @desc sign in a user
@@ -13,7 +13,7 @@ const requestDetailsModal = document.getElementById('modals_request_details');
 const getAllRequest = (e)=> {
 const token =  localStorage.getItem('token');
     e.preventDefault();
-    fetch('http://localhost:8000/api/v1/users/requests', {
+    fetch('https://maintaintracker.herokuapp.com/api/v1/users/requests', {
         method: 'GET',
         headers: {
             'Accept': 'application/json,*/*',

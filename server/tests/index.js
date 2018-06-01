@@ -44,7 +44,7 @@ describe('user validation', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        expect(res.body.data).to.haveOwnProperty('newUser');
+        expect(res.body.data).to.haveOwnProperty('user');
         expect(res.body.status).to.equal('success');
         done();
       });
@@ -761,7 +761,7 @@ describe('UPDATE a user request', () => {
 
 // admin Get All request
 describe('ADMIN get all requests', () => {
-  it('it should GET  all requests', (done) => {
+  it('it should GET  not all requests', (done) => {
     request(app)
       .get('/api/v1/requests')
       .end((err, res) => {
@@ -771,12 +771,12 @@ describe('ADMIN get all requests', () => {
         done();
       });
   });
-  it('it should GET all requests', (done) => {
+  it('it should GET not all requests', (done) => {
     request(app)
       .get('/api/v1/requests')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.status).to.equal('fail');
         expect(res.body.message).to.equal('Forbidden to non admin');
         done();
@@ -825,7 +825,7 @@ describe('APPROVE a request', () => {
       .put('/api/v1/requests/1/approve')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Forbidden to non admin');
         expect(res.body.status).to.equal('fail');
         done();
@@ -872,7 +872,7 @@ describe('DISAPPROVE a request', () => {
       .put('/api/v1/requests/1/disapprove')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Forbidden to non admin');
         expect(res.body.status).to.equal('fail');
         done();
@@ -919,7 +919,7 @@ describe('RESOLVE a request', () => {
       .put('/api/v1/requests/1/disapprove')
       .set('x-access-token', token)
       .end((err, res) => {
-        expect(res.status).to.equal(403);
+        expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Forbidden to non admin');
         expect(res.body.status).to.equal('fail');
         done();
