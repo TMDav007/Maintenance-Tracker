@@ -13,10 +13,10 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/json' }));
-
+app.get('/', (req, res) => res.redirect('https://app.swaggerhub.com/apis/TMDav/maintenance-tracker/1'));
 routes(app);
 
-app.use(express.static(path.join(__dirname,'../client')));
+app.use('/client',express.static(path.join(__dirname,'../client')));
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
