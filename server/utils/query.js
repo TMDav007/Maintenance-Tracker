@@ -181,7 +181,7 @@ const createUserQuery = (value1, value2,value3, value4, value5) => {
         '${value3}',
         '${value4}',
         crypt('${value5}', gen_salt('${process.env.KEY}', 5))
-    ) RETURNING *;    
+    ) RETURNING first_name,last_name,phone_number, email;    
 `;
 return query;
 }

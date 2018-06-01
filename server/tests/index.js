@@ -4,31 +4,6 @@ import app from './../server';
 
 let token, token2;
 
-//test for welcome message
-describe('/GET welcome message', () => {
-  it('it should GET a message', (done) => {
-    request(app)
-      .get('/api/v1')
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.haveOwnProperty('message');
-        done();
-      });
-  });
-});
-
-describe('/GET api message', () => {
-  it('it should GET get a message', (done) => {
-    request(app)
-      .get('/api/v1/')
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.haveOwnProperty('message');
-        done();
-      });
-  });
-});
-
 describe('user validation', () => {
   it('it should signup user', (done) => {
     request(app)
