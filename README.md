@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/TMDav007/Maintenance-Tracker.svg?branch=develop)](https://travis-ci.org/TMDav007/Maintenance-Tracker)
 [![Coverage Status](https://coveralls.io/repos/github/TMDav007/Maintenance-Tracker/badge.svg?branch=develop)](https://coveralls.io/github/TMDav007/Maintenance-Tracker?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a9188a28f88a1705ed64/maintainability)](https://codeclimate.com/github/TMDav007/Maintenance-Tracker/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a9188a28f88a1705ed64/test_coverage)](https://codeclimate.com/github/TMDav007/Maintenance-Tracker/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/abd7ab4951ad13d436d6/maintainability)](https://codeclimate.com/github/TMDav007/Maintenance-Tracker/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/abd7ab4951ad13d436d6/test_coverage)](https://codeclimate.com/github/TMDav007/Maintenance-Tracker/test_coverage)
 
 This is a application that keep tracker of requests from users. This app will allow users make a request or requests or complaint to a maintenance tracking office, in which your request get approved and resolved or disapproved.
 
