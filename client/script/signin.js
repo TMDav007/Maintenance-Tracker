@@ -26,14 +26,12 @@ const password= document.getElementById('password').value;
          if (data.status === 'success') {  
             localStorage.setItem('token', data.data.token);
             const token =  localStorage.getItem('token');
-            window.location.href= './../request.html';
+            window.location.href= './../../client/request.html';
 
    } else if (data.message) {
     message.innerHTML = data.message;
     modal.style.display = "block";
-    modal.style.display = "block";
     setTimeout(() => {
-      modal.style.display = "none";
       modal.style.display = "none";
     }, 3000);
   } else {

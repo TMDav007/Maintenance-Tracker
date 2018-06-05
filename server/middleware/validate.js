@@ -2,15 +2,13 @@ export default {
     requestRules : { 
         requestTitle: 'required|min:10|string',
         requestBody: 'required|min:10|string',
-        date: 'required|date',
-        userId: 'required|integer'
+        date: 'required|date'
     },
 
     requestErrorMessage: {
         requestTitle: 'the request title is required| the request title should have a minimum of 10 charaters',
         requestBody: 'the request body is required| the request body should have a minimum of 10 charaters',
-        date: 'date should be valid with the format YYYY-MM-DD',
-        userId: 'the user id is required|user id must be an integer'
+        date: 'date should be valid with the format YYYY-MM-DD'
     },
 
     userRules: {
