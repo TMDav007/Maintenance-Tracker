@@ -11,6 +11,7 @@ This is a application that keep tracker of requests from users. This app will al
 * [Technologies](#technologies)
 * [Features](#features)
 * [API Endpoints](#api-endpoints)
+* [Frontend](#frontend)
 * [Getting Started](#getting-started)
    * [Installation](#installation)
    * [Documentations](#documentations)
@@ -23,12 +24,14 @@ This is a application that keep tracker of requests from users. This app will al
 This Project is built and planned with Pivotal Tracker.
 The link to the Project plan is at [http://www.pivotaltracker.com/n/projects/2171590](http://www.pivotaltracker.com/n/projects/2171590)
 
-### UI
+### Template
 You can check the UI pages on [https://tmdav007.github.io/Maintenance-Tracker/UI/index.html](https://tmdav007.github.io/Maintenance-Tracker/UI/index.html)
 
 ### API Deployment
 API is deployed at [https://maintaintracker.herokuapp.com/](https://maintaintracker.herokuapp.com/)
 
+### Frontend
+API is deployed at [https://maintaintracker.herokuapp.com/client](https://maintaintracker.herokuapp.com/client)
 
 ## Technologies
 
@@ -49,22 +52,43 @@ API is deployed at [https://maintaintracker.herokuapp.com/](https://maintaintrac
 
 ## Features
 
-### Request
+### Request(user)
 * Create a Request
 * Modify a Request
 * Get a Request
-* Get All Requests
+* Get All User Requests
+
+### User
+* Create a user
+* Login a user
+
+### Admin
+* Get all requests
+* Resolve a request
+* Disapprove a request
+* Approve a request
 
 ## API Endpoints
 
-* Get All Users Request - GET api/v1/users/requests 
+* Get All Users Request - api/v1/users/requests 
 
-* Get A Users Request - GET api/v1/users/requests/:requestId
+* Get A Users Request -  api/v1/users/requests/:requestId
 
-* Post A Users Request - POST api/v1/users/requests
+* Post A Users Request - api/v1/users/requests
 
-* PUT A Users Request - PUT api/v1/users/requests/:requestId
+* PUT A Users Request - api/v1/users/requests/:requestId
 
+* POST Create a user - api/v1/auth/signup
+
+* POST login a user - api/v1/auth/login
+
+* GET all request(admin) - api/v1/requests/
+
+* PUT resolve a request(admin) - api/v1/requests/requestId/resolve
+
+* PUT disapprove a request(admin) - api/v1/requests/requestId/disapprove
+
+* PUT approve a request(admin) - api/v1/requests/requestId/approve
 
 ## Getting Started
 
