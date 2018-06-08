@@ -499,6 +499,9 @@ button[type="submit"] {
     border-radius: 5px;
     color: #fff;
     font-size: 12px; }
+    .container .mainboard #board .requestDetail:hover {
+      cursor: pointer;
+      opacity: .5; }
     @media only screen and (min-width: 700px) {
       .container .mainboard #board {
         font-size: 15px;
@@ -641,8 +644,6 @@ button[type="submit"] {
     margin: .5em 0em .2em 1em;
     color: #c51a1a;
     display: block; }
-    #make_request_content span.error::before {
-      content: "* "; }
   #make_request_content label {
     color: #000;
     font-size: .8em;
@@ -706,18 +707,17 @@ button[type="submit"] {
   padding: 0 2em;
   width: 80%;
   padding-top: 10px;
-  padding-bottom: 30px; }
+  padding-bottom: 3.5em; }
   @media only screen and (min-width: 900px) {
     #request_details_content {
       margin: 13em auto;
       width: 35em; } }
-  #request_details_content #date {
-    text-align: right;
+  #request_details_content #reqDate {
+    float: right;
     font-weight: 700; }
-
-.requestDetails:hover {
-  cursor: pointer;
-  opacity: .8; }
+  #request_details_content #reqStatus {
+    float: left;
+    font-weight: 700; }
 
 #message {
   position: fixed;
