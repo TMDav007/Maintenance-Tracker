@@ -13,7 +13,7 @@ $(document).ready(function() {
   $(".requestDetails").on("click", function(){
     $("#modal_request_details").fadeIn('slow');
     $("#request_details_content").fadeIn('slow');
-})
+});
 
   // close
   $(".close").on("click", function() {
@@ -21,6 +21,8 @@ $(document).ready(function() {
     $("#make_request_content").fadeOut("slow");
     $("#modal_request_details").fadeOut('slow');
     $("#request_details_content").fadeOut('slow');
+    $("#modal_modify_request").fadeOut("slow");
+    $("#modify_request_content").fadeOut("slow");
   });
 
   //dashboard menu toggle

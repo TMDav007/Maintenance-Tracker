@@ -64,13 +64,13 @@
                         <span id='message'></span>
                     </div>
                     <table id="table">
-                        <tbody></tbody>
-                        
+                        <tbody></tbody>          
                     </table>
                 </div>
             </section>
         </div>
     </div>
+
     <!--Make request form-->
     <!--Modal-->
     <div id="modal_make_request">
@@ -125,8 +125,68 @@
                                 </td>
                                 <td> <button type="submit" id="createRequest">Make Request</button></td>
                             </tr>
+                        </table>
 
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+    </div>
 
+    <!--Modify a request form-->
+    <!--Modal-->
+    <div id="modal_modify_request">
+        <section>
+            <div class="">
+                    <div id='requestExistModal'>
+                        <span id='requestExistMessage'></span>
+                    </div>
+                <form id="modify_request_content">
+                    <span class="close">&times;</span>
+                    <fieldset>
+                        <legend>
+                            <h1>Modify Request</h1>
+                        </legend>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="requestTitle">Request Title: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="Request_title" id="requestsTitle" placeholder="Request Title">
+                                    <span id="requestTitleError" class="error"></span>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Request">Request Body:</label>
+                                </td>
+                                <td align="left">
+                                    <textarea rows="4" cols="50" id="requestsBody" placeholder="Request details...."></textarea>
+                                    <span id="requestBodyError" class="error"></span>
+    
+                                    <br>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label for="img">Date: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="date" name="date" id="requestsDate" disabled placeholder="">
+                                    <span id="dateError" class="error"></span>
+                                    <br>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   
+                                </td>
+                                <td> <button type="submit" id="modifyRequest">Make Request</button></td>
+                            </tr>
                         </table>
 
                     </fieldset>
