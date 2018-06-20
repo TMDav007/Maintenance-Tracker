@@ -604,6 +604,7 @@ button[type="submit"] {
           color: #fff; }
 
 #modal_make_request,
+#modal_modify_request,
 #modal_request_details,
 #message_modal,
 #requestExistModal {
@@ -617,7 +618,8 @@ button[type="submit"] {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.356); }
 
-#make_request_content {
+#make_request_content,
+#modify_request_content {
   position: relative;
   z-index: 100;
   background-color: #fefefe;
@@ -626,25 +628,31 @@ button[type="submit"] {
   width: 80%;
   padding-bottom: 30px; }
   @media only screen and (min-width: 900px) {
-    #make_request_content {
+    #make_request_content,
+    #modify_request_content {
       margin: 6em auto;
       width: 35em; } }
-  #make_request_content h1 {
+  #make_request_content h1,
+  #modify_request_content h1 {
     color: #000;
     font-size: 1.2em; }
     @media only screen and (min-width: 700px) {
-      #make_request_content h1 {
+      #make_request_content h1,
+      #modify_request_content h1 {
         font-size: 1.3em; } }
-  #make_request_content table {
+  #make_request_content table,
+  #modify_request_content table {
     width: 100%;
     margin: 0 auto; }
-  #make_request_content span.error {
+  #make_request_content span.error,
+  #modify_request_content span.error {
     position: relative;
     font-size: .7em;
     margin: .5em 0em .2em 1em;
     color: #c51a1a;
     display: block; }
-  #make_request_content label {
+  #make_request_content label,
+  #modify_request_content label {
     color: #000;
     font-size: .8em;
     font-weight: bold;
@@ -652,10 +660,12 @@ button[type="submit"] {
     text-align: center;
     margin-right: 0.4em; }
     @media only screen and (min-width: 700px) {
-      #make_request_content label {
+      #make_request_content label,
+      #modify_request_content label {
         font-size: 1em;
         padding: 0; } }
-  #make_request_content input[type="text"] {
+  #make_request_content input[type="text"],
+  #modify_request_content input[type="text"] {
     width: 80%;
     border: rgba(31, 29, 26, 0.494) 1px solid;
     border-radius: 2px;
@@ -663,28 +673,33 @@ button[type="submit"] {
     padding: .5em;
     font-size: 14px; }
     @media only screen and (min-width: 700px) {
-      #make_request_content input[type="text"] {
+      #make_request_content input[type="text"],
+      #modify_request_content input[type="text"] {
         width: 70%;
         font-size: .8em;
         height: 3em;
         margin: 1em 0 0 0; } }
-  #make_request_content input[type="date"] {
+  #make_request_content input[type="date"],
+  #modify_request_content input[type="date"] {
     border: rgba(31, 29, 26, 0.494) 1px solid;
     border-radius: 2px;
     height: 1.5em;
     padding: .5em;
     font-size: 14px; }
     @media only screen and (min-width: 700px) {
-      #make_request_content input[type="date"] {
+      #make_request_content input[type="date"],
+      #modify_request_content input[type="date"] {
         font-size: 1.1em;
         height: 3em;
         margin: 1em 0 0 0; } }
-  #make_request_content textarea {
+  #make_request_content textarea,
+  #modify_request_content textarea {
     width: 90%;
     border: rgba(31, 29, 26, 0.494) 1px solid;
     margin: 1em 0 0 0;
     padding: .5em; }
-  #make_request_content button[type='submit'] {
+  #make_request_content button[type='submit'],
+  #modify_request_content button[type='submit'] {
     width: 8em;
     margin-top: .9em;
     float: left;
@@ -692,7 +707,8 @@ button[type="submit"] {
     font-size: .7em;
     background-color: #111327; }
     @media only screen and (min-width: 700px) {
-      #make_request_content button[type='submit'] {
+      #make_request_content button[type='submit'],
+      #modify_request_content button[type='submit'] {
         float: none;
         width: 11em;
         margin: 1em 0 0 8em; } }

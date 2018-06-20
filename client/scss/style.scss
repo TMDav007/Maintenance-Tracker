@@ -399,6 +399,7 @@ button[type="submit"] {
 
 // Modals
 #modal_make_request,
+#modal_modify_request,
 #modal_request_details,
 #message_modal,
 #requestExistModal{
@@ -413,7 +414,8 @@ button[type="submit"] {
   background-color: rgba(0, 0, 0, 0.356);
 }
 
-#make_request_content{
+#make_request_content,
+#modify_request_content{
   position: relative;
   z-index: 100;
   background-color: #fefefe;
