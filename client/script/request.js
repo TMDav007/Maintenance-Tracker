@@ -16,7 +16,7 @@ const reqDate = document.getElementById("reqDate");
 const requestDetailModal = document.getElementById("modal_request_details");
 const deleteRequestModal = document.getElementById("modal_delete_request");
 /**
- * @desc sign in a user
+ * @desc get all users requests
  *
  * params {string} e
  *
@@ -140,7 +140,6 @@ const getRequestId = (e) => {
     localStorage.setItem('requestIdToDelete', table.rows[i].childNodes[7].textContent);
 
     deleteRequestModal.style.display = 'block';
-    // modifyRequestContent.style.display = 'block';
   });
   }
 };

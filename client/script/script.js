@@ -22,7 +22,7 @@ $(document).ready(function() {
     $("#modal_request_details").fadeOut('slow');
     $("#request_details_content").fadeOut('slow');
     $("#modal_modify_request").fadeOut("slow");
-    $("#modify_request_content").fadeOut("slow");
+    $("#modify_request_content,#modal_confirm_login").fadeOut("slow");
   });
 
   //dashboard menu toggle

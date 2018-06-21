@@ -1,0 +1,95 @@
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Maintenace-Tracker | Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Poiret+One|Oleo+Script+Swash+Caps" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="admin">
+        <nav>
+
+            <div class="menu">
+                <ul>
+                    <p>Hi, Admin</p>
+
+                </ul>
+            </div>
+        </nav>
+        <div id="form-image"></div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="logo">
+                <a href="#">mTracker
+                </a>
+            </div>
+            <div class="menu-icon">
+                <i class="fa fa-bars fa-2x"></i>
+            </div>
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a href="request.html" class="current">Home</a>
+                    </li>
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
+                    <li>
+                        <a href="index.html">Sign out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mainboard">
+            <section id="board">
+                <div class="table_head">
+                    <h1 style="display: inline-block; float:left">Requests</h1>
+
+                </div>
+                <div class="table_body">
+                    <div id='message_modal'>
+                        <span id='message'></span>
+                    </div>
+                    <table id='table'>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+ <!--request details-->
+ <div id="modal_request_details">
+        <div id="request_details_content">
+            <h4 id="reqTitle"></h4>
+            <p id="reqBody"></p>
+           <div>
+            <p id="reqStatus"></p>
+            <p id="reqDate"></p>
+           </div>
+    </div>
+</div>
+
+
+    <!--footer-->
+    <footer id="footer" class="grid">
+        <div class="content-wrap">
+            <p>&copy; 2018 TmD</p>
+        </div>
+    </footer>
+    <script src="./script/script.js"></script>
+    <script src="./script/admin.js"></script>
+</body>
+
+</html>

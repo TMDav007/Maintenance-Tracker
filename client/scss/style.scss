@@ -636,6 +636,35 @@ button[type="submit"] {
     cursor: pointer;
   }
 }
+#admins {
+  position: relative;
+  font-size: .9em;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px 25px;
+  background-color: #353a42;
+  color: #fff;
+  margin-left: 10px;
+  &:hover{
+    opacity:.7;
+    cursor: pointer;
+  }
+}
+
+#user {
+  position: relative;
+  font-size: .9em;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px 25px;
+  margin-left: 30px;
+  background-color: #353a42;
+  color: #fff;
+  &:hover{
+    opacity:.7;
+    cursor: pointer;
+  }
+}
 
 
 

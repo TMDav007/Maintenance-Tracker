@@ -118,10 +118,10 @@
 
 @mixin board {
     .table_head{
-        padding-top: 10em;
+        padding-top: 5em;
         padding-bottom: 1.5em;
         @media only screen and (min-width: 700px) {
-            padding-top: 4em;
+            padding-top: 2em;
         }
     }
     h1 {
