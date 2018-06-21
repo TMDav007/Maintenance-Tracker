@@ -8,7 +8,7 @@ const {
 } = UsersController;
 
 const {
-  getRequests, getARequest, createRequest, updateRequest
+  getRequests, getARequest, createRequest, updateRequest, deleteRequest
 } = RequestsController;
 
 const {
@@ -30,6 +30,7 @@ const routes = (app) => {
   app.get('/api/v1/users/requests/:requestId', authenicateUser, getARequest);
   app.post('/api/v1/users/requests', validateRequest, authenicateUser, createRequest);
   app.put('/api/v1/users/requests/:id', authenicateUser, updateRequest);
+  app.delete('/api/v1/users/requests/:requestId', authenicateUser, deleteRequest);
 
   app.get('/api/v1/requests', authenicateAdmin, getAllRequests);
   app.put('/api/v1/requests/:requestId/approve', authenicateAdmin, approveARequest);

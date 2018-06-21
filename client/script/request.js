@@ -14,7 +14,7 @@ let date = document.getElementById("requestsDate");
 const reqStatus = document.getElementById("reqStatus");
 const reqDate = document.getElementById("reqDate");
 const requestDetailModal = document.getElementById("modal_request_details");
-
+const deleteRequestModal = document.getElementById("modal_delete_request");
 /**
  * @desc sign in a user
  *
@@ -135,6 +135,13 @@ const getRequestId = (e) => {
      modifyRequestModal.style.display = 'block';
      modifyRequestContent.style.display = 'block';
    });
+
+   table.rows[i].childNodes[5].addEventListener("click", () => {
+    localStorage.setItem('requestIdToDelete', table.rows[i].childNodes[7].textContent);
+
+    deleteRequestModal.style.display = 'block';
+    // modifyRequestContent.style.display = 'block';
+  });
   }
 };
 
@@ -146,10 +153,9 @@ const getRequestId = (e) => {
  */
 const modifyRequest = e => {
   requestId = localStorage.getItem("requestId");
-  console.log(requestId);
   e.preventDefault();
   const requestTitle = document.getElementById("requestsTitle").value;
-  const requestBody = document.getElementById("requestBody").value;
+  const requestBody = document.getElementById("requestsBody").value;
 
   fetch(`/api/v1/users/requests/${requestId}`, {
     method: "PUT",
@@ -178,6 +184,40 @@ const modifyRequest = e => {
           data.data.error.requestTitle || "";
         document.getElementById("requestBodyError").innerHTML =
           data.data.error.requestBody || "";
+      }
+    });
+};
+
+/**
+ * @desc it delete a request
+ *
+ * @param {string} e
+ */
+const deleteRequest = e => {
+  requestId = localStorage.getItem("requestIdToDelete");
+  e.preventDefault();
+  const requestTitle = document.getElementById("requestsTitle").value;
+  const requestBody = document.getElementById("requestsBody").value;
+
+  fetch(`/api/v1/users/requests/${requestId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json,*/*",
+      "Content-type": "application/json",
+      "x-access-token": token
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        document.getElementById("modal_delete_request").style.display = 'none';
+        window.location.reload();
+      } else {
+        requestExistMessage.innerHTML = data.message;
+        requestExistModal.style.display = "block";
+        setTimeout(() => {
+          requestExistModal.style.display = "none";
+        }, 3000);
       }
     });
 };
@@ -226,4 +266,8 @@ const createRequest = e => {
 
 document.getElementById("make_request_content").addEventListener("submit", createRequest);
 document.getElementById("modify_request_content").addEventListener("submit", modifyRequest);
+document.getElementById("yes").addEventListener("click", deleteRequest);
+document.getElementById("no").addEventListener("click", ()=> {
+  document.getElementById("modal_delete_request").style.display = 'none';
+});
 window.onload = getAllRequest;

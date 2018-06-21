@@ -65,6 +65,24 @@ const getAUsersRequestQuery = (condition1, condition2) => {
 }
 
 /**
+ * @desc query to delete a users request
+ * 
+ * @param {integer} condition1 
+ * @param {integer} condition2 
+ * 
+ * @return {string} query
+ */
+const deleteAUsersRequestQuery = (condition1, condition2) => {
+    const query = `
+        DELETE FROM requests
+        WHERE requests.id = ${condition1}
+        AND requests.user_id = ${condition2};
+        `;
+    return query;
+};
+
+
+/**
  * @desc query to get create a request
  * 
  * @param {string} value1 
@@ -129,7 +147,7 @@ const checkRequestQuery = (value1, value2,) => {
             AND request_status='processing';
     `;
     return query;
-} 
+}
 
 /**
  * @desc query to modify a request
@@ -226,6 +244,7 @@ export default {
     getAllRequestsQuery,
     getAllUsersRequestsQuery,
     getAUsersRequestQuery,
+    deleteAUsersRequestQuery,
     createARequestQuery,
     checkRequestQuery,
     createUserQuery,

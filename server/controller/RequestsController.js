@@ -5,7 +5,7 @@ import response from './../utils/errorMessage';
 const { pgConnect, tokens } = utils;
 const { errorResponse} = response;
 const { getAllUsersRequestsQuery, getAUsersRequestQuery,
-       createARequestQuery, modifyARequestQuery,
+       createARequestQuery, modifyARequestQuery, deleteAUsersRequestQuery,
        checkRequestQuery, requestIsUniqueQuery } = queries;
 
 const client = pgConnect();
@@ -148,6 +148,41 @@ class RequestsController {
         data: {
           request: updatedRequest.rows[0]
         }
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error.message
+      });
+    }
+  }
+
+  /**
+   *@desc  it deletes a users request
+   *
+   * @param {object} req
+   * @param {object} res
+   *
+   * @return {object} an object
+   */
+  static async deleteRequest(req, res) {
+    try {
+      const token = await tokens(req);
+      const { requestId } = req.params;
+      if (!Number.isInteger(Number(requestId))) {
+        return res.status(400).json({
+          status: 'fail',
+          message: 'Input must be an Integer'
+        });
+      }
+      const requestExist = await client.query(getAUsersRequestQuery(requestId, token.id));
+      if (requestExist.rows.length < 1) {
+        return errorResponse(res, 'fail', 'request not found', 404);
+      }
+      const request = await client.query(deleteAUsersRequestQuery(requestId, token.id));
+      return res.status(200).json({
+        status: 'success',
+        message: 'request successfully deleted'
       });
     } catch (error) {
       res.status(500).json({

@@ -905,3 +905,50 @@ describe('RESOLVE a request', () => {
       });
   });
 });
+
+// Test to delete a user's Request
+describe('DELETE a user request', () => {
+  it('it should delete a users request', (done) => {
+    request(app)
+      .delete('/api/v1/users/requests/4')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal('success');
+        done();
+      });
+  });
+  it('it should not delete a users request', (done) => {
+    request(app)
+      .delete('/api/v1/users/requests/s')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Input must be an Integer');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not delete a users request', (done) => {
+    request(app)
+      .delete('/api/v1/users/requests/3.6')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Input must be an Integer');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+  it('it should not delete a users request', (done) => {
+    request(app)
+      .delete('/api/v1/users/requests/0')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('request not found');
+        expect(res.body.status).to.equal('fail');
+        done();
+      });
+  });
+});
