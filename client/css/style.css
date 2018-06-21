@@ -508,11 +508,11 @@ button[type="submit"] {
         padding: 5em 0 0 0;
         margin: 0 auto; } }
     .container .mainboard #board .table_head {
-      padding-top: 10em;
+      padding-top: 5em;
       padding-bottom: 1.5em; }
       @media only screen and (min-width: 700px) {
         .container .mainboard #board .table_head {
-          padding-top: 4em; } }
+          padding-top: 2em; } }
     .container .mainboard #board h1 {
       margin: 0;
       line-height: 1em; }
@@ -829,6 +829,32 @@ button[type="submit"] {
   margin-left: 30px;
   background-color: transparent; }
   #no:hover {
+    opacity: .7;
+    cursor: pointer; }
+
+#admins {
+  position: relative;
+  font-size: .9em;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px 25px;
+  background-color: #353a42;
+  color: #fff;
+  margin-left: 10px; }
+  #admins:hover {
+    opacity: .7;
+    cursor: pointer; }
+
+#user {
+  position: relative;
+  font-size: .9em;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px 25px;
+  margin-left: 30px;
+  background-color: #353a42;
+  color: #fff; }
+  #user:hover {
     opacity: .7;
     cursor: pointer; }
 
