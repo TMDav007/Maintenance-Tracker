@@ -398,6 +398,7 @@ button[type="submit"] {
 }
 
 // Modals
+#modal_delete_request,
 #modal_make_request,
 #modal_modify_request,
 #modal_request_details,
@@ -561,6 +562,83 @@ button[type="submit"] {
   font-size: .8em;
   padding: 2em;
 }
+
+#delete_content{
+  position: fixed;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #dedede;
+  color: #000;
+  font-size: 13px;
+   margin: 0 auto;
+   width: 25em;
+   @media only screen and (min-width: 700px) {
+    font-size: 14px;
+    z-index: 100;
+  }
+  @media only screen and (min-width: 900px) {
+    font-size: 15px;
+    z-index: 100;
+    width: 28em;
+  }
+}
+
+#delete_header {
+  background: #353a42;
+  height: 30px;
+}
+
+#delete_title{
+  margin: 0;
+  color: #fefefe;
+  text-align: left;
+  padding-left: 5px;
+  padding-top: 7px;
+}
+
+#delete_body{
+  margin: 40px 0;
+}
+
+#delete_footer{
+  background: #aaabada3;
+  height: 27px;
+  padding-top: 9px;
+}
+
+#yes {
+  position: relative;
+  font-size: .9em;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px 25px;
+  background-color: #353a42;
+  color: #fff;
+  margin-left: 10px;
+  &:hover{
+    opacity:.7;
+    cursor: pointer;
+  }
+}
+
+#no {
+  position: relative;
+  font-size: .9em;
+  border: 1px solid #7f7f8a;
+  border-radius: 6px;
+  padding: 6px 25px;
+  margin-left: 30px;
+  background-color: transparent;
+  &:hover{
+    opacity:.7;
+    cursor: pointer;
+  }
+}
+
+
+
 
 // close 
 span{
