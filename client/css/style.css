@@ -567,6 +567,8 @@ button[type="submit"] {
         .container .mainboard #board select,
         .container .mainboard #board button[type="submit"] {
           font-size: 14px; } }
+    .container .mainboard #board select {
+      width: 8em; }
     .container .mainboard #board input[type="date"] {
       padding: 0;
       width: 7.8em; }
@@ -603,6 +605,8 @@ button[type="submit"] {
           background-color: #43486f;
           color: #fff; }
 
+#modal_approve_request,
+#modal_disapprove_request,
 #modal_delete_request,
 #modal_make_request,
 #modal_modify_request,
@@ -807,7 +811,7 @@ button[type="submit"] {
   height: 27px;
   padding-top: 9px; }
 
-#yes {
+#yes, #approve, #disapprove {
   position: relative;
   font-size: .9em;
   border: 1px solid;
@@ -816,7 +820,7 @@ button[type="submit"] {
   background-color: #353a42;
   color: #fff;
   margin-left: 10px; }
-  #yes:hover {
+  #yes:hover, #approve:hover, #disapprove:hover {
     opacity: .7;
     cursor: pointer; }
 
