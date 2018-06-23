@@ -90,16 +90,17 @@ const addTableRow = (requests, index) => {
     cell3.style.display = 'none';
     cell2.setAttribute("class", "requestDetail");
     cell4.innerHTML = requests.request_status;
+  
     if (requests.request_status === 'processing') {
       cell5.innerHTML = `<select name="adminRequest" class="adminRequest"><option value="">select</option>
       <option value="approve">Approve</option>
       <option value="disapprove">Disapprove</option></select>`;
       cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;"> <i>';
-    } else if (requests.request_status === 'disapprove') {
+    } else if (requests.request_status === 'disapproved') {
       cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
       <option value="disapprove">Disapprove</option>
       </select>`;
-      cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;><i>';
+      cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;"><i>';
     } else {
       cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
       <option value="approve">Approve</option>
@@ -195,30 +196,60 @@ for (let i = 0; i< no.length ; i += 1){
     document.getElementById("modal_approve_request").style.display = 'none';
   });
 }
+
 let userRequestId = localStorage.getItem("userRequestId");
-document.getElementById("approve").addEventListener("click", () => {
-    fetch(`/api/v1/requests/${userRequestId}/approve`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json,*/*",
-        "Content-type": "application/json",
-        "x-access-token": token
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "success") {
-          window.location.reload();
-          document.getElementById("modal_approve_request").style.display = 'none';
-        } else {
-          document.getElementById("modal_approve_request").style.display = 'none';
-          requestExistMessage.innerHTML = data.message;
-          requestExistModal.style.display = "block";
-          setTimeout(() => {
-            requestExistModal.style.display = "none";
-          }, 4000);
-        }
-      });
-    
+
+const approveRequest = () => {
+  fetch(`/api/v1/requests/${userRequestId}/approve`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json,*/*",
+      "Content-type": "application/json",
+      "x-access-token": token
+    }
   })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        window.location.reload();
+        document.getElementById("modal_approve_request").style.display = 'none';
+      } else {
+        document.getElementById("modal_approve_request").style.display = 'none';
+        requestExistMessage.innerHTML = data.message;
+        requestExistModal.style.display = "block";
+        setTimeout(() => {
+          requestExistModal.style.display = "none";
+        }, 4000);
+      }
+    });
+}
+
+const disapproveRequest = () => {
+  fetch(`/api/v1/requests/${userRequestId}/disapprove`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json,*/*",
+      "Content-type": "application/json",
+      "x-access-token": token
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        window.location.reload();
+        document.getElementById("modal_disapprove_request").style.display = 'none';
+      } else {
+        document.getElementById("modal_approve_request").style.display = 'none';
+        requestExistMessage.innerHTML = data.message;
+        requestExistModal.style.display = "block";
+        setTimeout(() => {
+          requestExistModal.style.display = "none";
+        }, 4000);
+      }
+    });
+}
+
+
+document.getElementById("approve").addEventListener("click", approveRequest);
+document.getElementById("disapprove").addEventListener("click", disapproveRequest);
   window.onload = getAllRequest;
