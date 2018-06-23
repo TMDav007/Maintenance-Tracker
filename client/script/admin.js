@@ -1,7 +1,8 @@
-let token, tableRowIndex, requestBodyCell, requestId;
+let token, tableRowIndex, requestBodyCell, requestId, approvedRequestId;
 const message = document.getElementById("message");
 const modal = document.getElementById("message_modal");
 const requestDetailModal = document.getElementById("modal_request_details");
+let selectedRequest = document.getElementsByClassName("adminRequest");
 
 /**
  * @desc get all request
@@ -44,7 +45,9 @@ const getAllRequest = e => {
              addTableRow(request, index);
            });
           viewARequest();
+          resolveOnclick();
           getRequestId();
+          processRequest();
          } else if (data.message) {
           message.innerHTML = data.message;
           modal.style.display = "block";
@@ -84,13 +87,26 @@ const addTableRow = (requests, index) => {
     cell1.innerHTML = index + 1;
     cell2.innerHTML = `${requests.first_name} ${requests.last_name}`;
     cell3.innerHTML = requests.request_title;
-    cell3.setAttribute("class", "requestDetail");
+    cell3.style.display = 'none';
+    cell2.setAttribute("class", "requestDetail");
     cell4.innerHTML = requests.request_status;
-    cell5.innerHTML = `<select name="Request"><option value="">select</option>
-                        <option value="approve">Approve</option>
-                        <option value="disapprove">Disapprove</option></select>`;
-    cell6.innerHTML = '<i class="fa fa-check editRequest"><i>';
-    cell6.setAttribute("id", `request_body${index + 1}`);
+    if (requests.request_status === 'processing') {
+      cell5.innerHTML = `<select name="adminRequest" class="adminRequest"><option value="">select</option>
+      <option value="approve">Approve</option>
+      <option value="disapprove">Disapprove</option></select>`;
+      cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;"> <i>';
+    } else if (requests.request_status === 'disapprove') {
+      cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
+      <option value="disapprove">Disapprove</option>
+      </select>`;
+      cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;><i>';
+    } else {
+      cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
+      <option value="approve">Approve</option>
+      </select>`
+      cell6.innerHTML = '<i class="fa fa-check editRequest" ><i>';
+    }
+   
     cell7.innerHTML = '<i class="fa fa-trash deleteRequest"><i>';
     cell8.innerHTML = requests.request_body;
     cell8.style.display = 'none';
@@ -107,7 +123,7 @@ const addTableRow = (requests, index) => {
  */
 const viewARequest = () => {
     for (let i = 0; i < table.rows.length; i += 1) {
-       table.rows[i].childNodes[2].addEventListener("click", () => {
+       table.rows[i].childNodes[1].addEventListener("click", () => {
        tableRowIndex = table.rows[i];
         reqTitle.innerHTML = tableRowIndex.childNodes[2].textContent
         reqBody.innerHTML = tableRowIndex.childNodes[7].textContent;
@@ -131,14 +147,78 @@ const getRequestId = (e) => {
        table.rows[i].childNodes[4].addEventListener("click", () => {
        localStorage.setItem('userRequestId', table.rows[i].childNodes[8].textContent);
      });
-  
-    //  table.rows[i].childNodes[5].addEventListener("click", () => {
-    //   localStorage.setItem('requestIdToDelete', table.rows[i].childNodes[7].textContent);
-  
-    //   deleteRequestModal.style.display = 'block';
-   // });
     }
   };
   
+ /**
+ * @desc it resolve, approve, and disaprove a request
+ *
+ * 
+ */
+const processRequest = () => {
+ 
+  for (let i = 0; i < selectedRequest.length ; i += 1) {
+    selectedRequest[i].addEventListener("click", () => {
+      if (selectedRequest[i].value === 'approve'){
+        document.getElementById("modal_approve_request").style.display = 'block';
+      } else if (selectedRequest[i].value === 'disapprove'){
+        document.getElementById("modal_disapprove_request").style.display = 'block';
+      }
+    });
+ }
+ 
+ 
+};
 
+const resolveOnclick = () => {
+  for (let i = 0; i < table.rows.length; i += 1) {
+    tableRowIndex = table.rows[i];
+    if (table.rows[i].childNodes[3].textContent === 'pending'){
+      table.rows[i].childNodes[5].addEventListener("click", () => {
+     });
+    }
+  }
+}
+
+const editRequest = document.getElementsByClassName("editRequest");
+for (let i = 0; i< editRequest.length ; i += 1){
+  editRequest[i].addEventListener("click", ()=> {
+    document.getElementById("modal_disapprove_request").style.display = 'none';
+    document.getElementById("modal_approve_request").style.display = 'none';
+  });
+} 
+
+const no = document.getElementsByClassName("no");
+for (let i = 0; i< no.length ; i += 1){
+  no[i].addEventListener("click", ()=> {
+    document.getElementById("modal_disapprove_request").style.display = 'none';
+    document.getElementById("modal_approve_request").style.display = 'none';
+  });
+}
+let userRequestId = localStorage.getItem("userRequestId");
+document.getElementById("approve").addEventListener("click", () => {
+    fetch(`/api/v1/requests/${userRequestId}/approve`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json,*/*",
+        "Content-type": "application/json",
+        "x-access-token": token
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "success") {
+          window.location.reload();
+          document.getElementById("modal_approve_request").style.display = 'none';
+        } else {
+          document.getElementById("modal_approve_request").style.display = 'none';
+          requestExistMessage.innerHTML = data.message;
+          requestExistModal.style.display = "block";
+          setTimeout(() => {
+            requestExistModal.style.display = "none";
+          }, 4000);
+        }
+      });
+    
+  })
   window.onload = getAllRequest;
