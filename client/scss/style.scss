@@ -398,6 +398,7 @@ button[type="submit"] {
 }
 
 // Modals
+#modal_resolve_request,
 #modal_approve_request,
 #modal_disapprove_request,
 #modal_delete_request,
@@ -610,7 +611,7 @@ button[type="submit"] {
   padding-top: 9px;
 }
 
-#yes,#approve,#disapprove {
+#yes,#approve,#disapprove,#resolve {
   position: relative;
   font-size: .9em;
   border: 1px solid;

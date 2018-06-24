@@ -83,7 +83,7 @@ const addTableRow = (requests, index) => {
     const cell8 = newRow.insertCell(7);
     const cell9 = newRow.insertCell(8);
     const cell10 = newRow.insertCell(9);
-  
+
     cell1.innerHTML = index + 1;
     cell2.innerHTML = `${requests.first_name} ${requests.last_name}`;
     cell3.innerHTML = requests.request_title;
@@ -100,6 +100,11 @@ const addTableRow = (requests, index) => {
       cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
       <option value="disapprove">Disapprove</option>
       </select>`;
+      cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;"><i>';  
+    } else if (requests.request_status === 'resolved') {
+      cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
+      <option value="approve">Approve</option>
+      </select>`
       cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;"><i>';
     } else {
       cell5.innerHTML = `<select name="adminRequest" class="adminRequest" disabled>
@@ -148,16 +153,18 @@ const getRequestId = (e) => {
        table.rows[i].childNodes[4].addEventListener("click", () => {
        localStorage.setItem('userRequestId', table.rows[i].childNodes[8].textContent);
      });
+     table.rows[i].childNodes[5].addEventListener("click", () => {
+      localStorage.setItem('userRequestId', table.rows[i].childNodes[8].textContent);
+    });
     }
   };
   
  /**
- * @desc it resolve, approve, and disaprove a request
+ * @desc it displays approve and disaprove confirmation
  *
  * 
  */
 const processRequest = () => {
- 
   for (let i = 0; i < selectedRequest.length ; i += 1) {
     selectedRequest[i].addEventListener("click", () => {
       if (selectedRequest[i].value === 'approve'){
@@ -167,40 +174,52 @@ const processRequest = () => {
       }
     });
  }
- 
- 
 };
 
+ /**
+ * @desc it displays a resolve request confrimation
+ *
+ * 
+ */
 const resolveOnclick = () => {
   for (let i = 0; i < table.rows.length; i += 1) {
     tableRowIndex = table.rows[i];
     if (table.rows[i].childNodes[3].textContent === 'pending'){
       table.rows[i].childNodes[5].addEventListener("click", () => {
+        document.getElementById("modal_resolve_request").style.display = 'block';
      });
     }
   }
 }
 
-const editRequest = document.getElementsByClassName("editRequest");
-for (let i = 0; i< editRequest.length ; i += 1){
-  editRequest[i].addEventListener("click", ()=> {
-    document.getElementById("modal_disapprove_request").style.display = 'none';
-    document.getElementById("modal_approve_request").style.display = 'none';
-  });
-} 
+ /**
+ * @desc it disable a check icon 
+ *
+ * 
+ */
+const disableButton = () => {
+  const resolvedButton = document.getElementsByClassName("editRequest");
+  for (let i = 0; i < resolvedButton.length; i += 1) {
+    // cell6.innerHTML = '<i class="fa fa-check editRequest" style = "opacity:.4;"><i>';
+    }
+  }
 
 const no = document.getElementsByClassName("no");
 for (let i = 0; i< no.length ; i += 1){
   no[i].addEventListener("click", ()=> {
     document.getElementById("modal_disapprove_request").style.display = 'none';
     document.getElementById("modal_approve_request").style.display = 'none';
+    document.getElementById("modal_resolve_request").style.display = 'none';
   });
 }
 
-let userRequestId = localStorage.getItem("userRequestId");
-
+ /**
+ * @desc itapproves a request
+ *
+ * 
+ */
 const approveRequest = () => {
-  fetch(`/api/v1/requests/${userRequestId}/approve`, {
+  fetch(`/api/v1/requests/${localStorage.getItem("userRequestId")}/approve`, {
     method: "PUT",
     headers: {
       Accept: "application/json,*/*",
@@ -224,8 +243,13 @@ const approveRequest = () => {
     });
 }
 
+ /**
+ * @desc it  disaprove a request
+ *
+ * 
+ */
 const disapproveRequest = () => {
-  fetch(`/api/v1/requests/${userRequestId}/disapprove`, {
+  fetch(`/api/v1/requests/${localStorage.getItem("userRequestId")}/disapprove`, {
     method: "PUT",
     headers: {
       Accept: "application/json,*/*",
@@ -239,7 +263,7 @@ const disapproveRequest = () => {
         window.location.reload();
         document.getElementById("modal_disapprove_request").style.display = 'none';
       } else {
-        document.getElementById("modal_approve_request").style.display = 'none';
+        document.getElementById("modal_disapprove_request").style.display = 'none';
         requestExistMessage.innerHTML = data.message;
         requestExistModal.style.display = "block";
         setTimeout(() => {
@@ -249,7 +273,38 @@ const disapproveRequest = () => {
     });
 }
 
+ /**
+ * @desc it  resolve a request
+ *
+ * 
+ */
+const resolveRequest = () => {
+  fetch(`/api/v1/requests/${localStorage.getItem("userRequestId")}/resolve`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json,*/*",
+      "Content-type": "application/json",
+      "x-access-token": token
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        window.location.reload();
+        document.getElementById("modal_resolve_request").style.display = 'none';
+       // removeEventListener("click", disableButton);
+      } else {
+        document.getElementById("modal_resolve_request").style.display = 'none';
+        requestExistMessage.innerHTML = data.message;
+        requestExistModal.style.display = "block";
+        setTimeout(() => {
+          requestExistModal.style.display = "none";
+        }, 4000);
+      }
+    });
+}
 
+document.getElementById("resolve").addEventListener("click", resolveRequest);
 document.getElementById("approve").addEventListener("click", approveRequest);
 document.getElementById("disapprove").addEventListener("click", disapproveRequest);
   window.onload = getAllRequest;

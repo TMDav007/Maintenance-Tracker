@@ -605,6 +605,7 @@ button[type="submit"] {
           background-color: #43486f;
           color: #fff; }
 
+#modal_resolve_request,
 #modal_approve_request,
 #modal_disapprove_request,
 #modal_delete_request,
@@ -811,7 +812,7 @@ button[type="submit"] {
   height: 27px;
   padding-top: 9px; }
 
-#yes, #approve, #disapprove {
+#yes, #approve, #disapprove, #resolve {
   position: relative;
   font-size: .9em;
   border: 1px solid;
@@ -820,7 +821,7 @@ button[type="submit"] {
   background-color: #353a42;
   color: #fff;
   margin-left: 10px; }
-  #yes:hover, #approve:hover, #disapprove:hover {
+  #yes:hover, #approve:hover, #disapprove:hover, #resolve:hover {
     opacity: .7;
     cursor: pointer; }
 

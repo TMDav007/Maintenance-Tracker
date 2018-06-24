@@ -228,15 +228,26 @@ const loginQuery = (value1, value2) => {
  * @param {integer} value2 
  */
 const adminQuery = (value1, value2) => {
-    const query = `
+    let query;
+    if (value1 === 'resolved'){
+        query = `
+        UPDATE requests
+        SET 
+        request_status='${value1}'
+        WHERE id=${value2}
+        AND request_status='pending'
+        returning *;
+    `;
+    } else {
+     query = `
         UPDATE requests
         SET 
         request_status='${value1}'
         WHERE id=${value2}
         AND request_status='processing'
         returning *;
-    `;
-
+    `; 
+    }
     return query;
 }
 

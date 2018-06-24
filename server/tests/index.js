@@ -863,7 +863,7 @@ describe('DISAPPROVE a request', () => {
 describe('RESOLVE a request', () => {
   it('it should RESOLVE a users request', (done) => {
     request(app)
-      .put('/api/v1/requests/4/resolve')
+      .put('/api/v1/requests/1/resolve')
       .set('x-access-token', token2)
       .end((err, res) => {
         expect(res.status).to.equal(200);
