@@ -28,14 +28,14 @@ const getAllRequest = e => {
           setTimeout(() => {
             modal.style.display = "none";
           }, 7000);
-          window.location.href = "./../../client/signin.html";
+          window.location.href = "./../../client/adminSignin.html";
         } else if (res.status === 403) {
             message.innerHTML = "You are forbidden";
             modal.style.display = "block";
             setTimeout(() => {
                 modal.style.display = "none";
             }, 7000);
-            window.location.href = "./../../client/request.html";
+            window.location.href = "./../../client/signin.html";
         }
         return res.json();
       })
@@ -156,6 +156,10 @@ const getRequestId = (e) => {
      table.rows[i].childNodes[5].addEventListener("click", () => {
       localStorage.setItem('userRequestId', table.rows[i].childNodes[8].textContent);
     });
+    table.rows[i].childNodes[6].addEventListener("click", () => {
+      localStorage.setItem('userRequestId', table.rows[i].childNodes[8].textContent);
+      document.getElementById("modal_delete_request").style.display = 'block';
+    });
     }
   };
   
@@ -210,6 +214,7 @@ for (let i = 0; i< no.length ; i += 1){
     document.getElementById("modal_disapprove_request").style.display = 'none';
     document.getElementById("modal_approve_request").style.display = 'none';
     document.getElementById("modal_resolve_request").style.display = 'none';
+    document.getElementById("modal_delete_request").style.display = 'none';
   });
 }
 
@@ -304,7 +309,38 @@ const resolveRequest = () => {
     });
 }
 
+/**
+ * @desc it delete a request
+ *
+ * @param {string} e
+ */
+const deleteRequest = e => {
+  fetch(`/api/v1/requests/${localStorage.getItem("userRequestId")}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json,*/*",
+      "Content-type": "application/json",
+      "x-access-token": token
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        document.getElementById("modal_delete_request").style.display = 'none';
+        window.location.reload();
+      } else {
+        requestExistMessage.innerHTML = data.message;
+         document.getElementById("modal_delete_request").style.display = 'none';
+        setTimeout(() => {
+          document.getElementById("modal_delete_request").style.display = 'none';
+        }, 3000);
+      }
+    });
+};
+
+
 document.getElementById("resolve").addEventListener("click", resolveRequest);
 document.getElementById("approve").addEventListener("click", approveRequest);
+document.getElementById("yes").addEventListener("click", deleteRequest);
 document.getElementById("disapprove").addEventListener("click", disapproveRequest);
   window.onload = getAllRequest;

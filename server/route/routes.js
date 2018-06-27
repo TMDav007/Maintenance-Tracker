@@ -12,7 +12,7 @@ const {
 } = RequestsController;
 
 const {
-  getAllRequests, approveARequest, disapproveARequest, resolveARequest
+  getAllRequests, approveARequest, disapproveARequest, resolveARequest, deleteUserRequest
 }
  = AdminController;
 
@@ -36,6 +36,7 @@ const routes = (app) => {
   app.put('/api/v1/requests/:requestId/approve', authenicateAdmin, approveARequest);
   app.put('/api/v1/requests/:requestId/disapprove', authenicateAdmin, disapproveARequest);
   app.put('/api/v1/requests/:requestId/resolve', authenicateAdmin, resolveARequest);
+  app.delete('/api/v1/requests/:requestId', authenicateAdmin, deleteUserRequest);
 };
 
 export default routes;

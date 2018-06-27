@@ -65,6 +65,23 @@ const getAUsersRequestQuery = (condition1, condition2) => {
 }
 
 /**
+ * @desc query to get a users request
+ * 
+ * @param {integer} condition1 
+ * @param {integer} condition2 
+ * 
+ * @return {string} query
+ */
+const getAdminRequestQuery = (condition1) => {
+    const query = `
+        SELECT *
+        FROM requests
+        WHERE requests.id = ${condition1};
+        `;
+    return query;
+}
+
+/**
  * @desc query to delete a users request
  * 
  * @param {integer} condition1 
@@ -77,6 +94,22 @@ const deleteAUsersRequestQuery = (condition1, condition2) => {
         DELETE FROM requests
         WHERE requests.id = ${condition1}
         AND requests.user_id = ${condition2};
+        `;
+    return query;
+};
+
+/**
+ * @desc query to delete a admin request
+ * 
+ * @param {integer} condition1 
+ * @param {integer} condition2 
+ * 
+ * @return {string} query
+ */
+const deleteAdminRequestQuery = (condition1) => {
+    const query = `
+        DELETE FROM requests
+        WHERE requests.id = ${condition1};
         `;
     return query;
 };
@@ -255,6 +288,7 @@ export default {
     getAllRequestsQuery,
     getAllUsersRequestsQuery,
     getAUsersRequestQuery,
+    getAdminRequestQuery,
     deleteAUsersRequestQuery,
     createARequestQuery,
     checkRequestQuery,
@@ -262,5 +296,6 @@ export default {
     loginQuery,
     adminQuery,
     requestIsUniqueQuery,
-    modifyARequestQuery
+    modifyARequestQuery,
+    deleteAdminRequestQuery
 };
