@@ -6,12 +6,14 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/abd7ab4951ad13d436d6/test_coverage)](https://codeclimate.com/github/TMDav007/Maintenance-Tracker/test_coverage)
 
 This is a application that keep tracker of requests from users. This app will allow users make a request or requests or complaint to a maintenance tracking office, in which your request get approved and resolved or disapproved.
+<img width="1433" alt="Screenshot 2021-07-25 at 01 39 18" src="https://user-images.githubusercontent.com/24706493/126931893-3ec4cd48-3536-4278-8695-9b2372727499.png">
 
 ## Table of Content
 * [Technologies](#technologies)
 * [Features](#features)
 * [API Endpoints](#api-endpoints)
 * [Frontend](#frontend)
+* [Application images](#Application images)
 * [Getting Started](#getting-started)
    * [Installation](#installation)
    * [Documentations](#documentations)
@@ -32,6 +34,37 @@ API is deployed at [https://maintaintracker.herokuapp.com/](https://maintaintrac
 
 ### Frontend
 API is deployed at [https://maintaintracker.herokuapp.com/client](https://maintaintracker.herokuapp.com/client)
+
+###Application Images - Desktop View
+ - Landing page
+ 
+<img width="1433" alt="Screenshot 2021-07-25 at 01 39 18" src="https://user-images.githubusercontent.com/24706493/126931893-3ec4cd48-3536-4278-8695-9b2372727499.png">
+
+Register Page
+<img width="1433" alt="Screenshot 2021-07-25 at 01 40 24" src="https://user-images.githubusercontent.com/24706493/126931918-e42dec50-72f5-469b-a0af-39fdfc8dc7a7.png">
+
+Login Page
+
+<img width="1436" alt="Screenshot 2021-07-25 at 01 41 24" src="https://user-images.githubusercontent.com/24706493/126931943-7fe9d7c1-7def-4a5b-90de-ab996da73cf6.png">
+
+User Dashboard
+<img width="1430" alt="Screenshot 2021-07-26 at 05 04 49" src="https://user-images.githubusercontent.com/24706493/126931967-83454d03-e087-4840-a643-761956610e29.png">
+
+Mobile view
+
+Landing page
+<img width="368" alt="Screenshot 2021-07-26 at 05 06 03" src="https://user-images.githubusercontent.com/24706493/126931987-23e08ec1-8f69-4409-9ae9-36a3a37d361a.png">
+
+Register page
+<img width="442" alt="Screenshot 2021-07-26 at 05 06 36" src="https://user-images.githubusercontent.com/24706493/126932003-9a243f10-afc1-4cff-8f92-fed15182a0c3.png">
+
+
+login Page
+<img width="626" alt="Screenshot 2021-07-26 at 05 07 21" src="https://user-images.githubusercontent.com/24706493/126932016-a2dec935-ba55-46dc-93bd-cef11bf8ad94.png">
+
+Dashboard 
+<img width="355" alt="Screenshot 2021-07-26 at 05 05 20" src="https://user-images.githubusercontent.com/24706493/126932042-112f28bc-fdc2-4694-bad9-9fe25c8682e5.png">
+
 
 ## Technologies
 
